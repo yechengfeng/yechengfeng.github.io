@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>叶子的博客</title>
+  
+  <subtitle>诺亚方舟</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://www.leslieye.cn/"/>
+  <updated>2021-03-10T08:48:47.940Z</updated>
+  <id>http://www.leslieye.cn/</id>
+  
+  <author>
+    <name>Leslie Ye</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>博客开源</title>
+    <link href="http://www.leslieye.cn/2019/08/27/blog-open-source/"/>
+    <id>http://www.leslieye.cn/2019/08/27/blog-open-source/</id>
+    <published>2019-08-27T03:41:03.000Z</published>
+    <updated>2021-03-10T08:48:47.940Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;script&gt;
+        document.querySelectorAll(&#39;.github-emoji&#39;)
+          .forEach(el =&gt; {
+            if (!el.dataset.src) { return; }
+       
+        
+      
+    
+    </summary>
+    
+      <category term="软件安装与配置" scheme="http://www.leslieye.cn/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/"/>
+    
+    
+      <category term="Hexo" scheme="http://www.leslieye.cn/tags/Hexo/"/>
+    
+      <category term="Github" scheme="http://www.leslieye.cn/tags/Github/"/>
+    
+      <category term="博客" scheme="http://www.leslieye.cn/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+</feed>
