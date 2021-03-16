@@ -4,27 +4,23 @@
   
     
     <entry>
-      <title>博客开源</title>
+      <title>关于学习计划</title>
       <link href="/2019/08/27/blog-open-source/"/>
       <url>/2019/08/27/blog-open-source/</url>
       
-        <content type="html"><![CDATA[<script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+        <content type="html"><![CDATA[<h3 id="感觉不精通想学的东西很多，有时候不知道从哪里着手，想给自己列个计划，有目的的学习，有计划的学习。"><a href="#感觉不精通想学的东西很多，有时候不知道从哪里着手，想给自己列个计划，有目的的学习，有计划的学习。" class="headerlink" title="感觉不精通想学的东西很多，有时候不知道从哪里着手，想给自己列个计划，有目的的学习，有计划的学习。"></a>感觉不精通想学的东西很多，有时候不知道从哪里着手，想给自己列个计划，有目的的学习，有计划的学习。</h3><ol><li>前端最近想在微信读书上面把<strong>Javascript 高级程序设计（第 4 版）1.2 Javascript 实现</strong>看完。后面可以继续学习<strong>vue</strong>，最近有个项目需要用<strong>layui</strong>写的维护，layui 可以过过，旧的前端框架bootstrap可以适当拾起来，有空看看，还有一个很火的前端框架 <strong>ant-design-vue</strong>也是想花时间学习的。当然，前端最基础的还有<strong>jquery</strong>，已经 <strong>html5</strong>，和一些基础的<strong>css</strong>样式，需要学习的。</li><li>后端这块在奇点学院和微信读书学习就好了。</li><li>服务器主要还是对shell，三剑客命令，vim，和一些运维熟练掌握，暂时不做太深了解</li><li>最近在学算法，算法可以玩玩，学算法也是一个很有意思的事</li><li>有时候心思静不下来，可以看看微信读书上面的最近一本书 <strong>认知觉醒</strong>  还有听左耳耗子老铁的专栏有一定的帮助。我发现有时候很不会管理自己的时间，这个让我很急躁和烦恼。<strong>认知觉醒</strong>这本书让我有点眉目梳理心情。</li></ol><p><strong>烦恼永远都是想要的太多，而天性的懒惰是根源。</strong></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
       
       
       <categories>
           
-          <category> 软件安装与配置 </category>
+          <category> 学习计划 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Hexo </tag>
-            
-            <tag> Github </tag>
-            
-            <tag> 博客 </tag>
+            <tag> 随笔 </tag>
             
         </tags>
       
