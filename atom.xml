@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.leslieye.cn/"/>
-  <updated>2021-03-16T09:04:30.893Z</updated>
+  <updated>2021-04-07T14:29:56.825Z</updated>
   <id>http://www.leslieye.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>打造便于开发的Mac</title>
+    <link href="http://www.leslieye.cn/2019/08/27/mac-ban-jia/"/>
+    <id>http://www.leslieye.cn/2019/08/27/mac-ban-jia/</id>
+    <published>2019-08-27T03:41:03.000Z</published>
+    <updated>2021-04-07T14:29:56.825Z</updated>
+    
+    <summary type="html">
+    
+      点击此处输入密码可以查看
+    
+    </summary>
+    
+      <category term="Mac" scheme="http://www.leslieye.cn/categories/Mac/"/>
+    
+    
+      <category term="Mac" scheme="http://www.leslieye.cn/tags/Mac/"/>
+    
+  </entry>
   
   <entry>
     <title>关于学习计划</title>
