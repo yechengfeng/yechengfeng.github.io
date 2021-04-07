@@ -72,7 +72,7 @@ $(function () {
 
     /*文章内容详情的一些初始化特性*/
     let articleInit = function () {
-        $('#articleContent a').attr('target', '_blank');
+		//$('#articleContent a').attr('target', '_blank');
 
         $('#articleContent img').not('img.emoji').each(function () {
             let imgPath = $(this).attr('src');
@@ -117,7 +117,7 @@ $(function () {
 
         // progress bar init
         const progressElement = window.document.querySelector('.progress-bar');
-        if (progressElement) {
+		if (progressElement) {
             new ScrollProgress((x, y) => {
                 progressElement.style.width = y * 100 + '%';
             });
