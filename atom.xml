@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yechengfeng.github.io</id>
     <title>Gridea</title>
-    <updated>2021-11-01T16:48:03.425Z</updated>
+    <updated>2021-11-01T16:51:59.071Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yechengfeng.github.io"/>
     <link rel="self" href="https://yechengfeng.github.io/atom.xml"/>
@@ -17,19 +17,19 @@
         </link>
         <updated>2021-11-01T16:28:30.000Z</updated>
         <content type="html"><![CDATA[<h3 id="ctrl-z">ctrl-z</h3>
-<pre><code>可以挂起当前正在前台执行的命令。放到后台暂停
-</code></pre>
+<p>可以挂起当前正在前台执行的命令。放到后台暂停</p>
 <h3 id="bg">bg</h3>
-<pre><code>- 将最近在后台挂起的命令，变成继续执行。
-- 可以 加上参数 % +id (指定具体的任务)
-</code></pre>
+<ol>
+<li>将最近在后台挂起的命令，变成继续执行。</li>
+<li>可以 加上参数 % +id (指定具体的任务)</li>
+</ol>
 <h3 id="fg">fg</h3>
-<pre><code>- 将最近一次后台的命令调至前台继续执行  
--  可以 加上参数 % +id (指定具体的任务)
-</code></pre>
+<ol>
+<li>将最近一次后台的命令调至前台继续执行</li>
+<li>可以 加上参数 % +id (指定具体的任务)</li>
+</ol>
 <h3 id="jobs">jobs</h3>
-<pre><code>- 查看当前有多少个正在后台运行的命令  
-</code></pre>
+<p>查看当前有多少个正在后台运行的命令</p>
 <p><em>这些命令很有用，具体的用法可以查看  man手册</em></p>
 ]]></content>
     </entry>
