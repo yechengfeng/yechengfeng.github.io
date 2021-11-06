@@ -2,27 +2,21 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>linux中任务管理---命令 (jobs fg bg  ctrl-Z 命令 ) | Gridea</title>
+<title>item2中修改vim insert normal 模式下光标。 | Gridea</title>
 <link rel="shortcut icon" href="https://yechengfeng.github.io/favicon.ico?v=1636185986561">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://yechengfeng.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="linux中任务管理---命令 (jobs fg bg  ctrl-Z 命令 ) | Gridea - Atom Feed" href="https://yechengfeng.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="item2中修改vim insert normal 模式下光标。 | Gridea - Atom Feed" href="https://yechengfeng.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="ctrl-z
-可以挂起当前正在前台执行的命令。放到后台暂停
-bg
+    <meta name="description" content="
+vimrc如下配置
 
-将最近在后台挂起的命令，变成继续执行。
-可以 加上参数 % +id (指定具体的任务)
-
-fg
-
-将最近一次后台的命令调至前台继续执行
-可以 加上参数 % +id (指定具..." />
-    <meta name="keywords" content="linux" />
+     if exists('$TMUX')
+ let &amp;t_SI = &quot;\&lt;Esc&gt;Ptmux;\&lt;Esc&gt;\&lt;Esc&gt;]50;CursorShape=1\x..." />
+    <meta name="keywords" content="vim" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -90,71 +84,49 @@ fg
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              linux中任务管理---命令 (jobs fg bg  ctrl-Z 命令 )
+              item2中修改vim insert normal 模式下光标。
             </h2>
             <div class="post-info">
               <span>
-                2021-11-02
+                2019-11-21
               </span>
               <span>
                 1 min read
               </span>
               
-                <a href="https://yechengfeng.github.io/tag/fGfaAxXik/" class="post-tag">
-                  # linux
+                <a href="https://yechengfeng.github.io/tag/6TYPCmH5C/" class="post-tag">
+                  # vim
                 </a>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h3 id="ctrl-z">ctrl-z</h3>
-<p>可以挂起当前正在前台执行的命令。放到后台暂停</p>
-<h3 id="bg">bg</h3>
-<ol>
-<li>将最近在后台挂起的命令，变成继续执行。</li>
-<li>可以 加上参数 % +id (指定具体的任务)</li>
+                <ol>
+<li>vimrc如下配置</li>
 </ol>
-<h3 id="fg">fg</h3>
-<ol>
-<li>将最近一次后台的命令调至前台继续执行</li>
-<li>可以 加上参数 % +id (指定具体的任务)</li>
+<pre><code class="language-shell">     if exists('$TMUX')
+ let &amp;t_SI = &quot;\&lt;Esc&gt;Ptmux;\&lt;Esc&gt;\&lt;Esc&gt;]50;CursorShape=1\x7\&lt;Esc&gt;\\&quot;
+ let &amp;t_EI = &quot;\&lt;Esc&gt;Ptmux;\&lt;Esc&gt;\&lt;Esc&gt;]50;CursorShape=0\x7\&lt;Esc&gt;\\&quot;
+ else
+ let &amp;t_SI = &quot;\&lt;Esc&gt;]50;CursorShape=1\x7&quot;
+ let &amp;t_EI = &quot;\&lt;Esc&gt;]50;CursorShape=0\x7&quot;
+ endif
+</code></pre>
+<ol start="2">
+<li>如上配置可能会有光标转换延迟，virmcr中再次配置一下。<pre><code class="language-shell">    set timeoutlen=1000 ttimeoutlen=0
+</code></pre>
+</li>
 </ol>
-<h3 id="jobs">jobs</h3>
-<p>查看当前有多少个正在后台运行的命令</p>
-<p><em>这些命令很有用，具体的用法可以查看  man手册</em></p>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#ctrl-z">ctrl-z</a></li>
-<li><a href="#bg">bg</a></li>
-<li><a href="#fg">fg</a></li>
-<li><a href="#jobs">jobs</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
         </div>
 
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://yechengfeng.github.io/post/linux-xia-de-shi-pin-xia-zai-he-1/">
-              <h3 class="post-title">
-                linux下的视频下载和处理软件
-              </h3>
-            </a>
-          </div>
         
 
         

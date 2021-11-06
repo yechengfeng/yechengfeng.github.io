@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yechengfeng.github.io</id>
     <title>Gridea</title>
-    <updated>2021-11-06T06:41:02.316Z</updated>
+    <updated>2021-11-06T08:13:08.164Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yechengfeng.github.io"/>
     <link rel="self" href="https://yechengfeng.github.io/atom.xml"/>
@@ -115,6 +115,30 @@
 <em>用来下载过网上在线的m3u8格式的视频。很好用。</em></p>
 </li>
 </ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[item2中修改vim insert normal 模式下光标。]]></title>
+        <id>https://yechengfeng.github.io/post/item2-zhong-xiu-gai-vim-insert-normal-mo-shi-xia-guang-biao/</id>
+        <link href="https://yechengfeng.github.io/post/item2-zhong-xiu-gai-vim-insert-normal-mo-shi-xia-guang-biao/">
+        </link>
+        <updated>2019-11-21T13:56:41.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>vimrc如下配置</li>
+</ol>
+<pre><code class="language-shell">     if exists('$TMUX')
+ let &amp;t_SI = &quot;\&lt;Esc&gt;Ptmux;\&lt;Esc&gt;\&lt;Esc&gt;]50;CursorShape=1\x7\&lt;Esc&gt;\\&quot;
+ let &amp;t_EI = &quot;\&lt;Esc&gt;Ptmux;\&lt;Esc&gt;\&lt;Esc&gt;]50;CursorShape=0\x7\&lt;Esc&gt;\\&quot;
+ else
+ let &amp;t_SI = &quot;\&lt;Esc&gt;]50;CursorShape=1\x7&quot;
+ let &amp;t_EI = &quot;\&lt;Esc&gt;]50;CursorShape=0\x7&quot;
+ endif
+</code></pre>
+<ol start="2">
+<li>如上配置可能会有光标转换延迟，virmcr中再次配置一下。<pre><code class="language-shell">    set timeoutlen=1000 ttimeoutlen=0
+</code></pre>
+</li>
+</ol>
 ]]></content>
     </entry>
 </feed>
