@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yechengfeng.github.io</id>
     <title>Gridea</title>
-    <updated>2021-11-06T06:24:02.273Z</updated>
+    <updated>2021-11-06T06:41:02.316Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yechengfeng.github.io"/>
     <link rel="self" href="https://yechengfeng.github.io/atom.xml"/>
@@ -96,6 +96,25 @@
 <h3 id="jobs">jobs</h3>
 <p>查看当前有多少个正在后台运行的命令</p>
 <p><em>这些命令很有用，具体的用法可以查看  man手册</em></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[linux下的视频下载和处理软件]]></title>
+        <id>https://yechengfeng.github.io/post/linux-xia-de-shi-pin-xia-zai-he-1/</id>
+        <link href="https://yechengfeng.github.io/post/linux-xia-de-shi-pin-xia-zai-he-1/">
+        </link>
+        <updated>2020-07-16T12:30:48.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>
+<p><a href="https://github.com/ytdl-org/youtube-dl">youtube-dl </a><br>
+*youtube-dl - download videos from youtube.com or other video platforms</p>
+</li>
+<li>
+<p>[ffmpeg]<br>
+<a href="https://www.ruanyifeng.com/blog/2020/01/ffmpeg.html">比较好的教程</a><br>
+<em>用来下载过网上在线的m3u8格式的视频。很好用。</em></p>
+</li>
+</ul>
 ]]></content>
     </entry>
 </feed>
