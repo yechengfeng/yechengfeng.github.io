@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yechengfeng.github.io</id>
     <title>Gridea</title>
-    <updated>2021-11-06T08:13:08.164Z</updated>
+    <updated>2021-11-06T08:45:12.691Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yechengfeng.github.io"/>
     <link rel="self" href="https://yechengfeng.github.io/atom.xml"/>
@@ -139,6 +139,37 @@
 </code></pre>
 </li>
 </ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ gogs搭建git服务器]]></title>
+        <id>https://yechengfeng.github.io/post/gogs-da-jian-git-fu-wu-qi/</id>
+        <link href="https://yechengfeng.github.io/post/gogs-da-jian-git-fu-wu-qi/">
+        </link>
+        <updated>2018-11-15T12:26:19.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-shell"># pull gogs镜像
+$ docker pull gogs/gogs
+
+# 创建一个本地可以挂载到容器的目录 
+$ mkdir -p /data/gogs
+
+# 给 gogs 加上权限保证其可读可写
+$ cd /data &amp;&amp; chmod -R 777 gogs
+
+# 初次执行 run gogs，注意这里 gogs 是前台启动，启动后 command + C 退出就好了
+# 宿主机 10022 映射到 gogs 容器的 22 ssh 端口
+# 宿主机 10080 映射到 gogs 容器的 3000 http 端口
+# /data/gogs 目录挂在到容器中的 /data 目录
+$ docker run --name=gogs -p 10022:22 -p 10080:3000 -v /data/gogs:/data gogs/gogs
+
+# 启动 gogs 容器
+$ docker start gogs
+
+————————————————
+docker 安装gos
+</code></pre>
+<p><strong>期间遇到问题: linux上有些默认端口不能作为映射端口</strong><br>
+<a href="https://github.com/chromium/chromium/blob/805f50e9d42cf0ac5e3108ae2c6b36baa0ea5a90/net/base/port_util.cc#L64-L147">这里是一些默认端口的汇总</a></p>
 ]]></content>
     </entry>
 </feed>

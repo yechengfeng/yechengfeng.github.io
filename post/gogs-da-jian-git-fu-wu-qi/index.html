@@ -2,25 +2,24 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>linux下的视频下载和处理软件 | Gridea</title>
+<title> gogs搭建git服务器 | Gridea</title>
 <link rel="shortcut icon" href="https://yechengfeng.github.io/favicon.ico?v=1636187553287">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://yechengfeng.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="linux下的视频下载和处理软件 | Gridea - Atom Feed" href="https://yechengfeng.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title=" gogs搭建git服务器 | Gridea - Atom Feed" href="https://yechengfeng.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="
+    <meta name="description" content="# pull gogs镜像
+$ docker pull gogs/gogs
 
-youtube-dl 
-*youtube-dl - download videos from youtube.com or other video platforms
+# 创建一个本地可以挂载到容器的目录 
+$ mkdir -p /data/gogs
 
-
-[ffmpeg]
-比较好的教程
-用来下载过网上在线的m3u8格式..." />
-    <meta name="keywords" content="" />
+# 给 gogs 加上权限保证其可读可写
+$ cd /data &amp;&..." />
+    <meta name="keywords" content="运维,docker" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -88,31 +87,51 @@ youtube-dl
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              linux下的视频下载和处理软件
+               gogs搭建git服务器
             </h2>
             <div class="post-info">
               <span>
-                2020-07-16
+                2018-11-15
               </span>
               <span>
                 1 min read
               </span>
               
+                <a href="https://yechengfeng.github.io/tag/yVC6kzN8z/" class="post-tag">
+                  # 运维
+                </a>
+              
+                <a href="https://yechengfeng.github.io/tag/5UZXdUx1G/" class="post-tag">
+                  # docker
+                </a>
+              
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <ul>
-<li>
-<p><a href="https://github.com/ytdl-org/youtube-dl">youtube-dl </a><br>
-*youtube-dl - download videos from youtube.com or other video platforms</p>
-</li>
-<li>
-<p>[ffmpeg]<br>
-<a href="https://www.ruanyifeng.com/blog/2020/01/ffmpeg.html">比较好的教程</a><br>
-<em>用来下载过网上在线的m3u8格式的视频。很好用。</em></p>
-</li>
-</ul>
+                <pre><code class="language-shell"># pull gogs镜像
+$ docker pull gogs/gogs
+
+# 创建一个本地可以挂载到容器的目录 
+$ mkdir -p /data/gogs
+
+# 给 gogs 加上权限保证其可读可写
+$ cd /data &amp;&amp; chmod -R 777 gogs
+
+# 初次执行 run gogs，注意这里 gogs 是前台启动，启动后 command + C 退出就好了
+# 宿主机 10022 映射到 gogs 容器的 22 ssh 端口
+# 宿主机 10080 映射到 gogs 容器的 3000 http 端口
+# /data/gogs 目录挂在到容器中的 /data 目录
+$ docker run --name=gogs -p 10022:22 -p 10080:3000 -v /data/gogs:/data gogs/gogs
+
+# 启动 gogs 容器
+$ docker start gogs
+
+————————————————
+docker 安装gos
+</code></pre>
+<p><strong>期间遇到问题: linux上有些默认端口不能作为映射端口</strong><br>
+<a href="https://github.com/chromium/chromium/blob/805f50e9d42cf0ac5e3108ae2c6b36baa0ea5a90/net/base/port_util.cc#L64-L147">这里是一些默认端口的汇总</a></p>
 
               </div>
               <div class="toc-container">
@@ -122,15 +141,6 @@ youtube-dl
           </article>
         </div>
 
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://yechengfeng.github.io/post/item2-zhong-xiu-gai-vim-insert-normal-mo-shi-xia-guang-biao/">
-              <h3 class="post-title">
-                item2中修改vim insert normal 模式下光标。
-              </h3>
-            </a>
-          </div>
         
 
         
