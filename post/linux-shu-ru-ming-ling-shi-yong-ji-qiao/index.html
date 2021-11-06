@@ -2,27 +2,30 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>linux中任务管理---命令 (jobs fg bg  ctrl-Z 命令 ) | Gridea</title>
+<title>linux输入命令实用技巧 | Gridea</title>
 <link rel="shortcut icon" href="https://yechengfeng.github.io/favicon.ico?v=1636179838061">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://yechengfeng.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="linux中任务管理---命令 (jobs fg bg  ctrl-Z 命令 ) | Gridea - Atom Feed" href="https://yechengfeng.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="linux输入命令实用技巧 | Gridea - Atom Feed" href="https://yechengfeng.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="ctrl-z
-可以挂起当前正在前台执行的命令。放到后台暂停
-bg
+    <meta name="description" content="linux输入命令实用技巧
 
-将最近在后台挂起的命令，变成继续执行。
-可以 加上参数 % +id (指定具体的任务)
 
-fg
 
-将最近一次后台的命令调至前台继续执行
-可以 加上参数 % +id (指定具..." />
-    <meta name="keywords" content="linux" />
+
+​	!$
+  $mkdir helloDir
+  $mv helloDir helloworldDir
+  $cd helloworldDir
+
+
+当你想要上述方式重复你自己的时候不妨试试 !$
+
+  $..." />
+    <meta name="keywords" content="shell,linux" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -84,15 +87,19 @@ fg
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              linux中任务管理---命令 (jobs fg bg  ctrl-Z 命令 )
+              linux输入命令实用技巧
             </h2>
             <div class="post-info">
               <span>
-                2021-11-02
+                2021-11-06
               </span>
               <span>
                 1 min read
               </span>
+              
+                <a href="https://yechengfeng.github.io/tag/Yv2wxJqD4/" class="post-tag">
+                  # shell
+                </a>
               
                 <a href="https://yechengfeng.github.io/tag/fGfaAxXik/" class="post-tag">
                   # linux
@@ -102,21 +109,61 @@ fg
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h3 id="ctrl-z">ctrl-z</h3>
-<p>可以挂起当前正在前台执行的命令。放到后台暂停</p>
-<h3 id="bg">bg</h3>
-<ol>
-<li>将最近在后台挂起的命令，变成继续执行。</li>
-<li>可以 加上参数 % +id (指定具体的任务)</li>
-</ol>
-<h3 id="fg">fg</h3>
-<ol>
-<li>将最近一次后台的命令调至前台继续执行</li>
-<li>可以 加上参数 % +id (指定具体的任务)</li>
-</ol>
-<h3 id="jobs">jobs</h3>
-<p>查看当前有多少个正在后台运行的命令</p>
-<p><em>这些命令很有用，具体的用法可以查看  man手册</em></p>
+                <h5 id="linux输入命令实用技巧">linux输入命令实用技巧</h5>
+<!-- more -->
+<!-- more -->
+<ul>
+<li>
+<p>​	<code>!$</code></p>
+<pre><code>  $mkdir helloDir
+  $mv helloDir helloworldDir
+  $cd helloworldDir
+</code></pre>
+<blockquote>
+<p>当你想要上述方式重复你自己的时候不妨试试 <code>!$</code></p>
+</blockquote>
+<pre><code>  $mkdir  helloDir
+  $mv !$ helloworldDir
+  $cd !$
+</code></pre>
+</li>
+<li>
+<p><code>sudo !!</code></p>
+<blockquote>
+<p>当你忘记加sudo的时候，可以试试 <code>sudo!!</code> (<code>Sudo !-1</code>  也可以)</p>
+</blockquote>
+</li>
+<li>
+<p><code>cd -</code></p>
+<blockquote>
+<p>当你想要切换到上个目录的时候。（this very userful, 在 zsh中，可以 cd -3，cd -4，cd -5 ,进行多个目录的切换。有点autojump的味道）</p>
+</blockquote>
+</li>
+<li>
+<p><code>&lt;ESC&gt; .</code></p>
+<blockquote>
+<p>Pick up the params from last command。上一个命令行的参数给获取出来。</p>
+</blockquote>
+</li>
+<li>
+<p><code>^ord^new</code></p>
+<blockquote>
+<p>替换上次命令中的部分字符串</p>
+</blockquote>
+</li>
+<li>
+<p><code>&gt; file.list</code></p>
+<blockquote>
+<p>代替touch 命令创建文件。</p>
+</blockquote>
+</li>
+<li>
+<p><code>&lt;ctrl&gt; u ,&lt;ctrl&gt; w,&lt;ctrl&gt; h</code></p>
+<blockquote>
+<p>删除整行命令，删除前一个单词，删除前一个字母。在linux中普遍适用的命令，vim中可以在 insert 模式删除，不需要回到normal 模式</p>
+</blockquote>
+</li>
+</ul>
 
               </div>
               <div class="toc-container">
@@ -125,10 +172,15 @@ fg
 <ul>
 <li>
 <ul>
-<li><a href="#ctrl-z">ctrl-z</a></li>
-<li><a href="#bg">bg</a></li>
-<li><a href="#fg">fg</a></li>
-<li><a href="#jobs">jobs</a></li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#linux%E8%BE%93%E5%85%A5%E5%91%BD%E4%BB%A4%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7">linux输入命令实用技巧</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -140,6 +192,15 @@ fg
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://yechengfeng.github.io/post/linux-zhong-ren-wu-guan-li-ming-ling-jobs-fg-bg-ctrl-z-ming-ling/">
+              <h3 class="post-title">
+                linux中任务管理---命令 (jobs fg bg  ctrl-Z 命令 )
+              </h3>
+            </a>
+          </div>
         
 
         
