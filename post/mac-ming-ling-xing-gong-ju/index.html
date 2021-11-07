@@ -2,30 +2,22 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>linux输入命令实用技巧 | Gridea</title>
+<title>mac 命令行工具 | Gridea</title>
 <link rel="shortcut icon" href="https://yechengfeng.github.io/favicon.ico?v=1636295568885">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://yechengfeng.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="linux输入命令实用技巧 | Gridea - Atom Feed" href="https://yechengfeng.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="mac 命令行工具 | Gridea - Atom Feed" href="https://yechengfeng.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="linux输入命令实用技巧
-
-
-
-
-​	!$
-  $mkdir helloDir
-  $mv helloDir helloworldDir
-  $cd helloworldDir
-
-
-当你想要上述方式重复你自己的时候不妨试试 !$
-
-  $..." />
-    <meta name="keywords" content="shell,linux" />
+    <meta name="description" content="autojump
+进行目录跳转
+csvkit
+csvkit 处理csv的瑞士军刀，做爬虫时候用curl命令 + jq  +csvkit 来处理一些网页接口的数据，直接得到可交付的excel。
+jq
+官网介绍： jq is like sed ..." />
+    <meta name="keywords" content="mac,shell" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -93,83 +85,52 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              linux输入命令实用技巧
+              mac 命令行工具
             </h2>
             <div class="post-info">
               <span>
-                2021-11-06
+                2021-11-07
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
+              
+                <a href="https://yechengfeng.github.io/tag/J5-JnB_XG/" class="post-tag">
+                  # mac
+                </a>
               
                 <a href="https://yechengfeng.github.io/tag/Yv2wxJqD4/" class="post-tag">
                   # shell
-                </a>
-              
-                <a href="https://yechengfeng.github.io/tag/fGfaAxXik/" class="post-tag">
-                  # linux
                 </a>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h5 id="linux输入命令实用技巧">linux输入命令实用技巧</h5>
-<!-- more -->
-<!-- more -->
-<ul>
-<li>
-<p>​	<code>!$</code></p>
-<pre><code>  $mkdir helloDir
-  $mv helloDir helloworldDir
-  $cd helloworldDir
+                <h3 id="autojump">autojump</h3>
+<p><strong>进行目录跳转</strong></p>
+<h3 id="csvkit">csvkit</h3>
+<p><strong>csvkit 处理csv的瑞士军刀，做爬虫时候用curl命令 + jq  +csvkit 来处理一些网页接口的数据，直接得到可交付的excel。</strong></p>
+<h3 id="jq"><a href="https://stedolan.github.io/jq/">jq</a></h3>
+<p>官网介绍： <code>jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text.</code><br>
+<strong>我通常配合csvkit用来快速处理excel看文件，类似 sed，awk，grep一样的文本处理工具。</strong></p>
+<h3 id="mycli">mycli</h3>
+<p><strong>mysql命令行工具。轻便的mysql数据查询工具</strong></p>
+<h3 id="sips">sips</h3>
+<p><strong>我通常用来处理图片的大小，图片格式转换。其他强大功能没做过研究</strong></p>
+<h3 id="translate"><a href="https://github.com/soimort/translate-shell">translate</a></h3>
+<p>**终端翻译软件。google 出品 **</p>
+<pre><code class="language-shell"># 终端shell配置文件中配置一下ts 函数
+function ts(){
+     trans -b :zh &quot;$*&quot;
+  trans -b :en &quot;$*&quot;
+}
+#然后需要翻译
+$ts hello  
 </code></pre>
-<blockquote>
-<p>当你想要上述方式重复你自己的时候不妨试试 <code>!$</code></p>
-</blockquote>
-<pre><code>  $mkdir  helloDir
-  $mv !$ helloworldDir
-  $cd !$
-</code></pre>
-</li>
-<li>
-<p><code>sudo !!</code></p>
-<blockquote>
-<p>当你忘记加sudo的时候，可以试试 <code>sudo!!</code> (<code>Sudo !-1</code>  也可以)</p>
-</blockquote>
-</li>
-<li>
-<p><code>cd -</code></p>
-<blockquote>
-<p>当你想要切换到上个目录的时候。（this very userful, 在 zsh中，可以 cd -3，cd -4，cd -5 ,进行多个目录的切换。有点autojump的味道）</p>
-</blockquote>
-</li>
-<li>
-<p><code>&lt;ESC&gt; .</code></p>
-<blockquote>
-<p>Pick up the params from last command。上一个命令行的参数给获取出来。</p>
-</blockquote>
-</li>
-<li>
-<p><code>^ord^new</code></p>
-<blockquote>
-<p>替换上次命令中的部分字符串</p>
-</blockquote>
-</li>
-<li>
-<p><code>&gt; file.list</code></p>
-<blockquote>
-<p>代替touch 命令创建文件。</p>
-</blockquote>
-</li>
-<li>
-<p><code>&lt;ctrl&gt; u ,&lt;ctrl&gt; w,&lt;ctrl&gt; h</code></p>
-<blockquote>
-<p>删除整行命令，删除前一个单词，删除前一个字母。在linux中普遍适用的命令，vim中可以在 insert 模式删除，不需要回到normal 模式</p>
-</blockquote>
-</li>
-</ul>
+<h3 id="tig">tig</h3>
+<p>git的升级命令，经常用来查询提交树。感觉比<code>sourtree</code>小巧。所以 选择他</p>
+<h3 id=""></h3>
 
               </div>
               <div class="toc-container">
@@ -178,15 +139,14 @@
 <ul>
 <li>
 <ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#linux%E8%BE%93%E5%85%A5%E5%91%BD%E4%BB%A4%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7">linux输入命令实用技巧</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href="#autojump">autojump</a></li>
+<li><a href="#csvkit">csvkit</a></li>
+<li><a href="#jq">jq</a></li>
+<li><a href="#mycli">mycli</a></li>
+<li><a href="#sips">sips</a></li>
+<li><a href="#translate">translate</a></li>
+<li><a href="#tig">tig</a></li>
+<li></li>
 </ul>
 </li>
 </ul>
@@ -201,9 +161,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://yechengfeng.github.io/post/linux-zhong-ren-wu-guan-li-ming-ling-jobs-fg-bg-ctrl-z-ming-ling/">
+            <a href="https://yechengfeng.github.io/post/mac-zhuang-ji-ruan-jian/">
               <h3 class="post-title">
-                linux中任务管理---命令 (jobs fg bg  ctrl-Z 命令 )
+                mac装机软件
               </h3>
             </a>
           </div>
