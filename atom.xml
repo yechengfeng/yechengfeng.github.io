@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yechengfeng.github.io</id>
     <title>Gridea</title>
-    <updated>2021-11-06T15:58:05.838Z</updated>
+    <updated>2021-11-07T13:08:26.307Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yechengfeng.github.io"/>
     <link rel="self" href="https://yechengfeng.github.io/atom.xml"/>
@@ -10,6 +10,84 @@
     <logo>https://yechengfeng.github.io/images/avatar.png</logo>
     <icon>https://yechengfeng.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[mac装机软件]]></title>
+        <id>https://yechengfeng.github.io/post/mac-zhuang-ji-ruan-jian/</id>
+        <link href="https://yechengfeng.github.io/post/mac-zhuang-ji-ruan-jian/">
+        </link>
+        <updated>2021-11-07T11:48:25.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>介绍自己mac装机必备图形软件。下次再换机的时候可以很方便的下载</strong></p>
+<h6 id="item2"><a href="https://iterm2.com/features.html">item2</a>   <strong>推荐指数</strong>  ❤️❤️❤️❤️</h6>
+<blockquote>
+<p>比自带的item终端可扩展性可配置性更好，快捷操作更方便。可以配合<code>oh-my-zsh</code>定制自己个性化更方便的终端。具体查看<a href="https://iterm2.com/features.html">item2官网</a></p>
+</blockquote>
+<h5 id="securecrt"><a href="https://www.vandyke.com/products/securecrt/">SecureCRT</a>  <strong>推荐指数</strong>  ❤️❤️❤️❤️</h5>
+<blockquote>
+<p>一个Telnet 和ssh 会话的客户端工具。通常我用来管理多台linux服务器的session会话。不需要输入密码直接登录已经输入过密码的服务器。通常也可以在服务器上配置ssh 验证，通过 authorized_keys来让服务器记住密码达到同样的效果。或者通过 <code>expect</code> <code>spawn</code>写shell脚本自动登录的方式。(item2也可以配合脚本管理多个linux session会话。具体可以官网查看具体方法)。</p>
+</blockquote>
+<h5 id="microsoft-remote-desktop-推荐指数-️️️">Microsoft Remote Desktop      <strong>推荐指数</strong> <strong>❤️❤️❤️</strong></h5>
+<blockquote>
+<p>微软出的一个登录windows的客户端。很方便，可以创建session共享文件夹，和远程windows交换文件。</p>
+</blockquote>
+<h5 id="向日葵远程控制-推荐指数-️️️">向日葵远程控制     <strong>推荐指数</strong> <strong>❤️❤️❤️</strong></h5>
+<blockquote>
+<p>远程工具。主观感觉比teamview 好用一点。但是有一次，不明原因的在我本地家目录写入了70多个g的日志文件。直接给我磁盘干满了，本地写任务全部失败........ 后来google了一下，也有人和我产生了一样的问题。☠️，删掉日志就好。只遇到过一次。</p>
+</blockquote>
+<h5 id="蒲公英-推荐指数-️️️">蒲公英 <strong>推荐指数</strong> <strong>❤️❤️❤️</strong></h5>
+<blockquote>
+<p>内网穿透的工具。截至目前为止，提供三个免费的账号使用，正好保证了我的手机，电脑，家里的linux服务器。在公司也能访问到家里的服务器。</p>
+</blockquote>
+<h5 id="alfred4"><a href="https://www.alfredapp.com/">Alfred4</a> <strong>推荐指数</strong> <strong>❤️❤️❤️❤️</strong></h5>
+<blockquote>
+<p>聚焦搜索的加强版本。还可以配置workflows。是强烈推荐的一款应用。具体可以看官网或者其他系列教程。</p>
+</blockquote>
+<h5 id="itext"><a href="https://apps.apple.com/cn/app/itext/id1314980676?mt=12">iText</a> <strong>推荐指数</strong> <strong>❤️❤️❤️❤️</strong></h5>
+<blockquote>
+<p>ocr文字并且提取图片上面的文字。对于不方便复制的文字，有很好的效果。</p>
+</blockquote>
+<h5 id="bluefruit-connect-推荐指数-️">[Bluefruit Connect] <strong>推荐指数</strong> ❤️</h5>
+<blockquote>
+<p>我的hhkb键盘换了蓝牙主控之后，第一次搜索不到这个蓝牙模块。可以通过这个软件查找到搜索不到的蓝牙模块。快速连接。上次换机想安装这个软件，找了半天不知道叫啥名字☠️</p>
+</blockquote>
+<h5 id="clashx"><a href="https://github.com/yichengchen/clashX">clashx</a>  <strong>推荐指数</strong> ❤️❤️❤️</h5>
+<blockquote>
+<p>科学上网</p>
+</blockquote>
+<h5 id="snipaste-推荐指数-️️️️">Snipaste <strong>推荐指数</strong> ❤️❤️❤️❤️</h5>
+<blockquote>
+<p>截图软件，几乎人人都用，人人都说好的必备软件。比mac自带的好用。</p>
+</blockquote>
+<h5 id="colorsnapper2-推荐指数-️️️️">ColorSnapper2  <strong>推荐指数</strong> ❤️❤️❤️❤️</h5>
+<blockquote>
+<p>颜色提取器。还可以记住提取的历史。试了多个颜色提取的app，发现这个是我最满意的。</p>
+</blockquote>
+<h5 id="bob"><a href="https://github.com/ripperhe/Bob">Bob</a><strong>推荐指数</strong> ❤️❤️❤️❤️</h5>
+<blockquote>
+<p>每天都会用的翻译软件。小巧玲珑。大道至简。可以输入翻译，截图翻译，点击翻译。读音。最喜欢的翻译软件，配置自己的google翻译账号，或者百度翻译账号。每个月都有免费额度。基本用不完。调用百度或者google接口翻译。</p>
+</blockquote>
+<h5 id="typora-推荐指数-️️️️">Typora  <strong>推荐指数</strong> ❤️❤️❤️❤️</h5>
+<blockquote>
+<p>markdown 软件</p>
+</blockquote>
+<h5 id="things软件-推荐指数-️️️️">Things软件。   <strong>推荐指数</strong> ❤️❤️❤️❤️</h5>
+<blockquote>
+<p>日程安排。我用来记录会议纪要，快速记录自己的idea，记录日程和管理。对比了 类似app<code>SideNotes</code>，还是更喜欢Things。大巧不工的感觉。</p>
+</blockquote>
+<p>#####其他的开发软件就先不谈了 ,一笔带过</p>
+<ul>
+<li>idea ， PyCharm ，  vscode  (开发)</li>
+<li>Anki 背单词。好久不用了</li>
+<li>CheatSheet 快捷键提示</li>
+<li>DBeaver， Dbkola  ，RDM(mysql ,mongodb ，redis 数据库链接)</li>
+<li>goPanel 2 运维管理。方便linux session会话，和服务管理。</li>
+<li>PDF Reader Pro， Wps Office</li>
+<li>Postman 以前用，现在被google插件代替了。</li>
+<li>Google Chrome 必备 不说了</li>
+<li>Keka 解压缩。没找到啥比较好的解压缩应用，就用这个了，也还行。</li>
+<li>Dash api文档浏览。方便查看。可以配置 到 afred，和其他的应用。其他mac用户的高频应。        但是我用的不多。</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[linux输入命令实用技巧]]></title>
         <id>https://yechengfeng.github.io/post/linux-shu-ru-ming-ling-shi-yong-ji-qiao/</id>
