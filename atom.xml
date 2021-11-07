@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yechengfeng.github.io</id>
     <title>Gridea</title>
-    <updated>2021-11-07T14:57:42.112Z</updated>
+    <updated>2021-11-07T15:21:16.653Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yechengfeng.github.io"/>
     <link rel="self" href="https://yechengfeng.github.io/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://yechengfeng.github.io/images/avatar.png</logo>
     <icon>https://yechengfeng.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[关于争论]]></title>
+        <id>https://yechengfeng.github.io/post/guan-yu-zheng-lun/</id>
+        <link href="https://yechengfeng.github.io/post/guan-yu-zheng-lun/">
+        </link>
+        <updated>2021-11-07T15:04:27.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<p><strong>有俩个贵族想争论一下谁知道的数字更大，一个苦思冥想了半天，说出了一个数字三，另一个想了半天，实在想不出来，于是认输了，觉得三就是世界上最大的数字。</strong></p>
+<!-- more -->
+<p><em>往往我们和别人争辩的时候就变成了这俩个贵族。有时候即使争辩赢了，也不一定是对的。甚至，更多的时候，大家都是小丑而已。不如寻找问题的解决方法</em></p>
+<!-- more -->
+<!-- more -->
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[mac 命令行工具]]></title>
         <id>https://yechengfeng.github.io/post/mac-ming-ling-xing-gong-ju/</id>
