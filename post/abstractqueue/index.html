@@ -2,22 +2,19 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>mac 命令行工具 | Gridea</title>
+<title>AbstractQueue | Gridea</title>
 <link rel="shortcut icon" href="https://yechengfeng.github.io/favicon.ico?v=1636796073114">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://yechengfeng.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="mac 命令行工具 | Gridea - Atom Feed" href="https://yechengfeng.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="AbstractQueue | Gridea - Atom Feed" href="https://yechengfeng.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="autojump
-进行目录跳转
-csvkit
-csvkit 处理csv的瑞士军刀，做爬虫时候用curl命令 + jq  +csvkit 来处理一些网页接口的数据，直接得到可交付的excel。
-jq
-官网介绍： jq is like sed ..." />
-    <meta name="keywords" content="mac,shell" />
+    <meta name="description" content="AbstractQueue抽象类，实现了Queue接口的部分通用方法。
+public abstract class AbstractQueue&lt;E&gt;
+    extends AbstractCollection&lt;E&gt;..." />
+    <meta name="keywords" content="java,collection,queue" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -85,74 +82,103 @@ jq
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              mac 命令行工具
+              AbstractQueue
             </h2>
             <div class="post-info">
               <span>
-                2021-11-07
+                2020-11-13
               </span>
               <span>
                 2 min read
               </span>
               
-                <a href="https://yechengfeng.github.io/tag/J5-JnB_XG/" class="post-tag">
-                  # mac
+                <a href="https://yechengfeng.github.io/tag/r7eTxWjP8/" class="post-tag">
+                  # java
                 </a>
               
-                <a href="https://yechengfeng.github.io/tag/Yv2wxJqD4/" class="post-tag">
-                  # shell
+                <a href="https://yechengfeng.github.io/tag/thjSXs0v9/" class="post-tag">
+                  # collection
+                </a>
+              
+                <a href="https://yechengfeng.github.io/tag/DmRLxNLqv/" class="post-tag">
+                  # queue
                 </a>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h3 id="autojump">autojump</h3>
-<p><strong>进行目录跳转</strong></p>
-<h3 id="csvkit">csvkit</h3>
-<p><strong>csvkit 处理csv的瑞士军刀，做爬虫时候用curl命令 + jq  +csvkit 来处理一些网页接口的数据，直接得到可交付的excel。</strong></p>
-<h3 id="jq"><a href="https://stedolan.github.io/jq/">jq</a></h3>
-<p>官网介绍： <code>jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text.</code><br>
-<strong>我通常配合csvkit用来快速处理excel看文件，类似 sed，awk，grep一样的文本处理工具。</strong></p>
-<h3 id="mycli">mycli</h3>
-<p><strong>mysql命令行工具。轻便的mysql数据查询工具</strong></p>
-<h3 id="sips">sips</h3>
-<p><strong>我通常用来处理图片的大小，图片格式转换。其他强大功能没做过研究</strong></p>
-<h3 id="translate"><a href="https://github.com/soimort/translate-shell">translate</a></h3>
-<p>**终端翻译软件。google 出品 **</p>
-<pre><code class="language-shell"># 终端shell配置文件中配置一下ts 函数
-function ts(){
-     trans -b :zh &quot;$*&quot;
-  trans -b :en &quot;$*&quot;
-}
-#然后需要翻译
-$ts hello  
+                <p><strong>AbstractQueue抽象类，实现了Queue接口的部分通用方法。</strong></p>
+<pre><code class="language-java">public abstract class AbstractQueue&lt;E&gt;
+    extends AbstractCollection&lt;E&gt;
+    implements Queue&lt;E&gt; {}
 </code></pre>
-<h3 id="tig">tig</h3>
-<p>git的升级命令，经常用来查询提交树。感觉比<code>sourtree</code>小巧。所以 选择他</p>
-<h3 id=""></h3>
+<ol>
+<li>
+<p>add()添加</p>
+<pre><code class="language-java">//add方法，基于 offer方法。成功返回true,否则，抛出异常
+public boolean add(E e) {
+    if (offer(e))
+        return true;
+    else
+        throw new IllegalStateException(&quot;Queue full&quot;);
+}
+</code></pre>
+</li>
+<li>
+<p>remove() 取出元素</p>
+<pre><code class="language-java">//调用poll，成功返回元素，否则抛出异常。
+public E remove() {
+    E x = poll();
+    if (x != null)
+        return x;
+    else
+        throw new NoSuchElementException();
+}
+</code></pre>
+</li>
+<li>
+<p>element()</p>
+<pre><code class="language-java">public E element() {
+        E x = peek();
+        if (x != null)
+            return x;
+        else
+            throw new NoSuchElementException();
+    }
+</code></pre>
+</li>
+<li>
+<p>clear()</p>
+<pre><code class="language-java">//优秀啊！poll 元素，直到返回空。代表清空了元素。但是有线程安全问题吗？可能会存在哦。~~~~
+public void clear() {
+        while (poll() != null);
+    }
+</code></pre>
+</li>
+<li>
+<p>addAll()</p>
+<pre><code class="language-java">//循环调用add方法，一个一个元素添加到集合中，直到集合全部添加完成。but， 
+// c==this,throw new IllegalArgumentException();？为什么要设计成自己不能添加自己
+  public boolean addAll(Collection&lt;? extends E&gt; c) {
+        if (c == null)
+            throw new NullPointerException();
+        if (c == this)
+            throw new IllegalArgumentException();
+        boolean modified = false;
+        for (E e : c)
+            if (add(e))
+                modified = true;
+        return modified;
+    }
+
+</code></pre>
+</li>
+</ol>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#autojump">autojump</a></li>
-<li><a href="#csvkit">csvkit</a></li>
-<li><a href="#jq">jq</a></li>
-<li><a href="#mycli">mycli</a></li>
-<li><a href="#sips">sips</a></li>
-<li><a href="#translate">translate</a></li>
-<li><a href="#tig">tig</a></li>
-<li></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
@@ -161,9 +187,9 @@ $ts hello
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://yechengfeng.github.io/post/mac-zhuang-ji-ruan-jian/">
+            <a href="https://yechengfeng.github.io/post/linux-xia-de-shi-pin-xia-zai-he-1/">
               <h3 class="post-title">
-                mac装机软件
+                linux下的视频下载和处理软件
               </h3>
             </a>
           </div>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yechengfeng.github.io</id>
     <title>Gridea</title>
-    <updated>2021-11-08T06:31:04.190Z</updated>
+    <updated>2021-11-13T09:34:48.746Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yechengfeng.github.io"/>
     <link rel="self" href="https://yechengfeng.github.io/atom.xml"/>
@@ -10,6 +10,145 @@
     <logo>https://yechengfeng.github.io/images/avatar.png</logo>
     <icon>https://yechengfeng.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[PriorityQueue]]></title>
+        <id>https://yechengfeng.github.io/post/priorityqueue/</id>
+        <link href="https://yechengfeng.github.io/post/priorityqueue/">
+        </link>
+        <updated>2021-11-13T09:32:41.000Z</updated>
+        <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/CarpenterLee/p/5488070.html">深入理解Java PriorityQueue</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[AbstractColletion]]></title>
+        <id>https://yechengfeng.github.io/post/abstractcolletion/</id>
+        <link href="https://yechengfeng.github.io/post/abstractcolletion/">
+        </link>
+        <updated>2021-11-13T09:19:11.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>此类提供集合接口的框架实现。<br>
+为了实现一个不可修改的集合，程序员只需要扩展这个类并提供迭代器和size方法的实现。（迭代器方法返回的迭代器必须实现hasNext和next。）</strong></p>
+<pre><code class="language-java">public interface Collection&lt;E&gt; extends Iterable&lt;E&gt; {
+  	
+	    protected AbstractCollection()
+        
+}
+</code></pre>
+<ol>
+<li>
+<p>迭代器</p>
+<pre><code class="language-java">//迭代器    
+public abstract Iterator&lt;E&gt; iterator();
+
+</code></pre>
+</li>
+<li>
+<pre><code class="language-java">//抽象方法，子类实现
+public abstract int size();
+</code></pre>
+</li>
+<li>
+<pre><code class="language-java">//依赖 size方法
+public boolean isEmpty() {
+        return size() == 0;
+    }	
+</code></pre>
+</li>
+<li>
+<p>判断集合是否为空</p>
+<pre><code class="language-java">public boolean contains(Object o) {
+    Iterator&lt;E&gt; it = iterator();
+  
+    if (o == null) { 
+        while (it.hasNext()) 
+            if (it.next() == null)
+                return true;
+    } else {
+        while (it.hasNext()) 
+            if (o.equals(it.next()))
+                return true;
+    }
+    return false;
+}
+
+</code></pre>
+<blockquote>
+<p>判断集合是否包含某个元素，有可能抛出ClassCastException、NullPointerException异常。<br>
+此方法是通过使用迭代器遍历集合的每一个元素，然后使用equals()方法分别判断它们是否与指定对象相等来实现的。因为Iterator的存在，这里才可以进行一致性封装，使得此方法适用于各种类型的集合。同时，也要注意到对象的比较是通过equals()方法，而且还调用了it.next()、it.hasNext()方法，这也是为什么实现集合类需要重写equals()方法以及Iterator的两个方法。</p>
+</blockquote>
+</li>
+<li>
+<p>返回一个包含所有元素的数组</p>
+<pre><code class="language-java">public Object[] toArray() {
+        // Estimate size of array; be prepared to see more or fewer elements
+        //先根据当前集合大小声明一个数组
+        Object[] r = new Object[size()];
+        Iterator&lt;E&gt; it = iterator();
+        for (int i = 0; i &lt; r.length; i++) {
+            //集合元素没有这么多，说明不需要那么大的数组
+            if (! it.hasNext()) // fewer elements than expected
+                return Arrays.copyOf(r, i); //仅返回赋完值的部分
+            r[i] = it.next();
+        }
+        //元素比从size()中获取的更多，就需要进一步调整数组大小
+        return it.hasNext() ? finishToArray(r, it) : r; 
+    }
+</code></pre>
+<blockquote>
+<ol>
+<li>先创建一个同样大小的Object数组对象。</li>
+<li>对于线程并发的时候，改变了集合元素的个数。需要调整返回数组的大小。保证数据的一致性。但是此举不能解决线程安全问题。</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>finishToArray</p>
+<pre><code class="language-java">//当迭代器返回的元素比预期的多，并从迭代器中完成填充。
+private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+private static &lt;T&gt; T[] finishToArray(T[] r, Iterator&lt;?&gt; it) {
+        int i = r.length;
+        while (it.hasNext()) {
+            int cap = r.length;
+            if (i == cap) {
+                int newCap = cap + (cap &gt;&gt; 1) + 1;
+                // overflow-conscious code
+                if (newCap - MAX_ARRAY_SIZE &gt; 0)
+                    newCap = hugeCapacity(cap + 1);
+                r = Arrays.copyOf(r, newCap);
+            }
+            r[i++] = (T)it.next();
+        }
+        // trim if overallocated
+        return (i == r.length) ? r : Arrays.copyOf(r, i);
+    }
+</code></pre>
+</li>
+<li>
+<pre><code class="language-java">//默认抛出异常
+public boolean add(E e) {
+        throw new UnsupportedOperationException();
+    }
+</code></pre>
+</li>
+<li>
+<pre><code class="language-shell"> //其他方法。
+  boolean remove(Object o);
+	boolean containsAll(Collection&lt;?&gt; c);
+	boolean addAll(Collection&lt;? extends E&gt; c);
+	boolean removeAll(Collection&lt;?&gt; c);
+boolean retainAll(Collection&lt;?&gt; c);
+void clear();
+boolean equals(Object o);
+	int hashCode();
+</code></pre>
+</li>
+</ol>
+<h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://codeleading.com/article/29613289339/">Thinking in java 读书笔记</a></li>
+<li><a href="https://codeleading.com/article/19601713701/">AbstractCollection</a></li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[关于争论]]></title>
         <id>https://yechengfeng.github.io/post/guan-yu-zheng-lun/</id>
@@ -130,7 +269,7 @@ $ts hello
 <li>Postman 以前用，现在被google插件代替了。</li>
 <li>Google Chrome 必备 不说了</li>
 <li>Keka 解压缩。没找到啥比较好的解压缩应用，就用这个了，也还行。</li>
-<li>Dash api文档浏览。方便查看。可以配置 到 afred，和其他的应用。其他mac用户的高频应。        但是我用的不多。</li>
+<li>Dash api文档浏览。方便查看。可以配置 到 afred，和其他的应用。其他mac用户的高频应。但是我用的不多。</li>
 </ul>
 ]]></content>
     </entry>
@@ -223,77 +362,175 @@ $ts hello
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[linux下的视频下载和处理软件]]></title>
-        <id>https://yechengfeng.github.io/post/linux-xia-de-shi-pin-xia-zai-he-1/</id>
-        <link href="https://yechengfeng.github.io/post/linux-xia-de-shi-pin-xia-zai-he-1/">
+        <title type="html"><![CDATA[queue]]></title>
+        <id>https://yechengfeng.github.io/post/queue/</id>
+        <link href="https://yechengfeng.github.io/post/queue/">
         </link>
-        <updated>2020-07-16T12:30:48.000Z</updated>
-        <content type="html"><![CDATA[<ul>
+        <updated>2020-11-13T09:33:29.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="queue">queue</h3>
+<p>官网介绍</p>
+<pre><code class="language-java">
+public interface Queue&lt;E&gt; extends Collection&lt;E&gt; {}
+
+/*相关类*/
+Collection,
+LinkedList, 
+PriorityQueue,
+java.util.concurrent.LinkedBlockingQueue, java.util.concurrent.BlockingQueue,
+java.util.concurrent.ArrayBlockingQueue, java.util.concurrent.LinkedBlockingQueue, java.util.concurrent.PriorityBlockingQueue
+
+</code></pre>
+<h5 id="introduction">introduction</h5>
+<ol>
 <li>
-<p><a href="https://github.com/ytdl-org/youtube-dl">youtube-dl </a><br>
-*youtube-dl - download videos from youtube.com or other video platforms</p>
+<p>元素被处理前用来保存元素的集合。 除了基本的收集操作外，队列还提供附加的插入、提取和检查操作。</p>
 </li>
 <li>
-<p>[ffmpeg]<br>
-<a href="https://www.ruanyifeng.com/blog/2020/01/ffmpeg.html">比较好的教程</a><br>
-<em>用来下载过网上在线的m3u8格式的视频。很好用。</em></p>
+<p>这些方法都有两种形式：一种是在操作失败时抛出异常，另一种是返回特殊值（null或false，具体取决于操作）。</p>
 </li>
-</ul>
+<li>
+<p>插入操作的后一种形式专门设计用于容量受限的队列实现；在大多数实现中，插入操作不会失败。</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Throws exception</th>
+<th>Returns special value</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Insert</td>
+<td>add(e)</td>
+<td>offer(e)</td>
+<td></td>
+</tr>
+<tr>
+<td>Remove</td>
+<td>remove()</td>
+<td>poll()</td>
+<td></td>
+</tr>
+<tr>
+<td>Examine</td>
+<td>element()</td>
+<td>peek()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<pre><code>队列通常（但不一定）以FIFO（先进先出）的方式对元素进行排序。例外情况包括优先级队列（根据提供的比较器或元素的自然顺序对元素排序）和后进先出（后进先出）队列（或堆栈）。无论使用何种顺序，队列的头部都是通过调用remove（）或poll（）删除的元素。在FIFO队列中，所有新元素都插入到队列的尾部。其他类型的队列可能使用不同的放置规则。每个队列实现都必须指定其排序属性。
+</code></pre>
+<blockquote>
+<p>想法：</p>
+<p>发现 Queue 接口继承了 Collection接口，Collection 声明了add(),remove()方法，但是在queue中被再次声明。我觉得是因为：一方面是声明一个接口的时候需要保证核心功能的完整性 。接口和接口之间解耦合。比如Queue如果不是一个Colletions，不继承 collections,那么它定义的接口应该保证queue本身的功能完备。<br>
+另一方面可能是显式告知使用者该方法在当前上下文和父接口上下文中使用方式和含义的差别。</p>
+</blockquote>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[item2中修改vim insert normal 模式下光标。]]></title>
-        <id>https://yechengfeng.github.io/post/item2-zhong-xiu-gai-vim-insert-normal-mo-shi-xia-guang-biao/</id>
-        <link href="https://yechengfeng.github.io/post/item2-zhong-xiu-gai-vim-insert-normal-mo-shi-xia-guang-biao/">
+        <title type="html"><![CDATA[BlockingQueue]]></title>
+        <id>https://yechengfeng.github.io/post/blockingqueue/</id>
+        <link href="https://yechengfeng.github.io/post/blockingqueue/">
         </link>
-        <updated>2019-11-21T13:56:41.000Z</updated>
-        <content type="html"><![CDATA[<ol>
-<li>vimrc如下配置</li>
-</ol>
-<pre><code class="language-shell">     if exists('$TMUX')
- let &amp;t_SI = &quot;\&lt;Esc&gt;Ptmux;\&lt;Esc&gt;\&lt;Esc&gt;]50;CursorShape=1\x7\&lt;Esc&gt;\\&quot;
- let &amp;t_EI = &quot;\&lt;Esc&gt;Ptmux;\&lt;Esc&gt;\&lt;Esc&gt;]50;CursorShape=0\x7\&lt;Esc&gt;\\&quot;
- else
- let &amp;t_SI = &quot;\&lt;Esc&gt;]50;CursorShape=1\x7&quot;
- let &amp;t_EI = &quot;\&lt;Esc&gt;]50;CursorShape=0\x7&quot;
- endif
+        <updated>2020-11-13T09:29:02.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>阻塞队列</strong></p>
+<pre><code class="language-java">
+public interface BlockingQueue&lt;E&gt; extends Queue&lt;E&gt; {
+
+}
+
 </code></pre>
-<ol start="2">
-<li>如上配置可能会有光标转换延迟，virmcr中再次配置一下。<pre><code class="language-shell">    set timeoutlen=1000 ttimeoutlen=0
-</code></pre>
-</li>
+<figure data-type="image" tabindex="1"><img src="https://yechengfeng.github.io/post-images/1636795836461.png" alt="" loading="lazy"></figure>
+<blockquote>
+<p>比queue方法多了四个方法。</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>ArrayBlockingQueue阻塞采用 ReentrantLock，Condition来实现。ReentrantLock本身 具有公平和非公平策略。 ArrayBlockingQueue中也保留了ReentrantLock这种特性。数据具有公平非公平的访问区别。是一个 ReentrantLock，Condition机制很好的实现。</li>
+<li></li>
 </ol>
+</blockquote>
+<p><a href="https://juejin.cn/post/6844903989788540941">ArrayBlockingQueue源码分析</a></p>
+<p><a href="https://www.cnblogs.com/leesf456/p/5539071.html">LinkedBlokingQueue源码分析</a></p>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[ gogs搭建git服务器]]></title>
-        <id>https://yechengfeng.github.io/post/gogs-da-jian-git-fu-wu-qi/</id>
-        <link href="https://yechengfeng.github.io/post/gogs-da-jian-git-fu-wu-qi/">
+        <title type="html"><![CDATA[AbstractQueue]]></title>
+        <id>https://yechengfeng.github.io/post/abstractqueue/</id>
+        <link href="https://yechengfeng.github.io/post/abstractqueue/">
         </link>
-        <updated>2018-11-15T12:26:19.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-shell"># pull gogs镜像
-$ docker pull gogs/gogs
-
-# 创建一个本地可以挂载到容器的目录 
-$ mkdir -p /data/gogs
-
-# 给 gogs 加上权限保证其可读可写
-$ cd /data &amp;&amp; chmod -R 777 gogs
-
-# 初次执行 run gogs，注意这里 gogs 是前台启动，启动后 command + C 退出就好了
-# 宿主机 10022 映射到 gogs 容器的 22 ssh 端口
-# 宿主机 10080 映射到 gogs 容器的 3000 http 端口
-# /data/gogs 目录挂在到容器中的 /data 目录
-$ docker run --name=gogs -p 10022:22 -p 10080:3000 -v /data/gogs:/data gogs/gogs
-
-# 启动 gogs 容器
-$ docker start gogs
-
-————————————————
-docker 安装gos
+        <updated>2020-11-13T09:27:20.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>AbstractQueue抽象类，实现了Queue接口的部分通用方法。</strong></p>
+<pre><code class="language-java">public abstract class AbstractQueue&lt;E&gt;
+    extends AbstractCollection&lt;E&gt;
+    implements Queue&lt;E&gt; {}
 </code></pre>
-<p><strong>期间遇到问题: linux上有些默认端口不能作为映射端口</strong><br>
-<a href="https://github.com/chromium/chromium/blob/805f50e9d42cf0ac5e3108ae2c6b36baa0ea5a90/net/base/port_util.cc#L64-L147">这里是一些默认端口的汇总</a></p>
+<ol>
+<li>
+<p>add()添加</p>
+<pre><code class="language-java">//add方法，基于 offer方法。成功返回true,否则，抛出异常
+public boolean add(E e) {
+    if (offer(e))
+        return true;
+    else
+        throw new IllegalStateException(&quot;Queue full&quot;);
+}
+</code></pre>
+</li>
+<li>
+<p>remove() 取出元素</p>
+<pre><code class="language-java">//调用poll，成功返回元素，否则抛出异常。
+public E remove() {
+    E x = poll();
+    if (x != null)
+        return x;
+    else
+        throw new NoSuchElementException();
+}
+</code></pre>
+</li>
+<li>
+<p>element()</p>
+<pre><code class="language-java">public E element() {
+        E x = peek();
+        if (x != null)
+            return x;
+        else
+            throw new NoSuchElementException();
+    }
+</code></pre>
+</li>
+<li>
+<p>clear()</p>
+<pre><code class="language-java">//优秀啊！poll 元素，直到返回空。代表清空了元素。但是有线程安全问题吗？可能会存在哦。~~~~
+public void clear() {
+        while (poll() != null);
+    }
+</code></pre>
+</li>
+<li>
+<p>addAll()</p>
+<pre><code class="language-java">//循环调用add方法，一个一个元素添加到集合中，直到集合全部添加完成。but， 
+// c==this,throw new IllegalArgumentException();？为什么要设计成自己不能添加自己
+  public boolean addAll(Collection&lt;? extends E&gt; c) {
+        if (c == null)
+            throw new NullPointerException();
+        if (c == this)
+            throw new IllegalArgumentException();
+        boolean modified = false;
+        for (E e : c)
+            if (add(e))
+                modified = true;
+        return modified;
+    }
+
+</code></pre>
+</li>
+</ol>
 ]]></content>
     </entry>
 </feed>
