@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://yechengfeng.github.io</id>
+    <id>https://www.leslieye.cn/</id>
     <title>Gridea</title>
-    <updated>2021-11-15T02:26:30.269Z</updated>
+    <updated>2021-11-15T02:33:04.935Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://yechengfeng.github.io"/>
-    <link rel="self" href="https://yechengfeng.github.io/atom.xml"/>
+    <link rel="alternate" href="https://www.leslieye.cn/"/>
+    <link rel="self" href="https://www.leslieye.cn/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>https://yechengfeng.github.io/images/avatar.png</logo>
-    <icon>https://yechengfeng.github.io/favicon.ico</icon>
+    <logo>https://www.leslieye.cn/images/avatar.png</logo>
+    <icon>https://www.leslieye.cn/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
     <entry>
         <title type="html"><![CDATA[二叉树]]></title>
-        <id>https://yechengfeng.github.io/post/er-cha-shu/</id>
-        <link href="https://yechengfeng.github.io/post/er-cha-shu/">
+        <id>https://www.leslieye.cn/post/er-cha-shu/</id>
+        <link href="https://www.leslieye.cn/post/er-cha-shu/">
         </link>
         <updated>2021-11-13T09:52:58.000Z</updated>
         <content type="html"><![CDATA[<h5 id="二叉树的诞生">二叉树的诞生</h5>
@@ -22,7 +22,7 @@
 二叉树结合了数组与链表结构的优点，成为了更加快速的高级数据结构。（也可以说二叉树结合了俩者的缺点，查找速度比不过有序数组，插入删除比不过链表~~~~）
 </code></pre>
 <p><a href="https://www.cs.usfca.edu/~galles/visualization/BST.html">二叉树体验网站</a></p>
-<figure data-type="image" tabindex="1"><img src="https://yechengfeng.github.io/post-images/1636797978956.png" alt="asd" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://www.leslieye.cn//post-images/1636797978956.png" alt="asd" loading="lazy"></figure>
 <p>参考文章<br>
 <a href="https://www.jianshu.com/p/bf73c8d50dc2">深入学习二叉树(一) 二叉树基础</a><br>
 <a href="https://zhuanlan.zhihu.com/p/136758152">万字长文！二叉树入门和刷题看这篇就够了！</a></p>
@@ -30,8 +30,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[PriorityQueue]]></title>
-        <id>https://yechengfeng.github.io/post/priorityqueue/</id>
-        <link href="https://yechengfeng.github.io/post/priorityqueue/">
+        <id>https://www.leslieye.cn/post/priorityqueue/</id>
+        <link href="https://www.leslieye.cn/post/priorityqueue/">
         </link>
         <updated>2021-11-13T09:32:41.000Z</updated>
         <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/CarpenterLee/p/5488070.html">深入理解Java PriorityQueue</a></p>
@@ -39,8 +39,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[AbstractColletion]]></title>
-        <id>https://yechengfeng.github.io/post/abstractcolletion/</id>
-        <link href="https://yechengfeng.github.io/post/abstractcolletion/">
+        <id>https://www.leslieye.cn/post/abstractcolletion/</id>
+        <link href="https://www.leslieye.cn/post/abstractcolletion/">
         </link>
         <updated>2021-11-13T09:19:11.000Z</updated>
         <content type="html"><![CDATA[<p><strong>此类提供集合接口的框架实现。<br>
@@ -169,8 +169,8 @@ boolean equals(Object o);
     </entry>
     <entry>
         <title type="html"><![CDATA[关于争论]]></title>
-        <id>https://yechengfeng.github.io/post/guan-yu-zheng-lun/</id>
-        <link href="https://yechengfeng.github.io/post/guan-yu-zheng-lun/">
+        <id>https://www.leslieye.cn/post/guan-yu-zheng-lun/</id>
+        <link href="https://www.leslieye.cn/post/guan-yu-zheng-lun/">
         </link>
         <updated>2021-11-07T15:04:27.000Z</updated>
         <content type="html"><![CDATA[<!-- more -->
@@ -183,8 +183,8 @@ boolean equals(Object o);
     </entry>
     <entry>
         <title type="html"><![CDATA[mac 命令行工具]]></title>
-        <id>https://yechengfeng.github.io/post/mac-ming-ling-xing-gong-ju/</id>
-        <link href="https://yechengfeng.github.io/post/mac-ming-ling-xing-gong-ju/">
+        <id>https://www.leslieye.cn/post/mac-ming-ling-xing-gong-ju/</id>
+        <link href="https://www.leslieye.cn/post/mac-ming-ling-xing-gong-ju/">
         </link>
         <updated>2021-11-07T14:00:57.000Z</updated>
         <content type="html"><![CDATA[<h3 id="autojump">autojump</h3>
@@ -215,8 +215,8 @@ $ts hello
     </entry>
     <entry>
         <title type="html"><![CDATA[mac装机软件]]></title>
-        <id>https://yechengfeng.github.io/post/mac-zhuang-ji-ruan-jian/</id>
-        <link href="https://yechengfeng.github.io/post/mac-zhuang-ji-ruan-jian/">
+        <id>https://www.leslieye.cn/post/mac-zhuang-ji-ruan-jian/</id>
+        <link href="https://www.leslieye.cn/post/mac-zhuang-ji-ruan-jian/">
         </link>
         <updated>2021-11-07T11:48:25.000Z</updated>
         <content type="html"><![CDATA[<p><strong>介绍自己mac装机必备图形软件。下次再换机的时候可以很方便的下载</strong></p>
@@ -293,8 +293,8 @@ $ts hello
     </entry>
     <entry>
         <title type="html"><![CDATA[linux输入命令实用技巧]]></title>
-        <id>https://yechengfeng.github.io/post/linux-shu-ru-ming-ling-shi-yong-ji-qiao/</id>
-        <link href="https://yechengfeng.github.io/post/linux-shu-ru-ming-ling-shi-yong-ji-qiao/">
+        <id>https://www.leslieye.cn/post/linux-shu-ru-ming-ling-shi-yong-ji-qiao/</id>
+        <link href="https://www.leslieye.cn/post/linux-shu-ru-ming-ling-shi-yong-ji-qiao/">
         </link>
         <updated>2021-11-06T05:45:51.000Z</updated>
         <summary type="html"><![CDATA[<h5 id="linux输入命令实用技巧">linux输入命令实用技巧</h5>
@@ -358,8 +358,8 @@ $ts hello
     </entry>
     <entry>
         <title type="html"><![CDATA[linux中任务管理---命令 (jobs fg bg  ctrl-Z 命令 )]]></title>
-        <id>https://yechengfeng.github.io/post/linux-zhong-ren-wu-guan-li-ming-ling-jobs-fg-bg-ctrl-z-ming-ling/</id>
-        <link href="https://yechengfeng.github.io/post/linux-zhong-ren-wu-guan-li-ming-ling-jobs-fg-bg-ctrl-z-ming-ling/">
+        <id>https://www.leslieye.cn/post/linux-zhong-ren-wu-guan-li-ming-ling-jobs-fg-bg-ctrl-z-ming-ling/</id>
+        <link href="https://www.leslieye.cn/post/linux-zhong-ren-wu-guan-li-ming-ling-jobs-fg-bg-ctrl-z-ming-ling/">
         </link>
         <updated>2021-11-01T16:28:30.000Z</updated>
         <content type="html"><![CDATA[<h3 id="ctrl-z">ctrl-z</h3>
@@ -381,8 +381,8 @@ $ts hello
     </entry>
     <entry>
         <title type="html"><![CDATA[queue]]></title>
-        <id>https://yechengfeng.github.io/post/queue/</id>
-        <link href="https://yechengfeng.github.io/post/queue/">
+        <id>https://www.leslieye.cn/post/queue/</id>
+        <link href="https://www.leslieye.cn/post/queue/">
         </link>
         <updated>2020-11-13T09:33:29.000Z</updated>
         <content type="html"><![CDATA[<h3 id="queue">queue</h3>
@@ -451,8 +451,8 @@ java.util.concurrent.ArrayBlockingQueue, java.util.concurrent.LinkedBlockingQueu
     </entry>
     <entry>
         <title type="html"><![CDATA[BlockingQueue]]></title>
-        <id>https://yechengfeng.github.io/post/blockingqueue/</id>
-        <link href="https://yechengfeng.github.io/post/blockingqueue/">
+        <id>https://www.leslieye.cn/post/blockingqueue/</id>
+        <link href="https://www.leslieye.cn/post/blockingqueue/">
         </link>
         <updated>2020-11-13T09:29:02.000Z</updated>
         <content type="html"><![CDATA[<p><strong>阻塞队列</strong></p>
@@ -462,7 +462,7 @@ public interface BlockingQueue&lt;E&gt; extends Queue&lt;E&gt; {
 }
 
 </code></pre>
-<figure data-type="image" tabindex="1"><img src="https://yechengfeng.github.io/post-images/1636795836461.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://www.leslieye.cn//post-images/1636795836461.png" alt="" loading="lazy"></figure>
 <blockquote>
 <p>比queue方法多了四个方法。</p>
 </blockquote>
