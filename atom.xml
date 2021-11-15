@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yechengfeng.github.io</id>
     <title>Gridea</title>
-    <updated>2021-11-13T09:36:42.158Z</updated>
+    <updated>2021-11-15T01:23:08.029Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yechengfeng.github.io"/>
     <link rel="self" href="https://yechengfeng.github.io/atom.xml"/>
@@ -10,6 +10,24 @@
     <logo>https://yechengfeng.github.io/images/avatar.png</logo>
     <icon>https://yechengfeng.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[二叉树]]></title>
+        <id>https://yechengfeng.github.io/post/er-cha-shu/</id>
+        <link href="https://yechengfeng.github.io/post/er-cha-shu/">
+        </link>
+        <updated>2021-11-13T09:52:58.000Z</updated>
+        <content type="html"><![CDATA[<h5 id="二叉树的诞生">二叉树的诞生</h5>
+<pre><code>有序数组的查找速度很快， 插入删除相对较慢。
+链表的插入和删除速度非常快。但是查找的速度很慢。
+二叉树结合了数组与链表结构的优点，成为了更加快速的高级数据结构。（也可以说二叉树结合了俩者的缺点，查找速度比不过有序数组，插入删除比不过链表~~~~）
+</code></pre>
+<p><a href="https://www.cs.usfca.edu/~galles/visualization/BST.html">二叉树体验网站</a></p>
+<figure data-type="image" tabindex="1"><img src="https://yechengfeng.github.io/post-images/1636797978956.png" alt="asd" loading="lazy"></figure>
+<p>参考文章<br>
+<a href="https://www.jianshu.com/p/bf73c8d50dc2">深入学习二叉树(一) 二叉树基础</a><br>
+<a href="https://zhuanlan.zhihu.com/p/136758152">万字长文！二叉树入门和刷题看这篇就够了！</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[PriorityQueue]]></title>
         <id>https://yechengfeng.github.io/post/priorityqueue/</id>
@@ -456,81 +474,6 @@ public interface BlockingQueue&lt;E&gt; extends Queue&lt;E&gt; {
 </blockquote>
 <p><a href="https://juejin.cn/post/6844903989788540941">ArrayBlockingQueue源码分析</a></p>
 <p><a href="https://www.cnblogs.com/leesf456/p/5539071.html">LinkedBlokingQueue源码分析</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[AbstractQueue]]></title>
-        <id>https://yechengfeng.github.io/post/abstractqueue/</id>
-        <link href="https://yechengfeng.github.io/post/abstractqueue/">
-        </link>
-        <updated>2020-11-13T09:27:20.000Z</updated>
-        <content type="html"><![CDATA[<p><strong>AbstractQueue抽象类，实现了Queue接口的部分通用方法。</strong></p>
-<pre><code class="language-java">public abstract class AbstractQueue&lt;E&gt;
-    extends AbstractCollection&lt;E&gt;
-    implements Queue&lt;E&gt; {}
-</code></pre>
-<ol>
-<li>
-<p>add()添加</p>
-<pre><code class="language-java">//add方法，基于 offer方法。成功返回true,否则，抛出异常
-public boolean add(E e) {
-    if (offer(e))
-        return true;
-    else
-        throw new IllegalStateException(&quot;Queue full&quot;);
-}
-</code></pre>
-</li>
-<li>
-<p>remove() 取出元素</p>
-<pre><code class="language-java">//调用poll，成功返回元素，否则抛出异常。
-public E remove() {
-    E x = poll();
-    if (x != null)
-        return x;
-    else
-        throw new NoSuchElementException();
-}
-</code></pre>
-</li>
-<li>
-<p>element()</p>
-<pre><code class="language-java">public E element() {
-        E x = peek();
-        if (x != null)
-            return x;
-        else
-            throw new NoSuchElementException();
-    }
-</code></pre>
-</li>
-<li>
-<p>clear()</p>
-<pre><code class="language-java">//优秀啊！poll 元素，直到返回空。代表清空了元素。但是有线程安全问题吗？可能会存在哦。~~~~
-public void clear() {
-        while (poll() != null);
-    }
-</code></pre>
-</li>
-<li>
-<p>addAll()</p>
-<pre><code class="language-java">//循环调用add方法，一个一个元素添加到集合中，直到集合全部添加完成。but， 
-// c==this,throw new IllegalArgumentException();？为什么要设计成自己不能添加自己
-  public boolean addAll(Collection&lt;? extends E&gt; c) {
-        if (c == null)
-            throw new NullPointerException();
-        if (c == this)
-            throw new IllegalArgumentException();
-        boolean modified = false;
-        for (E e : c)
-            if (add(e))
-                modified = true;
-        return modified;
-    }
-
-</code></pre>
-</li>
-</ol>
 ]]></content>
     </entry>
 </feed>
