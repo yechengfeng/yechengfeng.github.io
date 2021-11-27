@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.leslieye.cn/</id>
     <title>Gridea</title>
-    <updated>2021-11-15T02:33:04.935Z</updated>
+    <updated>2021-11-27T07:55:52.554Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.leslieye.cn/"/>
     <link rel="self" href="https://www.leslieye.cn/atom.xml"/>
@@ -10,6 +10,35 @@
     <logo>https://www.leslieye.cn/images/avatar.png</logo>
     <icon>https://www.leslieye.cn/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[how learn english --some tips i think]]></title>
+        <id>https://www.leslieye.cn/post/how-learn-english-some-tips-i-think/</id>
+        <link href="https://www.leslieye.cn/post/how-learn-english-some-tips-i-think/">
+        </link>
+        <updated>2021-11-27T07:55:06.000Z</updated>
+        <content type="html"><![CDATA[<h5 id="recently-days-i-read-a-book-named-vocabulary-in-use-and-i-figure-out-several-ideas-to-learn-english-and-now-share-with-you">recently days,  i read a book named vocabulary in use .  And  i figure out several ideas to learn English. And now share with you .</h5>
+<ol>
+<li>first of all,what does knowing a new word mean , i think the author of this books said is correctly,it is not enough just to know the meaning of a word, we should also kown that :</li>
+</ol>
+<ul>
+<li>which words it is usually used with;</li>
+<li>Its grammatical characteristics;</li>
+<li>How it is pronounced;</li>
+<li>whether it  is formal ,informal or neutral。</li>
+</ul>
+<ol start="2">
+<li>next,organising words by meaning. Try dividing your notebook into different broad sections, with sections for words for feelings, words to describe places, words for movement, words for thinking, etc.</li>
+<li>Using your dictionary   i think  google translate is very good for me.  Here are  some imporant things to judge a dictionary is goods for you  i think .
+<ul>
+<li>Pronunciation</li>
+<li>Word stress</li>
+<li>Usage</li>
+</ul>
+</li>
+<li>Last but not the least , i think we should use English and  do exercise as   much as possible， i always think   when  we study , the feedback from the study can make we get Passion  and process</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[二叉树]]></title>
         <id>https://www.leslieye.cn/post/er-cha-shu/</id>
@@ -447,33 +476,6 @@ java.util.concurrent.ArrayBlockingQueue, java.util.concurrent.LinkedBlockingQueu
 <p>发现 Queue 接口继承了 Collection接口，Collection 声明了add(),remove()方法，但是在queue中被再次声明。我觉得是因为：一方面是声明一个接口的时候需要保证核心功能的完整性 。接口和接口之间解耦合。比如Queue如果不是一个Colletions，不继承 collections,那么它定义的接口应该保证queue本身的功能完备。<br>
 另一方面可能是显式告知使用者该方法在当前上下文和父接口上下文中使用方式和含义的差别。</p>
 </blockquote>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[BlockingQueue]]></title>
-        <id>https://www.leslieye.cn/post/blockingqueue/</id>
-        <link href="https://www.leslieye.cn/post/blockingqueue/">
-        </link>
-        <updated>2020-11-13T09:29:02.000Z</updated>
-        <content type="html"><![CDATA[<p><strong>阻塞队列</strong></p>
-<pre><code class="language-java">
-public interface BlockingQueue&lt;E&gt; extends Queue&lt;E&gt; {
-
-}
-
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://www.leslieye.cn//post-images/1636795836461.png" alt="" loading="lazy"></figure>
-<blockquote>
-<p>比queue方法多了四个方法。</p>
-</blockquote>
-<blockquote>
-<ol>
-<li>ArrayBlockingQueue阻塞采用 ReentrantLock，Condition来实现。ReentrantLock本身 具有公平和非公平策略。 ArrayBlockingQueue中也保留了ReentrantLock这种特性。数据具有公平非公平的访问区别。是一个 ReentrantLock，Condition机制很好的实现。</li>
-<li></li>
-</ol>
-</blockquote>
-<p><a href="https://juejin.cn/post/6844903989788540941">ArrayBlockingQueue源码分析</a></p>
-<p><a href="https://www.cnblogs.com/leesf456/p/5539071.html">LinkedBlokingQueue源码分析</a></p>
 ]]></content>
     </entry>
 </feed>
