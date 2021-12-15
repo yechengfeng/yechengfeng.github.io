@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.leslieye.cn/</id>
     <title>Gridea</title>
-    <updated>2021-11-29T13:51:52.263Z</updated>
+    <updated>2021-12-15T08:24:04.678Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.leslieye.cn/"/>
     <link rel="self" href="https://www.leslieye.cn/atom.xml"/>
@@ -10,6 +10,162 @@
     <logo>https://www.leslieye.cn/images/avatar.png</logo>
     <icon>https://www.leslieye.cn/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[english-word-20211208]]></title>
+        <id>https://www.leslieye.cn/post/english-word-20211208/</id>
+        <link href="https://www.leslieye.cn/post/english-word-20211208/">
+        </link>
+        <updated>2021-12-15T08:20:06.000Z</updated>
+        <summary type="html"><![CDATA[<table>
+<thead>
+<tr>
+<th>翻译原文</th>
+<th>翻译结果1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>just like episode</td>
+<td>就像一集</td>
+</tr>
+<tr>
+<td>episode</td>
+<td>插曲</td>
+</tr>
+<tr>
+<td>episode</td>
+<td>插曲</td>
+</tr>
+</tbody>
+</table>
+]]></summary>
+        <content type="html"><![CDATA[<table>
+<thead>
+<tr>
+<th>翻译原文</th>
+<th>翻译结果1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>just like episode</td>
+<td>就像一集</td>
+</tr>
+<tr>
+<td>episode</td>
+<td>插曲</td>
+</tr>
+<tr>
+<td>episode</td>
+<td>插曲</td>
+</tr>
+</tbody>
+</table>
+<!-- more -->
+<!-- more -->
+<pre><code>                                                 |
+</code></pre>
+<p>| i just listen some podcast with programmer and look around   | 我只是和程序员一起听一些播客，然后四处看看                   |<br>
+| i just listen some podcast with programmer and look around   | 我只是和程序员一起听一些播客，然后四处看看                   |<br>
+| the same to me                                               | 我也一样                                                     |<br>
+| the same to you                                              | 你也一样                                                     |<br>
+| overhead                                                     | 开销                                                         |<br>
+| painful                                                      | 痛苦的                                                       |<br>
+| Rails                                                        | 轨道                                                         |<br>
+| syntax                                                       | 语法                                                         |<br>
+| overwhelming                                                 | 势不可挡的                                                   |<br>
+| agnostic                                                     | 不可知论者                                                   |<br>
+| entrepreneur                                                 | 企业家                                                       |<br>
+| banter                                                       | 调侃                                                         |<br>
+| What is a field programmable gate array                      | 什么是现场可编程门阵列                                       |<br>
+| gate                                                         | 大门                                                         |<br>
+| explorations                                                 | 探索                                                         |<br>
+| Here's my take on some of the best regular shows and video series aimed at developers, whether you're just learning to write code or are a full-time programmer. | 以下是我对一些针对开发者的最佳常规节目和视频系列的看法，无论你是在学习编写代码还是全职程序员。 |<br>
+| no shortage of                                               | 不乏                                                         |<br>
+| There's certainly no shortage of podcasts aimed at developers, but which are worth your time? | 当然，面向开发人员的播客并不短缺，但哪些播客值得您花费时间呢？ |<br>
+| shortage                                                     | 不足                                                         |<br>
+| established                                                  | 确立                                                         |<br>
+| cater                                                        | 迎合                                                         |<br>
+| tech                                                         | 技术人员                                                     |<br>
+| Did they help each other like, hey, I've got this thing on my back, get it off me? | 他们是否互相帮助，比如，嘿，我背上有这个东西，把它拿开？     |<br>
+| but they just really have something they're into. And programming is almost in the way, right | 但他们真的有自己喜欢的东西。而编程几乎是个障碍，对吗         |<br>
+| I think so many people get into programming that way, who don't necessarily feel like my goal is to go be a programmer, | 我想很多人都是这样开始编程的，他们不一定觉得我的目标是成为一名程序员， |<br>
+| beekeeper                                                    | 养蜂人                                                       |<br>
+| colonies                                                     | 聚居地                                                       |<br>
+| bee                                                          | 蜜蜂                                                         |<br>
+| massive                                                      | 大量的                                                       |<br>
+| automate                                                     | 自动化                                                       |<br>
+| In addition to that,                                         | 除此之外,，                                                  |<br>
+| Our guest, Jack Simpson has used Python to uncover a bunch of interesting developments as the country has adopted more and more solar energy. | 我们的嘉宾杰克·辛普森（Jack Simpson）用Python揭示了一系列有趣的发展，因为这个国家已经采用了越来越多的太阳能。 |<br>
+| In this episode, we cover how Python is being used to understand the electrical markets and grid in Australia. | 在本期节目中，我们将介绍如何使用Python来了解澳大利亚的电力市场和电网。 |<br>
+| grid                                                         | 网格                                                         |<br>
+| electrical                                                   | 与电有关的                                                   |<br>
+| solar energy.                                                | 太阳能。                                                     |<br>
+| adopted                                                      | 采用                                                         |<br>
+| Yeah, multiple hats. I'm pulling a Stephanie Wong, but I'm very, very happy to be here, Stephanie. | 是的，多顶帽子。我演的是斯蒂芬妮·王，但我非常非常高兴来到这里，斯蒂芬妮。 |<br>
+| multiple hats                                                | 多顶帽子                                                     |<br>
+| host                                                         | 主办                                                         |<br>
+| existence                                                    | 存在                                                         |<br>
+| Basic English is an attempt to give to every one a second, or international language, which will take as little of the learner's time as possible. | 基础英语是一种尝试，为每个人提供第二种或国际语言，这将尽可能少地占用学习者的时间。 |<br>
+| international                                                | 国际的                                                       |<br>
+| Basic English is an attempt to give to every one a second,   | 基础英语是给每个人一秒钟，                                   |<br>
+| slaves                                                       | 奴隶                                                         |<br>
+| servants                                                     | 仆人                                                         |<br>
+| Big Daddy                                                    | 大爸爸                                                       |<br>
+| Connection reset by peer                                     | 对等方重置连接                                               |<br>
+| Sentinel                                                     | 哨兵                                                         |<br>
+| Sentinel                                                     | 哨兵                                                         |<br>
+| recursive                                                    | 递归的                                                       |<br>
+| verbose                                                      | 冗长的                                                       |<br>
+| DEMAND                                                       | 需要                                                         |<br>
+| SECONDS                                                      | 秒                                                           |<br>
+| future.isDone()                                              | 将来isDone（）                                               |<br>
+| reputation                                                   | 名誉                                                         |<br>
+| lookup                                                       | 查找                                                         |<br>
+| formatmsgnolookup                                            | FormatMsgNookup                                              |<br>
+| formatmsgnolookups                                           | FormatMsgOnLookup                                            |<br>
+| 平桥南路                                                     | Pingqiao South Road                                          |<br>
+| Purposes and Character.                                      | 目的和性质。                                                 |<br>
+| usage                                                        | 用法                                                         |<br>
+| restrictions                                                 | 限制                                                         |<br>
+| linguistic                                                   | 语言的                                                       |<br>
+| Encyclopedia                                                 | 百科全书                                                     |<br>
+| We call this simplified language Basic English, the developer is Charles K. Ogden, and was released in 1930 with the book: Basic English: A General Introduction with Rules and Grammar. He founded the Orthological Institute to develop the tools for teaching Basic English. His most famous associate, I.A. Richards, led the effort in the Orient, which uses the techniques to this day. | 我们称之为简化语言基础英语，开发者是Charles K.Ogden，于1930年随书发行：基础英语：规则和语法概论。他成立了矫形学研究所，开发基础英语教学工具。他最著名的助手，I.A.理查兹，在东方领导了这项工作，该公司至今仍在使用这些技术。 |<br>
+| I.A. Richards, led the effort in the Orient, which uses the techniques to this day. | I.A.Richards领导了在东方的努力，该公司至今仍在使用这些技术。 |<br>
+| practitioner                                                 | 专业人员                                                     |<br>
+| identical                                                    | 完全相同的                                                   |<br>
+| usage                                                        | 用法                                                         |<br>
+| eliminate                                                    | 排除                                                         |<br>
+| If one were to take the 25,000 word Oxford Pocket English Dictionary and take away the redundancies of our rich language and eliminate the words that can be made by putting together simpler words, we find that 90% of the concepts in that dictionary can be achieved with 850 words. The shortened list makes simpler the effort to learn spelling and pronunciation irregularities. The rules of usage are identical to full English so that the practitioner communicates in perfectly good, but simple, English. | 如果有人拿25000字的牛津袖珍英语词典来说，去掉我们丰富语言中的多余部分，去掉那些可以通过组合更简单的单词而产生的单词，我们会发现，该词典中90%的概念都可以通过850字来实现。缩短的列表使学习拼写和发音不规则变得更简单。使用规则与全英语完全相同，因此练习者用非常好但简单的英语进行交流。 |<br>
+| redundancies                                                 | 冗余                                                         |<br>
+| episode                                                      | 插曲                                                         |<br>
+| I'm freezing my butt off in the East Coast. Unfortunately, it's winter, but at least the holiday season is coming, so | 我在东海岸快冻死了。不幸的是，现在是冬天，但至少假期即将来临，所以 |<br>
+| freezing                                                     | 极冷的                                                       |<br>
+| transcript                                                   | 成绩单                                                       |<br>
+| It looks like no small feat,                                 | 这看起来不是一个小壮举，                                     |<br>
+| internals                                                    | 内部构件                                                     |<br>
+| spearheading                                                 | 带头                                                         |<br>
+| This time we welcome back friend of the show, Anthony Shaw.  | 这次我们欢迎节目的朋友安东尼·肖回来。                        |<br>
+| FREDDY GUIME                                                 | 弗雷迪·圭梅                                                  |<br>
+| Deviled Eggs                                                 | 魔鬼蛋                                                       |<br>
+| Do you think so? I look around at all the different UI platforms, whether that's the stuff we have in Python or whether that's Swift or whether that's .Net with WPF or whatever else you want to do. Nothing is as easy as I want these buttons here in a text box and a list, and I double click it and I write three lines of code. And that happens, right? | 你这样认为吗？我环顾了所有不同的UI平台，无论是Python中的东西，还是Swift，或者是带WPF的.Net，或者您想做的任何事情。没有什么比我希望这些按钮放在文本框和列表中更简单的了，我双击它，然后写了三行代码。这种情况会发生，对吗？ |<br>
+| Yeah. That's right where we live, where we work pretty much most of our lives spend inside some sort of structure. | 是 啊这就是我们生活的地方，我们工作的地方，我们生活的大部分时间都在某种结构中度过。 |<br>
+| permeates                                                    | 渗透                                                         |<br>
+| I think you'll enjoy this look into that world.              | 我想你会喜欢这个世界。                                       |<br>
+| mosaic                                                       | 马赛克                                                       |<br>
+| keynote                                                      | 基调                                                         |<br>
+| embed                                                        | 嵌入                                                         |<br>
+| Nate                                                         | 内特                                                         |<br>
+| spreadsheet                                                  | 电子表格                                                     |<br>
+| witnessed                                                    | 见证                                                         |<br>
+| Culips                                                       | 库里普斯                                                     |<br>
+| Listen podcasts anytime and anywhere to improve your listening skill. Podcasts often have transcripts and them allow you to listen and read at the same time. | 随时随地收听播客，提高听力技能。播客通常有成绩单，可以让你边听边读。 |<br>
+| Tech                                                         | 技术人员                                                     |<br>
+| Dictation                                                    | 口述                                                         |</p>
+<!-- more -->
+<!-- more -->
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[how learn english --some tips i think]]></title>
         <id>https://www.leslieye.cn/post/how-learn-english-some-tips-i-think/</id>
@@ -406,39 +562,6 @@ $ts hello
 <h3 id="jobs">jobs</h3>
 <p>查看当前有多少个正在后台运行的命令</p>
 <p><em>这些命令很有用，具体的用法可以查看  man手册</em></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[fcrackzip 破解 带密码的压缩文件]]></title>
-        <id>https://www.leslieye.cn/post/1ABCED9979C448429BA08A5EF73A4DDB/</id>
-        <link href="https://www.leslieye.cn/post/1ABCED9979C448429BA08A5EF73A4DDB/">
-        </link>
-        <updated>2020-11-27T08:34:51.000Z</updated>
-        <content type="html"><![CDATA[<p>背景 : 想下载一些视频，好不容易找到了，16个G的zip压缩文件，百度云链接。好不容易下载下来了，才发现解压需要密码，然后作者给了一个支付链接...... 看了一下羞涩的钱包，于是尝试用<code>fcrackzip</code>破解</p>
-<p>我们可以找到这款应用在 <a href="https://www.kali.org/tools/fcrackzip/">kali tool</a> (kali是一个著名的应用于渗透的linux系统) 网站中。<br>
-网站介绍:<br>
-fcrackzip is a fast password cracker partly written in assembler. It is able to crack password protected zip files with brute force or dictionary based attacks, optionally testing with unzip its results. It can also crack cpmask’ed images.<br>
-This package is useful for pentesters, ethical hackers and forensics experts.<br>
-mac 安装：<br>
-<code>brew install fcrackzip</code><br>
-查看帮助:<br>
-<code>man fcrackzip</code><img src="https://www.leslieye.cn//post-images/1638089627767.png" alt="" loading="lazy"><br>
-通过查看帮助文档 :<br>
-发现 -c 参数 可以指定 暴力破解的参数，如数字，大写字母，小写字母，符号。这里只用数字进行破解。如果组合破解，那么如果密码设置过于复杂，暴力破解是出不来的。<br>
-先试试水，这玩意管用不管用。</p>
-<ol>
-<li>加密一个压缩文件<br>
-<code>zip -P 12345 a.zip a.txt</code></li>
-<li>使用fcrackzip来破解<br>
-<code>fcrackzip -b -c '1' -l 1-9 -u a.zip</code><br>
-结果<img src="https://www.leslieye.cn//post-images/1638090100419.png" alt="" loading="lazy"><br>
-3.使用 fcrackzip 来破解压缩包，发现找不到，于是把 -u 参数去掉,看看可能的密码<br>
-<code>fcrackzip -b -c '1' -l 1-9 target.zip</code><br>
-然后结果显示<br>
-<code>possible pw found: 139745 ()</code><br>
-很显然，没有找到正确的密码，用这个密码试一下解压看看。然后竟然解压成功了。 16个G的视频都可以看....wtf;<br>
-解压成功的原因，没弄明白，可能是作者设置的密码就是这个，或者是因为，视频压缩的bug导致解压成功....</li>
-</ol>
 ]]></content>
     </entry>
 </feed>
