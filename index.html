@@ -1,61 +1,54 @@
 ---
 layout: default
-title: 首页
+title: 文档索引
 ---
 
 <style>
-  .category { margin: 10px 0; }
-  .subcategory { margin-left: 20px; }
-  .file-list { margin-left: 40px; }
+  details { margin: 8px 0; }
   summary { font-weight: bold; font-size: 1.1em; cursor: pointer; }
-  details { margin: 5px 0; }
+  .subcategory { margin-left: 1.5em; }
+  .file-list { margin-left: 3em; list-style: disc; }
 </style>
 
 <h1>文档索引</h1>
-<p>以下内容根据文件名自动生成，支持多级分类：</p>
+<p>根据文件名自动生成索引，支持多级分类。</p>
 
-<div>
-{% assign files = site.pages | where_exp: "page", "page.path contains 'notes/'" %}
-{% assign sorted_files = files | sort: "path" %}
+{% assign all_files = site.static_files | where_exp: "file", "file.path contains '/notes/'" %}
+{% assign sorted_files = all_files | sort: "path" %}
+
+{% assign categories = "" | split: "" %}
 
 {% for file in sorted_files %}
-  {% assign parts = file.path | split: '/' | last | split: '--' %}
+  {% assign filename = file.name | replace: '.md','' %}
+  {% assign parts = filename | split: '--' %}
   {% assign depth = parts | size %}
-
   {% if depth == 1 %}
-    <!-- 无分类 -->
-    {% assign category = "其他" %}
-    <details class="category">
-      <summary>{{ category }}</summary>
-      <ul class="file-list">
-        <li><a href="{{ file.url }}">{{ parts[0] | replace: '.md','' | replace: '-', ' ' | capitalize }}</a></li>
-      </ul>
-    </details>
-  {% elsif depth == 2 %}
-    <!-- 一级分类 -->
-    {% assign category = parts[0] %}
-    <details class="category">
-      <summary>{{ category | capitalize }}</summary>
-      <ul class="file-list">
-        <li><a href="{{ file.url }}">{{ parts[1] | replace: '.md','' | replace: '-', ' ' | capitalize }}</a></li>
-      </ul>
-    </details>
+    {% assign cat = "其他" %}
   {% else %}
-    <!-- 多级分类 -->
-    {% assign category = parts[0] %}
-    {% assign subcategory = parts[1] %}
-    <details class="category">
-      <summary>{{ category | capitalize }}</summary>
-      <details class="subcategory">
-        <summary>{{ subcategory | capitalize }}</summary>
-        <ul class="file-list">
-          <li><a href="{{ file.url }}">
-            {{ parts | last | replace: '.md','' | replace: '-', ' ' | capitalize }}
-          </a></li>
-        </ul>
-      </details>
-    </details>
+    {% assign cat = parts[0] %}
   {% endif %}
+  {% assign categories = categories | push: cat %}
 {% endfor %}
-</div>
+
+{% assign unique_categories = categories | uniq | sort %}
+
+{% for category in unique_categories %}
+<details>
+  <summary>{{ category | capitalize }}</summary>
+  <ul class="file-list">
+    {% for file in sorted_files %}
+      {% assign filename = file.name | replace: '.md','' %}
+      {% assign parts = filename | split: '--' %}
+      {% assign depth = parts | size %}
+      {% if (depth == 1 and category == "其他") or (depth > 1 and parts[0] == category) %}
+        <li>
+          <a href="{{ file.path | replace: 'notes','' }}">
+            {{ parts | last | replace: '-',' ' | capitalize }}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</details>
+{% endfor %}
 
