@@ -59,56 +59,91 @@ body.dark #toc{background:#1f2937;color:#e5e7eb;}
   <input type="text" id="searchBox" placeholder="搜索文件..." onkeyup="filterNav()">
   <div id="navListContainer">
     <ul>
-    {% assign files = site.pages | where_exp:"p","p.path contains '我的坚果云/note/'" | sort:"path" %}
-    {% for file in files %}
-      {% assign fname = file.path | split:'/' | last | replace:'.md','' %}
-      {% assign parts = fname | split:'--' %}
-      {% assign level1 = parts[0] | default:"其他" %}
-      {% assign level2 = parts[1] | default:nil %}
-      {% assign level3 = parts[2] | default:nil %}
-      {% assign level4 = parts[3] | default:nil %}
-      {% assign level5 = parts[4] | default:nil %}
-      
-      <details open>
-        <summary>{{ level1 }}</summary>
-        {% if level2 %}
-          <details open>
-            <summary>{{ level2 }}</summary>
-            {% if level3 %}
-              <details open>
-                <summary>{{ level3 }}</summary>
-                {% if level4 %}
-                  <details open>
-                    <summary>{{ level4 }}</summary>
-                    {% if level5 %}
-                      <ul>
-                        <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">{{ level5 }}</a></li>
-                      </ul>
-                    {% else %}
-                      <ul>
-                        <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">{{ level4 }}</a></li>
-                      </ul>
-                    {% endif %}
-                  </details>
-                {% else %}
-                  <ul>
-                    <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">{{ level3 }}</a></li>
-                  </ul>
-                {% endif %}
-              </details>
-            {% else %}
-              <ul>
-                <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">{{ level2 }}</a></li>
-              </ul>
+      {% assign files = site.pages | where_exp:"p","p.path contains '我的坚果云/note/'" | sort:"path" %}
+      {% assign tree = "" | split: "" %}
+
+      {% comment %}
+      构建树结构
+      {% endcomment %}
+      {% for file in files %}
+        {% assign fname = file.path | split:'/' | last | replace:'.md','' %}
+        {% assign parts = fname | split:'--' %}
+        {% assign current = tree %}
+        {% for part in parts %}
+          {% assign found = false %}
+          {% for node in current %}
+            {% if node.name == part %}
+              {% assign current = node.children %}
+              {% assign found = true %}
+              {% break %}
             {% endif %}
-          </details>
-        {% else %}
-          <ul>
-            <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">{{ level1 }}</a></li>
-          </ul>
-        {% endif %}
-      </details>
-    {% endfor %}
+          {% endfor %}
+          {% if found == false %}
+            {% assign new_node = "{'name':'" | append: part | append: "','children':[], 'file':''}" %}
+            {% assign current = current | push:new_node %}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+
+      {% comment %} 
+      因为 GitHub Pages v3.10 Liquid 不支持复杂对象，这里改用简单的直接渲染
+      {% endcomment %}
+
+      {% for file in files %}
+        {% assign fname = file.path | split:'/' | last | replace:'.md','' %}
+        {% assign parts = fname | split:'--' %}
+        <li>
+          {% if parts.size == 1 %}
+            <a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">{{ parts[0] }}</a>
+          {% elsif parts.size == 2 %}
+            <details open>
+              <summary>{{ parts[0] }}</summary>
+              <ul>
+                <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">{{ parts[1] }}</a></li>
+              </ul>
+            </details>
+          {% elsif parts.size == 3 %}
+            <details open>
+              <summary>{{ parts[0] }}</summary>
+              <details open>
+                <summary>{{ parts[1] }}</summary>
+                <ul>
+                  <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">{{ parts[2] }}</a></li>
+                </ul>
+              </details>
+            </details>
+          {% elsif parts.size == 4 %}
+            <details open>
+              <summary>{{ parts[0] }}</summary>
+              <details open>
+                <summary>{{ parts[1] }}</summary>
+                <details open>
+                  <summary>{{ parts[2] }}</summary>
+                  <ul>
+                    <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">{{ parts[3] }}</a></li>
+                  </ul>
+                </details>
+              </details>
+            </details>
+          {% elsif parts.size == 5 %}
+            <details open>
+              <summary>{{ parts[0] }}</summary>
+              <details open>
+                <summary>{{ parts[1] }}</summary>
+                <details open>
+                  <summary>{{ parts[2] }}</summary>
+                  <details open>
+                    <summary>{{ parts[3] }}</summary>
+                    <ul>
+                      <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">{{ parts[4] }}</a></li>
+                    </ul>
+                  </details>
+                </details>
+              </details>
+            </details>
+          {% endif %}
+        </li>
+      {% endfor %}
     </ul>
   </div>
 </nav>
@@ -206,7 +241,7 @@ window.onload=function(){
   var linkElem=null;
   if(id){ linkElem=document.querySelector("#navListContainer a[onclick*='"+id+"']"); }
   else { linkElem=document.querySelector("#navListContainer a"); id=linkElem.getAttribute('onclick').match(/'(.+?)'/)[1]; }
-  if(linkElem){ linkElem.click();}
+  if(linkElem){linkElem.click();}
 }
 </script>
 
