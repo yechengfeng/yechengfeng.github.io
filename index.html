@@ -4,15 +4,14 @@ title: 文档中心
 ---
 
 <style>
-body{margin:0;font-family:"Helvetica Neue", Helvetica, Arial,sans-serif;display:flex;height:100vh;background:#f3f4f6;transition:background 0.3s,color 0.3s;}
+body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;display:flex;height:100vh;background:#f3f4f6;transition:background 0.3s,color 0.3s;}
 body.dark{background:#111827;color:#e5e7eb;}
 nav{width:280px;background:#1f2937;color:#fff;position:fixed;top:0;left:0;height:100%;overflow-y:auto;padding:0;box-sizing:border-box;display:flex;flex-direction:column;transition:background 0.3s,color 0.3s;}
 body.dark nav{background:#111827;color:#e5e7eb;}
-nav .nav-header{display:flex;align-items:center;justify-content:space-between;padding:0.8em 1em;background:#111827;font-weight:bold;font-size:1.1em;color:#f3f4f6;position:sticky;top:0;z-index:10;border-bottom:1px solid #2563eb;}
-body.dark nav .nav-header{background:#1f2937;}
-#navToggle{background:#2563eb;color:#fff;border:none;padding:0.3em 0.6em;border-radius:4px;cursor:pointer;}
-.username{flex:1;text-align:center;font-weight:600;}
-#themeToggle{background:#2563eb;color:#fff;border:none;padding:0.3em 0.6em;border-radius:4px;cursor:pointer;}
+nav .nav-header{display:flex;align-items:center;justify-content:center;padding:0.8em 1em;background:#111827;font-weight:bold;font-size:1.1em;color:#f3f4f6;position:sticky;top:0;z-index:10;border-bottom:1px solid #2563eb;position:relative;}
+#navToggle{position:absolute;left:10px;background:#2563eb;color:#fff;border:none;padding:0.3em 0.6em;border-radius:4px;cursor:pointer;}
+.username{flex:none;margin:0 auto;}
+#themeToggle{position:absolute;right:10px;background:#2563eb;color:#fff;border:none;padding:0.3em 0.6em;border-radius:4px;cursor:pointer;}
 #searchBox{width:90%;margin:0.5em auto;padding:0.4em;border-radius:4px;border:none;outline:none;font-size:0.9em;display:block;}
 nav ul{list-style:none;padding-left:0;margin:0.5em 0;flex:1;}
 nav li{margin:0.2em 0;}
@@ -38,7 +37,7 @@ body.dark #progressBarContainer{background:#374151;}
 body.dark #toc{background:#1f2937;color:#e5e7eb;}
 #toc ul{list-style:none;padding-left:0;margin:0;}
 #toc li{margin:0.2em 0;}
-@media(max-width:768px){nav{left:-280px;transition:left 0.3s ease;z-index:1000;}nav.open{left:0;}main{margin-left:0;padding:1em;}#navToggle{display:block;position:fixed;top:10px;left:10px;z-index:1100;}#navOverlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background: rgba(0,0,0,0.4);z-index:900;}#toc{display:none;}}
+@media(max-width:768px){nav{left:-280px;transition:left 0.3s ease;z-index:1000;}nav.open{left:0;}main{margin-left:0;padding:1em;}#navToggle{display:block;position:fixed;top:10px;left:10px;z-index:1100;}#toc{display:none;}#navOverlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background: rgba(0,0,0,0.4);z-index:900;}}
 </style>
 
 <button id="navToggle">☰</button>
@@ -71,16 +70,16 @@ body.dark #toc{background:#1f2937;color:#e5e7eb;}
               {% assign parts = fname | split:'--' %}
               {% assign depth = parts.size %}
               {% if depth==1 and cat=="其他" %}
-                <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">📄 {{ parts[0] | replace:'-',' ' | capitalize }}</a></li>
+                <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">📄 {{ fname | replace:'-',' ' }}</a></li>
               {% elsif depth>=2 and parts[0]==cat %}
                 {% if depth==2 %}
-                  <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">📄 {{ parts[1] | replace:'-',' ' | capitalize }}</a></li>
+                  <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">📄 {{ parts[1] | replace:'-',' ' }}</a></li>
                 {% else %}
                   <li>
                     <details>
-                      <summary>📂 {{ parts[1] | replace:'-',' ' | capitalize }}</summary>
+                      <summary>📂 {{ parts[1] | replace:'-',' ' }}</summary>
                       <ul>
-                        <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">📄 {{ parts | last | replace:'-',' ' | capitalize }}</a></li>
+                        <li><a href="#" onclick="showArticle('{{ file.url | replace:'/','_' | replace:'.md','' }}', this)">📄 {{ parts | last | replace:'-',' ' }}</a></li>
                       </ul>
                     </details>
                   </li>
@@ -98,10 +97,10 @@ body.dark #toc{background:#1f2937;color:#e5e7eb;}
   <div id="breadcrumb"></div>
   <div id="toc"></div>
   {% for file in files %}
-  {% assign fname = file.path | split:'/' | last | replace:'.md','' %}
-  <div class="article-card" id="{{ file.url | replace:'/','_' | replace:'.md','' }}">
-    {{ file.content | markdownify }}
-  </div>
+    {% assign fname = file.path | split:'/' | last | replace:'.md','' %}
+    <div class="article-card" id="{{ file.url | replace:'/','_' | replace:'.md','' }}">
+      {{ file.content | markdownify }}
+    </div>
   {% endfor %}
 </main>
 
@@ -129,6 +128,7 @@ function showArticle(id, linkElem){
   localStorage.setItem('currentArticle', id);
   if(window.innerWidth<=768){nav.classList.remove('open'); overlay.style.display='none';}
 }
+
 function buildTOC(container){
   toc.innerHTML="";
   if(!container) return;
@@ -147,11 +147,13 @@ function buildTOC(container){
   });
   toc.appendChild(ul);
 }
+
 function filterNav(){
   var input=document.getElementById("searchBox").value.toLowerCase();
   var li=document.querySelectorAll("#navList li");
   li.forEach(item=>{var text=item.textContent.toLowerCase();item.style.display=text.indexOf(input)>-1?"":"none";});
 }
+
 function saveNavState(){
   const details=document.querySelectorAll('nav details');
   let state=[];
@@ -164,8 +166,10 @@ function restoreNavState(){
   details.forEach((d,i)=>{if(state[i]!=undefined)d.open=state[i];});
 }
 document.querySelectorAll('nav details').forEach(d=>d.addEventListener('toggle', saveNavState));
+
 toggle.addEventListener('click', ()=>{nav.classList.add('open'); overlay.style.display='block';});
 overlay.addEventListener('click', ()=>{nav.classList.remove('open'); overlay.style.display='none';});
+
 main.addEventListener('scroll', function(){
   var cards=document.getElementsByClassName('article-card');
   for(var i=0;i<cards.length;i++){
@@ -184,6 +188,7 @@ main.addEventListener('scroll', function(){
   var scrollHeight=main.scrollHeight-main.clientHeight;
   progressBar.style.width=(scrollTop/scrollHeight*100)+"%";
 });
+
 window.onload=function(){
   restoreNavState();
   var id=localStorage.getItem('currentArticle');
@@ -192,6 +197,7 @@ window.onload=function(){
   else { linkElem=document.querySelector("#navList a"); id=linkElem.getAttribute('onclick').match(/'(.+?)'/)[1]; }
   if(linkElem){ linkElem.click(); }
 }
+
 themeToggle.addEventListener('click', ()=>{
   document.body.classList.toggle('dark');
   localStorage.setItem('theme', document.body.classList.contains('dark')?"dark":"light");
