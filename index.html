@@ -4,74 +4,198 @@ title: 首页
 ---
 
 <style>
-body { font-family: sans-serif; }
-ul { list-style-type: none; padding-left: 0; }
-details { margin: 5px 0; }
-summary { font-weight: bold; cursor: pointer; }
-summary:hover { color: #2c7be5; }
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  background-color: #f9f9f9;
+  color: #333;
+  display: flex;
+}
+
+/* 左侧导航栏 */
+nav {
+  width: 250px;
+  background: #fff;
+  border-right: 1px solid #ddd;
+  padding: 1em;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+nav h2 {
+  font-size: 1.1em;
+  color: #2c7be5;
+  margin-top: 1em;
+}
+
+nav ul { list-style: none; padding-left: 0; }
+
+nav li a {
+  text-decoration: none;
+  color: #333;
+}
+
+nav li a:hover {
+  color: #2c7be5;
+}
+
+/* 搜索框 */
+#searchBox {
+  width: 100%;
+  padding: 0.4em;
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 主内容区域 */
+main {
+  margin-left: 260px;
+  padding: 2em;
+  flex: 1;
+}
+
+details {
+  margin: 0.5em 0;
+  background: #fff;
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+summary {
+  font-weight: bold;
+  font-size: 1.1em;
+  cursor: pointer;
+  color: #2c7be5;
+}
+
+summary:hover { color: #1a5bb8; }
+
 .details-child { margin-left: 1.5em; }
-a { text-decoration: none; color: #333; }
-a:hover { color: #2c7be5; }
+.file-list { margin-left: 2em; }
+
+.file-item {
+  padding: 0.2em 0;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+a:hover {
+  color: #2c7be5;
+}
 </style>
 
-<h1>📚 文档索引</h1>
-
-{% comment %}
-  Step 1: 收集文件并按路径解析成数组
-{% endcomment %}
-{% assign files = site.pages | where_exp:"p","p.path contains '我的坚果云/note/'" | sort: "path" %}
-
-{% assign tree = "" | split: "" %}
-
-{% for file in files %}
-  {% assign fname = file.path | split: '/' | last | replace: '.md','' %}
-  {% assign parts = fname | split: '--' %}
-  {% if parts.size == 1 %}
-    {% assign parts = "其他" | append: "--" | append: parts[0] | split: '--' %}
-  {% endif %}
-
-  {% assign current = tree %}
-  {% for part in parts %}
-    {% assign exists = false %}
-    {% for node in current %}
-      {% if node.name == part %}
-        {% assign current = node.children %}
-        {% assign exists = true %}
+<nav>
+  <input type="text" id="searchBox" placeholder="搜索文件..." onkeyup="filterNav()">
+  <ul id="navList">
+    {% assign files = site.pages | where_exp:"p","p.path contains '我的坚果云/note/'" | sort: "path" %}
+    {% assign grouped = "" | split: "" %}
+    {% for file in files %}
+      {% assign fname = file.path | split: '/' | last | replace: '.md','' %}
+      {% assign parts = fname | split: '--' %}
+      {% if parts.size > 1 %}
+        {% assign first_cat = parts[0] %}
+      {% else %}
+        {% assign first_cat = "其他" %}
       {% endif %}
+      {% assign grouped = grouped | push: first_cat %}
     {% endfor %}
-    {% if exists == false %}
-      {% assign new_node = {"name": part, "url": "", "children": "" | split: "" } %}
-      {% if forloop.last %}
-        {% assign new_node.url = file.url %}
-      {% endif %}
-      {% assign current = current | push: new_node %}
-      {% assign current = current %}
-    {% endif %}
-  {% endfor %}
-{% endfor %}
-
-{% comment %}
-  Step 2: 递归渲染函数
-{% endcomment %}
-{% macro render_tree nodes %}
-  <ul>
-  {% for node in nodes %}
-    {% if node.children.size > 0 %}
+    {% assign unique_cats = grouped | uniq %}
+    {% for cat in unique_cats %}
       <li>
-        <details>
-          <summary>{{ node.name | capitalize }}</summary>
-          {{ render_tree(node.children) }}
-        </details>
+        <strong>{{ cat | capitalize }}</strong>
+        <ul>
+          {% for file in files %}
+            {% assign fname = file.path | split: '/' | last | replace: '.md','' %}
+            {% assign parts = fname | split: '--' %}
+            {% assign depth = parts.size %}
+            {% if depth == 1 and cat == "其他" %}
+              <li><a href="{{ file.url }}">{{ parts[0] | replace:'-',' ' | capitalize }}</a></li>
+            {% elsif depth >=2 and parts[0] == cat %}
+              {% if depth == 2 %}
+                <li><a href="{{ file.url }}">{{ parts[1] | replace:'-',' ' | capitalize }}</a></li>
+              {% else %}
+                <li>
+                  <strong>{{ parts[1] | replace:'-',' ' | capitalize }}</strong>
+                  <ul>
+                    <li><a href="{{ file.url }}">{{ parts | last | replace:'-',' ' | capitalize }}</a></li>
+                  </ul>
+                </li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </ul>
       </li>
-    {% else %}
-      <li>📄 <a href="{{ node.url }}">{{ node.name | capitalize }}</a></li>
-    {% endif %}
-  {% endfor %}
+    {% endfor %}
   </ul>
-{% endmacro %}
+</nav>
 
-{% comment %}
-  Step 3: 渲染整个树
-{% endcomment %}
-{{ render_tree(tree) }}
+<main>
+  <h1>📚 我的文档索引</h1>
+  <p class="description">左侧导航栏显示所有分类，点击即可快速访问文件，支持多级折叠浏览</p>
+
+  <ul>
+    {% for cat in unique_cats %}
+    <li>
+      <details open>
+        <summary>📂 {{ cat | capitalize }}</summary>
+        <ul class="file-list">
+          {% for file in files %}
+            {% assign fname = file.path | split: '/' | last | replace: '.md','' %}
+            {% assign parts = fname | split: '--' %}
+            {% assign depth = parts.size %}
+
+            {% if depth == 1 and cat == "其他" %}
+              <li class="file-item">📄 <a href="{{ file.url }}">{{ parts[0] | replace: '-', ' ' | capitalize }}</a></li>
+            {% elsif depth == 2 and parts[0] == cat %}
+              <li class="file-item">📄 <a href="{{ file.url }}">{{ parts[1] | replace: '-', ' ' | capitalize }}</a></li>
+            {% elsif depth > 2 and parts[0] == cat %}
+              <li class="file-item">
+                <details class="details-child">
+                  <summary>📂 {{ parts[1] | replace: '-', ' ' | capitalize }}</summary>
+                  <ul class="file-list">
+                    {% if depth > 3 %}
+                      {% assign subname = parts | slice: 2, depth-2 | join: ' → ' %}
+                      <li class="file-item">📄 <a href="{{ file.url }}">{{ subname | replace: '-', ' ' | capitalize }}</a></li>
+                    {% else %}
+                      <li class="file-item">📄 <a href="{{ file.url }}">{{ parts | last | replace: '-', ' ' | capitalize }}</a></li>
+                    {% endif %}
+                  </ul>
+                </details>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </details>
+    </li>
+    {% endfor %}
+  </ul>
+</main>
+
+<script>
+function filterNav() {
+  var input = document.getElementById("searchBox");
+  var filter = input.value.toLowerCase();
+  var ul = document.getElementById("navList");
+  var li = ul.getElementsByTagName("li");
+
+  for (var i = 0; i < li.length; i++) {
+    var a = li[i].getElementsByTagName("a");
+    var txtValue = "";
+    for (var j = 0; j < a.length; j++) {
+      txtValue += a[j].textContent || a[j].innerText;
+    }
+    if (txtValue.toLowerCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+</script>
 
