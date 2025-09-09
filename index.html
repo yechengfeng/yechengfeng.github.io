@@ -18,6 +18,7 @@ main {margin-left:260px;padding:1em;flex:1;overflow:auto;}
 .article-card {display:none;}
 .article-card.active {display:block;}
 #navToggle {display:none;}
+#searchBox {width:calc(100% - 2em);margin:0.5em 1em;padding:0.4em;border-radius:4px;border:none;}
 @media(max-width:768px){
   #navToggle {display:block;position:fixed;top:10px;left:10px;z-index:1000;}
   nav {left:-260px;transition:left 0.3s;}
@@ -56,19 +57,25 @@ var files = [
   {% endfor %}
 ];
 
-// 构建树
+// 构建树：目录对象包含 children 和 files
 function buildTree(files){
   let root = {};
   files.forEach(f=>{
     let parts = f.name.split('--');
     let current = root;
-    for(let i=0;i<parts.length;i++){
-      let part = parts[i];
-      if(!current[part]) current[part] = {children:{}, files:[]};
-      if(i===parts.length-1){
-        current[part].files.push({name:parts[i], url:f.url});
+    // 如果没有目录分隔符，直接放到 root._files
+    if(parts.length === 1){
+      if(!current._files) current._files = [];
+      current._files.push({name:parts[0], url:f.url});
+    } else {
+      for(let i=0;i<parts.length;i++){
+        let part = parts[i];
+        if(!current[part]) current[part] = {children:{}, files:[]};
+        if(i===parts.length-1){
+          current[part].files.push({name:parts[i], url:f.url});
+        }
+        current = current[part].children;
       }
-      current = current[part].children;
     }
   });
   return root;
@@ -76,41 +83,45 @@ function buildTree(files){
 
 // 渲染树
 function renderTree(node, container){
-  Object.keys(node).forEach(key=>{
-    let value = node[key];
-    let li = document.createElement('li');
-    // 目录
-    if(Object.keys(value.children).length>0 || value.files.length>0){
-      let details = document.createElement('details');
-      let summary = document.createElement('summary');
-      summary.textContent = key;
-      details.appendChild(summary);
-
-      // 先渲染子目录
-      let ul = document.createElement('ul');
-      renderTree(value.children, ul);
-
-      // 再渲染文件
-      value.files.forEach(f=>{
-        let fileLi = document.createElement('li');
-        let a = document.createElement('a');
-        a.href="#";
-        a.textContent = f.name;
-        a.onclick=()=>{showArticle(f.url,a); return false;};
-        fileLi.appendChild(a);
-        ul.appendChild(fileLi);
-      });
-
-      details.appendChild(ul);
-      li.appendChild(details);
-    } else {
-      // 叶子文件
+  // 先渲染 root._files（没有目录的文件）
+  if(node._files){
+    node._files.forEach(f=>{
+      let li = document.createElement('li');
       let a = document.createElement('a');
       a.href="#";
-      a.textContent = key;
-      a.onclick=()=>{showArticle(value.url,a); return false;};
+      a.textContent = f.name;
+      a.onclick=()=>{showArticle(f.url,a); return false;};
       li.appendChild(a);
-    }
+      container.appendChild(li);
+    });
+  }
+
+  Object.keys(node).forEach(key=>{
+    if(key === "_files") return;
+    let value = node[key];
+    let li = document.createElement('li');
+    let details = document.createElement('details');
+    let summary = document.createElement('summary');
+    summary.textContent = key;
+    details.appendChild(summary);
+
+    // 渲染子目录
+    let ul = document.createElement('ul');
+    renderTree(value.children, ul);
+
+    // 渲染叶子文件
+    value.files.forEach(f=>{
+      let fileLi = document.createElement('li');
+      let a = document.createElement('a');
+      a.href="#";
+      a.textContent = f.name;
+      a.onclick=()=>{showArticle(f.url,a); return false;};
+      fileLi.appendChild(a);
+      ul.appendChild(fileLi);
+    });
+
+    details.appendChild(ul);
+    li.appendChild(details);
     container.appendChild(li);
   });
 }
@@ -139,6 +150,7 @@ document.getElementById('navToggle').addEventListener('click', ()=>{
   document.querySelector('nav').classList.toggle('open');
 });
 
+// 初始化
 window.onload=function(){
   let tree=buildTree(files);
   renderTree(tree, document.getElementById('navList'));
