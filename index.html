@@ -1,901 +1,160 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yechengfeng 文档中心</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #3498db;
-            --secondary-color: #2c3e50;
-            --accent-color: #e74c3c;
-            --light-bg: #f8f9fa;
-            --dark-bg: #2c3e50;
-            --text-dark: #2c3e50;
-            --text-light: #ecf0f1;
-            --border-color: #ddd;
-            --sidebar-width: 300px;
-            --header-height: 60px;
-            --transition-speed: 0.3s;
-        }
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background-color: var(--light-bg);
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-        }
-        
-        /* 顶部导航栏 */
-        .header {
-            height: var(--header-height);
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .header .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-        
-        .header .logo i {
-            margin-right: 10px;
-            color: var(--primary-color);
-        }
-        
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .search-container {
-            position: relative;
-        }
-        
-        .search-container input {
-            padding: 8px 15px 8px 35px;
-            border-radius: 20px;
-            border: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            width: 200px;
-            transition: width var(--transition-speed);
-        }
-        
-        .search-container input:focus {
-            outline: none;
-            width: 250px;
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .search-container i {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-light);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* 主内容布局 */
-        .main-container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-        
-        /* 侧边栏 */
-        .sidebar {
-            width: var(--sidebar-width);
-            background-color: white;
-            border-right: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transition: transform var(--transition-speed);
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
-        }
-        
-        .sidebar-header {
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--border-color);
-            font-weight: bold;
-            color: var(--secondary-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .sidebar-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px 0;
-        }
-        
-        /* 导航树样式 */
-        .nav-tree {
-            list-style: none;
-            padding: 0 10px;
-        }
-        
-        .nav-tree ul {
-            list-style: none;
-            padding-left: 20px;
-        }
-        
-        .nav-tree li {
-            margin: 3px 0;
-        }
-        
-        .nav-tree .folder {
-            position: relative;
-        }
-        
-        .nav-tree .folder > .folder-content {
-            display: none;
-        }
-        
-        .nav-tree .folder.open > .folder-content {
-            display: block;
-        }
-        
-        .nav-tree .folder-toggle {
-            position: absolute;
-            left: -15px;
-            top: 7px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            color: #777;
-            width: 15px;
-            text-align: center;
-        }
-        
-        .nav-tree .folder-title, .nav-tree .file {
-            padding: 8px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            transition: background-color var(--transition-speed);
-        }
-        
-        .nav-tree .folder-title:hover, .nav-tree .file:hover {
-            background-color: rgba(52, 152, 219, 0.1);
-        }
-        
-        .nav-tree .file.active {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .nav-tree .folder-title i {
-            margin-right: 8px;
-            font-size: 0.9rem;
-            color: #f39c12;
-        }
-        
-        .nav-tree .file i {
-            margin-right: 8px;
-            font-size: 0.9rem;
-            color: #7f8c8d;
-        }
-        
-        /* 内容区域 */
-        .content {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            background-color: white;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .article-header {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .article-header h1 {
-            color: var(--secondary-color);
-            font-size: 1.8rem;
-        }
-        
-        .article-meta {
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .article-meta i {
-            margin-right: 5px;
-        }
-        
-        .article-content {
-            line-height: 1.8;
-        }
-        
-        .article-content h2 {
-            color: var(--secondary-color);
-            margin: 25px 0 15px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .article-content h3 {
-            color: var(--secondary-color);
-            margin: 20px 0 12px;
-        }
-        
-        .article-content p {
-            margin-bottom: 15px;
-        }
-        
-        .article-content code {
-            background-color: #f8f9fa;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-        }
-        
-        .article-content pre {
-            background-color: #2d3e50;
-            color: #ecf0f1;
-            padding: 15px;
-            border-radius: 6px;
-            overflow: auto;
-            margin: 15px 0;
-            line-height: 1.5;
-        }
-        
-        .article-content pre code {
-            background: none;
-            padding: 0;
-            color: inherit;
-        }
-        
-        .article-content blockquote {
-            border-left: 4px solid var(--primary-color);
-            padding-left: 15px;
-            margin: 20px 0;
-            color: #555;
-            font-style: italic;
-        }
-        
-        /* 空状态 */
-        .empty-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            text-align: center;
-            color: #7f8c8d;
-        }
-        
-        .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: #bdc3c7;
-        }
-        
-        .empty-state p {
-            max-width: 400px;
-            margin-bottom: 20px;
-        }
-        
-        /* 响应式设计 */
-        @media (max-width: 992px) {
-            .sidebar {
-                position: fixed;
-                left: 0;
-                top: var(--header-height);
-                bottom: 0;
-                z-index: 90;
-                transform: translateX(-100%);
-            }
-            
-            .sidebar.open {
-                transform: translateX(0);
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-            
-            .content {
-                margin: 10px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .header {
-                padding: 0 15px;
-            }
-            
-            .search-container input {
-                width: 150px;
-            }
-            
-            .search-container input:focus {
-                width: 180px;
-            }
-            
-            .content {
-                padding: 15px;
-            }
-            
-            .article-header h1 {
-                font-size: 1.5rem;
-            }
-        }
-        
-        /* 动画效果 */
-        .fade-in {
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        /* 滚动条样式 */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: #c4c4c4;
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: #a0a0a0;
-        }
-    </style>
-</head>
-<body>
-    <!-- 顶部导航栏 -->
-    <header class="header">
-        <div class="logo">
-            <i class="fas fa-book-open"></i>
-            <span>Yechengfeng 文档中心</span>
-        </div>
-        <div class="header-actions">
-            <div class="search-container">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="搜索文档...">
-            </div>
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
-    
-    <!-- 主内容区域 -->
-    <div class="main-container">
-        <!-- 侧边栏 -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <span>文档导航</span>
-                <i class="fas fa-folder-tree"></i>
-            </div>
-            <div class="sidebar-content">
-                <ul class="nav-tree" id="navTree">
-                    <!-- 导航树将通过JavaScript动态生成 -->
-                </ul>
-            </div>
-        </aside>
-        
-        <!-- 内容区域 -->
-        <main class="content" id="content">
-            <div class="empty-state" id="emptyState">
-                <i class="fas fa-file-alt"></i>
-                <h3>欢迎使用文档中心</h3>
-                <p>从左侧导航选择一个文档开始阅读，或者使用搜索功能查找特定内容。</p>
-                <p>您的所有文档都已就绪，共 <span id="fileCount">0</span> 个文件等待探索。</p>
-            </div>
-            
-            <article class="article" id="article" style="display: none;">
-                <div class="article-header">
-                    <h1 id="articleTitle">文档标题</h1>
-                    <div class="article-meta">
-                        <span><i class="far fa-clock"></i> 最后更新: <span id="articleDate">2023年10月15日</span></span>
-                    </div>
-                </div>
-                <div class="article-content" id="articleContent">
-                    <!-- 文档内容将通过JavaScript动态加载 -->
-                </div>
-            </article>
-        </main>
-    </div>
+---
+layout: default
+title: 文档中心
+---
 
-    <script>
-        // 模拟文档数据 - 实际使用时将由Jekyll生成或通过API获取
-        const documents = [
-            {
-                id: "doc-1",
-                title: "GitHub-Pages--使用指南--入门",
-                content: `# GitHub Pages 使用指南
-GitHub Pages 是一项静态站点托管服务，它直接从 GitHub 上的仓库获取 HTML、CSS 和 JavaScript 文件，然后发布网站。
-
-## 设置 GitHub Pages
-要设置 GitHub Pages，请按照以下步骤操作：
-1. 创建一个新仓库或导航到现有仓库
-2. 在设置中，找到 GitHub Pages 部分
-3. 选择发布源（通常是 main 分支或 docs 文件夹）
-4. 点击保存，您的网站将在几分钟内发布
-
-## 自定义域名
-您可以为 GitHub Pages 站点添加自定义域名：
-\`\`\`bash
-# 在仓库根目录创建 CNAME 文件
-echo 'example.com' > CNAME
-\`\`\`
-然后在您的 DNS 提供商处配置相应的记录。`,
-                lastUpdated: "2023年10月15日"
-            },
-            {
-                id: "doc-2",
-                title: "GitHub-Pages--使用指南--高级配置",
-                content: `# GitHub Pages 高级配置
-深入了解 GitHub Pages 的高级配置选项。
-
-## Jekyll 配置
-GitHub Pages 默认使用 Jekyll 静态网站生成器。您可以通过 _config.yml 文件自定义设置：
-\`\`\`yaml
-title: 我的网站
-description: 网站描述
-theme: jekyll-theme-minimal
-\`\`\`
-
-## 自定义构建流程
-对于更高级的用例，您可以使用 GitHub Actions 来自定义构建过程。`,
-                lastUpdated: "2023年10月10日"
-            },
-            {
-                id: "doc-3",
-                title: "Jekyll--静态网站生成器--基础",
-                content: `# Jekyll 静态网站生成器
-Jekyll 是一个简单的静态网站生成器，非常适合与 GitHub Pages 配合使用。
-
-## 安装 Jekyll
-在本地安装 Jekyll：
-\`\`\`bash
-gem install jekyll bundler
-jekyll new my-site
-cd my-site
-bundle exec jekyll serve
-\`\`\`
-
-## 基本概念
-Jekyll 使用 Liquid 模板语言和 Markdown 来生成静态网站。主要组件包括：
-- 布局（Layouts）
-- 包含文件（Includes）
-- 文章（Posts）
-- 数据文件（Data Files）`,
-                lastUpdated: "2023年10月5日"
-            },
-            {
-                id: "doc-4",
-                title: "Jekyll--静态网站生成器--主题",
-                content: `# Jekyll 主题
-Jekyll 主题让您能够快速改变网站的外观和感觉。
-
-## 使用主题
-在 _config.yml 中指定主题：
-\`\`\`yaml
-theme: jekyll-theme-minimal
-\`\`\`
-
-## 自定义主题
-您可以覆盖主题的默认样式和布局，只需在您的项目中创建同名文件。`,
-                lastUpdated: "2023年10月3日"
-            },
-            {
-                id: "doc-5",
-                title: "Markdown--语法参考",
-                content: `# Markdown 语法参考
-Markdown 是一种轻量级标记语言，允许人们使用易读易写的纯文本格式编写文档。
-
-## 标题
-\`\`\`markdown
-# H1
-## H2
-### H3
-#### H4
-\`\`\`
-
-## 强调
-\`\`\`markdown
-*斜体文本*
-_斜体文本_
-**粗体文本**
-__粗体文本__
-\`\`\`
-
-## 列表
-\`\`\`markdown
-1. 有序列表项
-2. 另一个项目
-
-- 无序列表项
-- 另一个项目
-\`\`\`
-
-## 代码
-\`\`\`markdown
-\`内联代码\`
-
-\`\`\`python
-代码块
-print("Hello World")
-\`\`\`
-\`\`\``,
-                lastUpdated: "2023年9月28日"
-            },
-            {
-                id: "doc-6",
-                title: "JavaScript--ES6--新特性",
-                content: `# JavaScript ES6 新特性
-ES6（ECMAScript 2015）为 JavaScript 引入了许多新特性。
-
-## 箭头函数
-\`\`\`javascript
-// 传统函数
-function add(a, b) {
-    return a + b;
+<style>
+body {margin:0;font-family:Arial,Helvetica,sans-serif;display:flex;height:100vh;}
+nav {width:260px;background:#1f2937;color:#fff;position:fixed;top:0;left:0;height:100%;overflow:auto;}
+nav .nav-header {padding:1em;text-align:center;font-weight:bold;font-size:1.2em;background:#111827;}
+nav ul {list-style:none;padding-left:0;margin:0;}
+nav li a {display:block;color:#e5e7eb;text-decoration:none;padding:0.4em 1em;}
+nav li a:hover, nav li a.active {background:#3b82f6;color:#fff;border-radius:4px;}
+details summary {cursor:pointer;padding:0.4em 1em;}
+details[open]>summary {font-weight:bold;}
+details summary::after {content:"▸";float:right;transition:transform 0.2s;}
+details[open] summary::after {transform:rotate(90deg);}
+main {margin-left:260px;padding:1em;flex:1;overflow:auto;}
+.article-card {display:none;}
+.article-card.active {display:block;}
+#navToggle {display:none;}
+#searchBox {width:calc(100% - 2em);margin:0.5em 1em;padding:0.4em;border-radius:4px;border:none;}
+@media(max-width:768px){
+  #navToggle {display:block;position:fixed;top:10px;left:10px;z-index:1000;}
+  nav {left:-260px;transition:left 0.3s;}
+  nav.open {left:0;}
+  main {margin-left:0;}
 }
+</style>
 
-// 箭头函数
-const add = (a, b) => a + b;
-\`\`\`
+<button id="navToggle">☰</button>
 
-## 模板字符串
-\`\`\`javascript
-const name = 'John';
-console.log(\`Hello, \${name}!\`);
-\`\`\`
+<nav>
+  <div class="nav-header">Yechengfeng</div>
+  <input type="text" id="searchBox" placeholder="搜索文件..." onkeyup="filterNav()">
+  <div id="navListContainer">
+    <ul id="navList"></ul>
+  </div>
+</nav>
 
-## 解构赋值
-\`\`\`javascript
-const point = { x: 1, y: 2 };
-const { x, y } = point;
-console.log(x, y); // 1, 2
-\`\`\``,
-                lastUpdated: "2023年9月25日"
-            },
-            {
-                id: "doc-7",
-                title: "Vue--组件开发",
-                content: `# Vue 组件开发
-Vue 组件是 Vue.js 最强大的功能之一。
-
-## 单文件组件
-单文件组件将模板、脚本和样式封装在一个 .vue 文件中：
-\`\`\`vue
-<template>
-  <div class="example">{{ msg }}</div>
-</template>
+<main id="mainContent">
+  {% assign files = site.pages | where_exp:"p","p.path contains '我的坚果云/note/'" | sort:"path" %}
+  {% for file in files %}
+    <div class="article-card" id="{{ file.url | replace:'/','_' | replace:'.md','' }}">
+      {{ file.content | markdownify }}
+    </div>
+  {% endfor %}
+</main>
 
 <script>
-export default {
-  data() {
-    return {
-      msg: 'Hello world!'
+var files = [
+  {% for file in files %}
+    {
+      name: "{{ file.path | split:'/' | last | replace:'.md','' }}",
+      url: "{{ file.url | replace:'/','_' | replace:'.md','' }}"
+    },
+  {% endfor %}
+];
+
+function buildTree(files){
+  let root = {_files:[]};
+  files.forEach(f=>{
+    let parts = f.name.split('--');
+    if(parts.length === 1){
+      root._files.push({name: parts[0], url:f.url});
+    } else {
+      let current = root;
+      for(let i=0;i<parts.length-1;i++){
+        let part = parts[i];
+        if(!current[part]) current[part] = {children:{}, files:[]};
+        current = current[part].children;
+      }
+      // 最后一层文件直接放到 files
+      let lastPart = parts[parts.length-1];
+      let parentKey = parts[parts.length-2];
+      if(!current._files) current._files = [];
+      current._files.push({name:lastPart, url:f.url});
     }
+  });
+  return root;
+}
+
+function renderTree(node, container){
+  // render _files
+  if(node._files){
+    node._files.forEach(f=>{
+      let li = document.createElement('li');
+      let a = document.createElement('a');
+      a.href="#";
+      a.textContent = f.name;
+      a.onclick=()=>{showArticle(f.url,a); return false;};
+      li.appendChild(a);
+      container.appendChild(li);
+    });
+  }
+
+  Object.keys(node).forEach(key=>{
+    if(key === "_files" || key === "children") return;
+    let value = node[key];
+    let li = document.createElement('li');
+    let details = document.createElement('details');
+    let summary = document.createElement('summary');
+    summary.textContent = key;
+    details.appendChild(summary);
+
+    let ul = document.createElement('ul');
+    renderTree(value.children, ul);
+
+    // render _files at this level
+    if(value._files){
+      value._files.forEach(f=>{
+        let fileLi = document.createElement('li');
+        let a = document.createElement('a');
+        a.href="#";
+        a.textContent = f.name;
+        a.onclick=()=>{showArticle(f.url,a); return false;};
+        fileLi.appendChild(a);
+        ul.appendChild(fileLi);
+      });
+    }
+
+    details.appendChild(ul);
+    li.appendChild(details);
+    container.appendChild(li);
+  });
+}
+
+function showArticle(id, linkElem){
+  document.querySelectorAll('.article-card').forEach(c=>c.classList.remove('active'));
+  let article=document.getElementById(id);
+  if(article) article.classList.add('active');
+  document.querySelectorAll("#navListContainer a").forEach(a=>a.classList.remove("active"));
+  if(linkElem) linkElem.classList.add("active");
+  localStorage.setItem('currentArticle', id);
+  if(window.innerWidth<=768) document.querySelector('nav').classList.remove('open');
+}
+
+function filterNav(){
+  let input=document.getElementById('searchBox').value.toLowerCase();
+  document.querySelectorAll("#navListContainer li").forEach(item=>{
+    item.style.display=item.textContent.toLowerCase().includes(input)?"":"none";
+  });
+}
+
+document.getElementById('navToggle').addEventListener('click', ()=>{
+  document.querySelector('nav').classList.toggle('open');
+});
+
+window.onload=function(){
+  let tree=buildTree(files);
+  renderTree(tree, document.getElementById('navList'));
+  let id=localStorage.getItem('currentArticle');
+  if(id && document.querySelector("#navListContainer a[onclick*='"+id+"']")){
+    document.querySelector("#navListContainer a[onclick*='"+id+"']").click();
+  } else {
+    let firstLink=document.querySelector("#navListContainer a");
+    if(firstLink) firstLink.click();
   }
 }
 </script>
 
-<style>
-.example {
-  color: red;
-}
-</style>
-\`\`\`
-
-## 组件通信
-Vue 组件可以通过 props、events 和 provide/inject 进行通信。`,
-                lastUpdated: "2023年9月20日"
-            }
-        ];
-
-        // DOM 元素引用
-        const navTree = document.getElementById('navTree');
-        const content = document.getElementById('content');
-        const emptyState = document.getElementById('emptyState');
-        const article = document.getElementById('article');
-        const articleTitle = document.getElementById('articleTitle');
-        const articleDate = document.getElementById('articleDate');
-        const articleContent = document.getElementById('articleContent');
-        const searchInput = document.getElementById('searchInput');
-        const menuToggle = document.getElementById('menuToggle');
-        const sidebar = document.getElementById('sidebar');
-        const fileCount = document.getElementById('fileCount');
-
-        // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            // 显示文档数量
-            fileCount.textContent = documents.length;
-            
-            // 构建导航树
-            buildNavTree();
-            
-            // 设置事件监听器
-            setupEventListeners();
-            
-            // 检查是否有上次查看的文档
-            const lastViewed = localStorage.getItem('lastViewedDoc');
-            if (lastViewed) {
-                const doc = documents.find(d => d.id === lastViewed);
-                if (doc) {
-                    displayDocument(doc);
-                }
-            }
-        });
-
-        // 构建导航树
-        function buildNavTree() {
-            const tree = {};
-            
-            // 构建树结构
-            documents.forEach(doc => {
-                const parts = doc.title.split('--');
-                let currentLevel = tree;
-                
-                for (let i = 0; i < parts.length; i++) {
-                    const part = parts[i];
-                    
-                    if (i === parts.length - 1) {
-                        // 最后一部分是文件
-                        if (!currentLevel._files) currentLevel._files = [];
-                        currentLevel._files.push({
-                            id: doc.id,
-                            name: part,
-                            title: doc.title,
-                            lastUpdated: doc.lastUpdated
-                        });
-                    } else {
-                        // 中间部分是目录
-                        if (!currentLevel[part]) {
-                            currentLevel[part] = {};
-                        }
-                        currentLevel = currentLevel[part];
-                    }
-                }
-            });
-            
-            // 渲染树
-            renderTree(tree, navTree);
-        }
-
-        // 渲染树
-        function renderTree(node, container, level = 0) {
-            // 先渲染文件夹
-            for (const key in node) {
-                if (key === '_files') continue;
-                
-                const li = document.createElement('li');
-                li.className = 'folder';
-                
-                const folderTitle = document.createElement('div');
-                folderTitle.className = 'folder-title';
-                folderTitle.innerHTML = `
-                    <i class="fas fa-folder${level === 0 ? '-open' : ''}"></i>
-                    <span>${key}</span>
-                `;
-                
-                const toggle = document.createElement('span');
-                toggle.className = 'folder-toggle';
-                toggle.innerHTML = '<i class="fas fa-caret-right"></i>';
-                toggle.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    li.classList.toggle('open');
-                    const icon = toggle.querySelector('i');
-                    if (li.classList.contains('open')) {
-                        icon.className = 'fas fa-caret-down';
-                    } else {
-                        icon.className = 'fas fa-caret-right';
-                    }
-                });
-                
-                li.appendChild(toggle);
-                li.appendChild(folderTitle);
-                
-                const folderContent = document.createElement('ul');
-                folderContent.className = 'folder-content';
-                
-                // 递归渲染子节点
-                renderTree(node[key], folderContent, level + 1);
-                
-                li.appendChild(folderContent);
-                container.appendChild(li);
-                
-                // 默认展开第一级
-                if (level === 0) {
-                    li.classList.add('open');
-                    toggle.querySelector('i').className = 'fas fa-caret-down';
-                }
-            }
-            
-            // 再渲染文件
-            if (node._files) {
-                node._files.forEach(file => {
-                    const li = document.createElement('li');
-                    const fileElement = document.createElement('div');
-                    fileElement.className = 'file';
-                    fileElement.innerHTML = `
-                        <i class="far fa-file-alt"></i>
-                        <span>${file.name}</span>
-                    `;
-                    
-                    fileElement.addEventListener('click', function() {
-                        // 移除所有活动状态
-                        document.querySelectorAll('.file').forEach(f => {
-                            f.classList.remove('active');
-                        });
-                        
-                        // 设置当前文件为活动状态
-                        fileElement.classList.add('active');
-                        
-                        // 显示文档内容
-                        const doc = documents.find(d => d.id === file.id);
-                        if (doc) {
-                            displayDocument(doc);
-                            // 存储最后查看的文档
-                            localStorage.setItem('lastViewedDoc', doc.id);
-                        }
-                    });
-                    
-                    li.appendChild(fileElement);
-                    container.appendChild(li);
-                });
-            }
-        }
-
-        // 显示文档内容
-        function displayDocument(doc) {
-            // 隐藏空状态，显示文章
-            emptyState.style.display = 'none';
-            article.style.display = 'block';
-            
-            // 更新文章内容
-            articleTitle.textContent = doc.title.split('--').pop();
-            articleDate.textContent = doc.lastUpdated;
-            
-            // 将Markdown内容转换为HTML（简单实现）
-            let htmlContent = doc.content;
-            
-            // 标题
-            htmlContent = htmlContent.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-            htmlContent = htmlContent.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-            htmlContent = htmlContent.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-            
-            // 粗体和斜体
-            htmlContent = htmlContent.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
-            htmlContent = htmlContent.replace(/\*(.*?)\*/gim, '<em>$1</em>');
-            
-            // 代码块
-            htmlContent = htmlContent.replace(/```(\w+)?\s([\s\S]*?)```/gim, '<pre><code>$2</code></pre>');
-            
-            // 内联代码
-            htmlContent = htmlContent.replace(/`(.*?)`/gim, '<code>$1</code>');
-            
-            // 段落
-            htmlContent = htmlContent.replace(/^\s*(\n)?(.+)/gim, function(m){
-                return /\<(\/)?(h\d|ul|ol|li|blockquote|pre|code)/.test(m) ? m : '<p>'+m+'</p>';
-            });
-            
-            // 列表
-            htmlContent = htmlContent.replace(/^\s*\- (.*$)/gim, '<ul><li>$1</li></ul>');
-            htmlContent = htmlContent.replace(/^\s*\d+\. (.*$)/gim, '<ol><li>$1</li></ol>');
-            
-            // 移除多余的列表标签
-            htmlContent = htmlContent.replace(/<\/ul>\s*<ul>/gim, '');
-            htmlContent = htmlContent.replace(/<\/ol>\s*<ol>/gim, '');
-            
-            articleContent.innerHTML = htmlContent;
-            
-            // 添加淡入效果
-            article.classList.add('fade-in');
-            setTimeout(() => {
-                article.classList.remove('fade-in');
-            }, 300);
-            
-            // 在移动设备上点击后关闭侧边栏
-            if (window.innerWidth <= 992) {
-                sidebar.classList.remove('open');
-            }
-        }
-
-        // 设置事件监听器
-        function setupEventListeners() {
-            // 搜索功能
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
-                const allFiles = document.querySelectorAll('.file');
-                
-                allFiles.forEach(file => {
-                    const fileName = file.textContent.toLowerCase();
-                    if (fileName.includes(searchTerm)) {
-                        file.style.display = 'flex';
-                        // 展开父文件夹
-                        let parentFolder = file.closest('.folder');
-                        while (parentFolder) {
-                            parentFolder.classList.add('open');
-                            const toggle = parentFolder.querySelector('.folder-toggle i');
-                            if (toggle) {
-                                toggle.className = 'fas fa-caret-down';
-                            }
-                            parentFolder = parentFolder.parentElement.closest('.folder');
-                        }
-                    } else {
-                        file.style.display = 'none';
-                    }
-                });
-            });
-            
-            // 移动端菜单切换
-            menuToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('open');
-            });
-            
-            // 点击内容区域在移动设备上关闭侧边栏
-            content.addEventListener('click', function() {
-                if (window.innerWidth <= 992 && sidebar.classList.contains('open')) {
-                    sidebar.classList.remove('open');
-                }
-            });
-            
-            // 窗口调整大小时处理侧边栏状态
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 992) {
-                    sidebar.classList.remove('open');
-                }
-            });
-        }
-    </script>
-</body>
-</html>
