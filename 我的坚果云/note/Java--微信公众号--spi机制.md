@@ -1,2 +1,2 @@
 - [https://www.seven97.top/java/basis/06-SPI.html#spi%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86](https://www.seven97.top/java/basis/06-SPI.html#spi机制实现原理)
-- https://javaguide.cn/java/basis/spi.html
+- [https://javaguide.cn/java/basis/spi.html](https://javaguide.cn/java/basis/spi.html)
