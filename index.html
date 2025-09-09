@@ -1,0 +1,77 @@
+---
+layout: default
+title: 首页
+---
+
+<style>
+body { font-family: sans-serif; }
+ul { list-style-type: none; padding-left: 0; }
+details { margin: 5px 0; }
+summary { font-weight: bold; cursor: pointer; }
+summary:hover { color: #2c7be5; }
+.details-child { margin-left: 1.5em; }
+a { text-decoration: none; color: #333; }
+a:hover { color: #2c7be5; }
+</style>
+
+<h1>📚 文档索引</h1>
+
+{% comment %}
+  Step 1: 收集文件并按路径解析成数组
+{% endcomment %}
+{% assign files = site.pages | where_exp:"p","p.path contains '我的坚果云/note/'" | sort: "path" %}
+
+{% assign tree = "" | split: "" %}
+
+{% for file in files %}
+  {% assign fname = file.path | split: '/' | last | replace: '.md','' %}
+  {% assign parts = fname | split: '--' %}
+  {% if parts.size == 1 %}
+    {% assign parts = "其他" | append: "--" | append: parts[0] | split: '--' %}
+  {% endif %}
+
+  {% assign current = tree %}
+  {% for part in parts %}
+    {% assign exists = false %}
+    {% for node in current %}
+      {% if node.name == part %}
+        {% assign current = node.children %}
+        {% assign exists = true %}
+      {% endif %}
+    {% endfor %}
+    {% if exists == false %}
+      {% assign new_node = {"name": part, "url": "", "children": "" | split: "" } %}
+      {% if forloop.last %}
+        {% assign new_node.url = file.url %}
+      {% endif %}
+      {% assign current = current | push: new_node %}
+      {% assign current = current %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+{% comment %}
+  Step 2: 递归渲染函数
+{% endcomment %}
+{% macro render_tree nodes %}
+  <ul>
+  {% for node in nodes %}
+    {% if node.children.size > 0 %}
+      <li>
+        <details>
+          <summary>{{ node.name | capitalize }}</summary>
+          {{ render_tree(node.children) }}
+        </details>
+      </li>
+    {% else %}
+      <li>📄 <a href="{{ node.url }}">{{ node.name | capitalize }}</a></li>
+    {% endif %}
+  {% endfor %}
+  </ul>
+{% endmacro %}
+
+{% comment %}
+  Step 3: 渲染整个树
+{% endcomment %}
+{{ render_tree(tree) }}
+
