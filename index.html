@@ -36,8 +36,7 @@ body.dark #progressBarContainer{background:#374151;}
 body.dark #toc{background:#1f2937;color:#e5e7eb;}
 #toc ul{list-style:none;padding-left:0;margin:0;}
 #toc li{margin:0.2em 0;}
-/* 移动端菜单按钮 */
-#navToggle{display:none;} /* PC端隐藏 */
+#navToggle{display:none;}
 @media(max-width:768px){
   #navToggle{display:block;position:fixed;top:10px;left:10px;z-index:200;background:#2563eb;color:#fff;padding:0.4em 0.6em;border-radius:6px;box-shadow:0 2px 4px rgba(0,0,0,0.3);cursor:pointer;}
   nav{left:-260px;transition:left 0.3s ease;z-index:1000;}
@@ -64,8 +63,11 @@ body.dark #toc{background:#1f2937;color:#e5e7eb;}
 <main id="mainContent">
   <div id="breadcrumb"></div>
   <div id="toc"></div>
+
   {% assign files = site.pages | where_exp:"p","p.path contains '我的坚果云/note/'" | sort:"path" %}
+
   {% assign tree = {} %}
+  {% comment %} 构建树结构 {% endcomment %}
   {% for file in files %}
     {% assign fname = file.path | split:'/' | last | replace:'.md','' %}
     {% assign parts = fname | split:'--' %}
@@ -80,28 +82,81 @@ body.dark #toc{background:#1f2937;color:#e5e7eb;}
     {% assign current['__file__'] = file.url %}
   {% endfor %}
 
-  {% capture render_tree %}
-    {% macro render_node(node) %}
-      <ul>
-      {% for key in node %}
-        {% if key != '__file__' %}
-          <li>
-            {% if node[key].__file__ %}
-              <a href="#" onclick="showArticle('{{ node[key].__file__ | replace:'/','_' | replace:'.md','' }}', this)">{{ key }}</a>
-            {% else %}
-              <details open>
-                <summary>{{ key }}</summary>
-                {{ render_node(node[key]) }}
-              </details>
-            {% endif %}
-          </li>
+  {% comment %} 递归渲染树 (最多5层) {% endcomment %}
+  {% for level1 in tree %}
+    <ul>
+      {% assign key1 = level1[0] %}
+      <li>
+        {% assign node1 = level1[1] %}
+        {% if node1.__file__ %}
+          <a href="#" onclick="showArticle('{{ node1.__file__ | replace:'/','_' | replace:'.md','' }}', this)">{{ key1 }}</a>
+        {% else %}
+          <details open>
+            <summary>{{ key1 }}</summary>
+            {% for level2 in node1 %}
+              {% if level2[0] != '__file__' %}
+              <ul>
+                <li>
+                  {% assign node2 = level2[1] %}
+                  {% if node2.__file__ %}
+                    <a href="#" onclick="showArticle('{{ node2.__file__ | replace:'/','_' | replace:'.md','' }}', this)">{{ level2[0] }}</a>
+                  {% else %}
+                    <details open>
+                      <summary>{{ level2[0] }}</summary>
+                      {% for level3 in node2 %}
+                        {% if level3[0] != '__file__' %}
+                        <ul>
+                          <li>
+                            {% assign node3 = level3[1] %}
+                            {% if node3.__file__ %}
+                              <a href="#" onclick="showArticle('{{ node3.__file__ | replace:'/','_' | replace:'.md','' }}', this)">{{ level3[0] }}</a>
+                            {% else %}
+                              <details open>
+                                <summary>{{ level3[0] }}</summary>
+                                {% for level4 in node3 %}
+                                  {% if level4[0] != '__file__' %}
+                                  <ul>
+                                    <li>
+                                      {% assign node4 = level4[1] %}
+                                      {% if node4.__file__ %}
+                                        <a href="#" onclick="showArticle('{{ node4.__file__ | replace:'/','_' | replace:'.md','' }}', this)">{{ level4[0] }}</a>
+                                      {% else %}
+                                        <details open>
+                                          <summary>{{ level4[0] }}</summary>
+                                          {% for level5 in node4 %}
+                                            {% if level5[0] != '__file__' %}
+                                              <ul>
+                                                <li>
+                                                  <a href="#" onclick="showArticle('{{ node5.__file__ | replace:'/','_' | replace:'.md','' }}', this)">{{ level5[0] }}</a>
+                                                </li>
+                                              </ul>
+                                            {% endif %}
+                                          {% endfor %}
+                                        </details>
+                                      {% endif %}
+                                    </li>
+                                  </ul>
+                                  {% endif %}
+                                {% endfor %}
+                              </details>
+                            {% endif %}
+                          </li>
+                        </ul>
+                        {% endif %}
+                      {% endfor %}
+                    </details>
+                  {% endif %}
+                </li>
+              </ul>
+              {% endif %}
+            {% endfor %}
+          </details>
         {% endif %}
-      {% endfor %}
-      </ul>
-    {% endmacro %}
-  {% endcapture %}
-  {{ render_node(tree) }}
+      </li>
+    </ul>
+  {% endfor %}
 
+  {% comment %} 渲染文章内容 {% endcomment %}
   {% for file in files %}
     <div class="article-card" id="{{ file.url | replace:'/','_' | replace:'.md','' }}">
       {{ file.content | markdownify }}
@@ -186,7 +241,6 @@ themeToggle.addEventListener('click', ()=>{
 if(localStorage.getItem('theme')==="dark"){document.body.classList.add('dark');}
 
 window.onload=function(){
-  // 默认显示第一个文章
   var id=localStorage.getItem('currentArticle');
   var linkElem=null;
   if(id){ linkElem=document.querySelector("#navListContainer a[onclick*='"+id+"']"); }
