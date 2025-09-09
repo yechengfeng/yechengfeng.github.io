@@ -46,7 +46,7 @@ main {margin-left:260px;padding:1em;flex:1;overflow:auto;}
 </main>
 
 <script>
-// 生成文件列表数组
+// 扁平文件数组
 var files = [
   {% for file in files %}
     {
@@ -62,42 +62,60 @@ function buildTree(files){
   files.forEach(f=>{
     let parts = f.name.split('--');
     let current = root;
-    parts.forEach((p,i)=>{
-      if(!current[p]) current[p] = {children:{}, url:(i===parts.length-1)?f.url:""};
-      current = current[p].children;
-      if(i===parts.length-1) current["_fileUrl"] = f.url;
-    });
+    for(let i=0;i<parts.length;i++){
+      let part = parts[i];
+      if(!current[part]) current[part] = {children:{}, files:[]};
+      if(i===parts.length-1){
+        current[part].files.push({name:parts[i], url:f.url});
+      }
+      current = current[part].children;
+    }
   });
   return root;
 }
 
 // 渲染树
 function renderTree(node, container){
-  for(let key in node){
-    if(key === "_fileUrl") continue;
+  Object.keys(node).forEach(key=>{
     let value = node[key];
     let li = document.createElement('li');
-    if(Object.keys(value.children).length>0){
+    // 目录
+    if(Object.keys(value.children).length>0 || value.files.length>0){
       let details = document.createElement('details');
       let summary = document.createElement('summary');
       summary.textContent = key;
       details.appendChild(summary);
+
+      // 先渲染子目录
       let ul = document.createElement('ul');
       renderTree(value.children, ul);
+
+      // 再渲染文件
+      value.files.forEach(f=>{
+        let fileLi = document.createElement('li');
+        let a = document.createElement('a');
+        a.href="#";
+        a.textContent = f.name;
+        a.onclick=()=>{showArticle(f.url,a); return false;};
+        fileLi.appendChild(a);
+        ul.appendChild(fileLi);
+      });
+
       details.appendChild(ul);
       li.appendChild(details);
     } else {
+      // 叶子文件
       let a = document.createElement('a');
-      a.href = "#";
+      a.href="#";
       a.textContent = key;
-      a.onclick = ()=>{showArticle(value._fileUrl,a); return false;};
+      a.onclick=()=>{showArticle(value.url,a); return false;};
       li.appendChild(a);
     }
     container.appendChild(li);
-  }
+  });
 }
 
-// 点击显示文章
+// 显示文章
 function showArticle(id, linkElem){
   document.querySelectorAll('.article-card').forEach(c=>c.classList.remove('active'));
   let article=document.getElementById(id);
@@ -116,6 +134,7 @@ function filterNav(){
   });
 }
 
+// 菜单切换
 document.getElementById('navToggle').addEventListener('click', ()=>{
   document.querySelector('nav').classList.toggle('open');
 });
@@ -127,6 +146,7 @@ window.onload=function(){
   if(id && document.querySelector("#navListContainer a[onclick*='"+id+"']")){
     document.querySelector("#navListContainer a[onclick*='"+id+"']").click();
   } else {
+    // 默认显示第一个文章
     let firstLink=document.querySelector("#navListContainer a");
     if(firstLink) firstLink.click();
   }
