@@ -8,7 +8,7 @@ title: 首页
 以下为自动生成的文档分类及链接：
 
 <ul>
-{% assign files = site.pages | where_exp: "page", "page.path contains 'docs/'" %}
+{% assign files = site.pages | where_exp: "page", "page.path contains '我的坚果云/note/'" %}
 {% assign grouped = "" | split: "" %}
 
 <!-- 先处理一级分类（第一个 -- 或 “其他”） -->
