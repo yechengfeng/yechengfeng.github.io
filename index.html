@@ -1,0 +1,61 @@
+---
+layout: default
+title: 首页
+---
+
+<style>
+  .category { margin: 10px 0; }
+  .subcategory { margin-left: 20px; }
+  .file-list { margin-left: 40px; }
+  summary { font-weight: bold; font-size: 1.1em; cursor: pointer; }
+  details { margin: 5px 0; }
+</style>
+
+<h1>文档索引</h1>
+<p>以下内容根据文件名自动生成，支持多级分类：</p>
+
+<div>
+{% assign files = site.pages | where_exp: "page", "page.path contains 'notes/'" %}
+{% assign sorted_files = files | sort: "path" %}
+
+{% for file in sorted_files %}
+  {% assign parts = file.path | split: '/' | last | split: '--' %}
+  {% assign depth = parts | size %}
+
+  {% if depth == 1 %}
+    <!-- 无分类 -->
+    {% assign category = "其他" %}
+    <details class="category">
+      <summary>{{ category }}</summary>
+      <ul class="file-list">
+        <li><a href="{{ file.url }}">{{ parts[0] | replace: '.md','' | replace: '-', ' ' | capitalize }}</a></li>
+      </ul>
+    </details>
+  {% elsif depth == 2 %}
+    <!-- 一级分类 -->
+    {% assign category = parts[0] %}
+    <details class="category">
+      <summary>{{ category | capitalize }}</summary>
+      <ul class="file-list">
+        <li><a href="{{ file.url }}">{{ parts[1] | replace: '.md','' | replace: '-', ' ' | capitalize }}</a></li>
+      </ul>
+    </details>
+  {% else %}
+    <!-- 多级分类 -->
+    {% assign category = parts[0] %}
+    {% assign subcategory = parts[1] %}
+    <details class="category">
+      <summary>{{ category | capitalize }}</summary>
+      <details class="subcategory">
+        <summary>{{ subcategory | capitalize }}</summary>
+        <ul class="file-list">
+          <li><a href="{{ file.url }}">
+            {{ parts | last | replace: '.md','' | replace: '-', ' ' | capitalize }}
+          </a></li>
+        </ul>
+      </details>
+    </details>
+  {% endif %}
+{% endfor %}
+</div>
+
