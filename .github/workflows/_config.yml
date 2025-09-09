@@ -1,0 +1,16 @@
+title: 我的文档站
+description: 自动索引导航
+theme: minima  # GitHub 默认主题是 minima，如果你没选其他主题
+
+# 包含你的目录（建议改成英文路径，如 "notes"）
+include:
+  - 我的坚果云/note
+
+# 默认让所有 Markdown 用 page 布局
+defaults:
+  - scope:
+      path: "我的坚果云/note"
+      type: "pages"
+    values:
+      layout: page
+
