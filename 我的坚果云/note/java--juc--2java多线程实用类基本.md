@@ -8,7 +8,11 @@
 
 #### 线程状态
 
-- synchronized
+> - **NEW**: The thread has been created and it has not yet started
+> - **RUNNABLE**: The thread is being executed in the JVM
+> - **BLOCKED**: The thread is blocked and it is waiting for a monitorWAITING: The thread is waiting for another thread
+> - **TIMED_WAITING**: The thread is waiting for another thread with a specified waiting time
+> - **TERMINATED**: The thread has finished its execution
 
 - Lock
 
@@ -16,17 +20,113 @@
 
 - Atomic
 
-- #### Lock使用 深入
+  - 原子类是 java.util.concurrent 包的核心部分之一，它们通过 无锁（Lock-Free） 机制提供了线程安全的原子操作。原子类使用底层的 CAS（Compare-And-Swap） 操作，避免了传统的锁机制所带来的开销和性能瓶颈。常见的原子类包括：
+
+    - AtomicBoolean：原子地更新 boolean 值
+
+    - AtomicInteger：原子地更新 int 值
+
+    - AtomicLong：原子地更新 long 值
+
+    - AtomicReference：原子地更新引用类型
+
+    - AtomicIntegerArray/ AtomicLongArray /AtomicReferenceArray：原子地更新数组中的元素
+
+  - 所有的原子类本质上都依赖于底层的 CAS 操作 来实现无锁并发。CAS 的核心思想是通过硬件指令比较内存中的值是否等于预期值，如果相等则将其更新为新值，否则不更新，整个过程是原子的。
+
+  - **实现原理**
+
+    - 什么是CAS （Compare-And-Swap）它是一条 CPU 并发原语
+
+      - CAS机制当中使用了3个基本操作数：内存地址V，旧的预期值A，计算后要修改后的新值B。
+
+        - （1）初始状态：在内存地址V中存储着变量值为 1。
+
+        -  （2）线程1想要把内存地址为 V 的变量值增加1。这个时候对线程1来说，旧的预期值A=1，要修改的新值B=2。
+
+        - （3）在线程1要提交更新之前，线程2捷足先登了，已经把内存地址V中的变量值率先更新成了2。
+
+        - （4）线程1开始提交更新，首先将预期值A和内存地址V的实际值比较（Compare），发现A不等于V的实际值，提交失败。
+
+        - （5）线程1重新获取内存地址 V 的当前值，并重新计算想要修改的新值。此时对线程1来说，A=2，B=3。这个重新尝试的过程被称为自旋。如果多次失败会有多次自旋。
+
+        - （6）线程 1 再次提交更新，这一次没有其他线程改变地址 V 的值。线程1进行Compare，发现预期值 A 和内存地址 V的实际值是相等的，进行 Swap 操作，将内存地址 V 的实际值修改为 B。
+
+        - 总结：更新一个变量的时候，只有当变量的预期值 A 和内存地址 V 中的实际值相同时，才会将内存地址 V 对应的值修改为 B，这整个操作就是CAS。
+
+      - CAS原理
+
+        - CAS 是一种系统原语，原语属于操作系统用语，原语由若干指令组成，用于完成某个功能的一个过程，并且原语的执行必须是连续的，在执行过程中不允许被中断，也就是说 CAS 是一条 CPU 的原子指令，由操作系统硬件来保证。
+
+      -  CAS引发 的问题
+
+        - **典型 ABA 问题**
+
+          - ABA 是 CAS 操作的一个经典问题，假设有一个变量初始值为 A，修改为 B，然后又修改为 A，这个变量实际被修改过了，但是 CAS 操作可能无法感知到。
+
+          - 如果是整形还好，不会影响最终结果，但如果是对象的引用类型包含了多个变量，引用没有变实际上包含的变量已经被修改，这就会造成大问题。
+
+          - 如何解决？思路其实很简单，在变量前加版本号，每次变量更新了就把版本号加一
+            - 从 JDK 1.5 开始提供了AtomicStampedReference类，这个类的 compareAndSe 方法首先检查当前引用是否等于预期引用，并且当前标志是否等于预期标志`，如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。
+
+        - **自旋开销问题**
+
+          - CAS 出现冲突后就会开始自旋操作，如果资源竞争非常激烈，自旋长时间不能成功就会给 CPU 带来非常大的开销。
+
+          - 解决方案：可以考虑限制自旋的次数，避免过度消耗 CPU；另外还可以考虑延迟执行。
+
+        - **只能保证单个变量的原子性**
+
+- #### Lock使用深入
 
   - 可重入锁 ReentrantLock
-  - Condition（与wait&notify区别）
+
+    - 有几个功能
+
+      1. 中断响应
+         - `reentrantLock.lockInterruptibly(); // 线程在等待锁的过程中，可以响应中断`
+      2. 锁申请等待限时
+         - `lock.tryLock (5,TimeUnit.SECONDS) //可以解决死锁问题`
+      3. 公平锁
+         - 如果我们使用synchronized 关键字进行锁控制，那么产生的锁就是非 公平的。ReentrantIock(boolean fair)，可以设置公平非公平。公平锁看起来很优美，但是要实现公平锁必然 要求系统维护一个有序队列，因此公平锁的实现成本比较高，性能却非常低下，因此，在默认情况下，锁是非公平的。如果没有特别的需求，则不需要使用公平锁
+
+    - 核心字段和方法
+
+      > - private final Sync sync：ReentrantLock 通过 Sync 类来实现锁的逻辑。Sync 是一个抽象类，有两个子类 FairSync 和 NonFairSync，分别实现公平锁和非公平锁。
+      > - lock()：加锁方法。对于非公平锁，NonfairSync 的 lock() 方法先尝试通过 compareAndSetState 尝试抢占锁，如果抢不到锁，则调用 acquire() 进入同步队列等待。
+      > - unlock()：解锁方法。调用 release() 方法来释放锁，内部通过 CAS 修改锁状态并唤醒等待队列中的线程。
+
+    - 公平锁与非公平锁的区别：
+
+      > - 公平锁：新线程会按照先后顺序竞争锁，依次进入队列排队。
+      >
+      > - 非公平锁：线程可以直接尝试抢占锁，不论顺序，抢不到才进入队列排队。
+
+  - Condition（与wait&notify区别,一个是Object提供的,和sync配合，一个是和重入锁关联）
+
     - BlockingQueue就是基于Condition实现的。
-  - Condition与wait&notify区别
+
+    - `void awaitUninterruptibly() \\等待过程中不会响应中断`
+
+    - `awaitUntil(Date date) `
+
+    - API 
+
+      ```java
+      public void acquire ()
+      public void acquireUninterruptibly ()
+       public boolean tryAcquire ()
+      public boolean tryAcquire (long timeout, TimeUnit unit)
+       public void release ()
+      ```
+
   - await&signal
 
 - #### 读写锁 ReentrantReadWriteLock
 
 - #### LockSupport（锁住的是线程，synchronized锁住的是对象）
+
+  - > LockSuport 是一个非常方便实用的线程阻塞工具，它可以在线程内任意位置让线程阻塞。 与Thread. suspen()方法相比，它弥补了由于resume() 方法发生导致线程无法继续执行的情况。 和Object.wait()方法相比，它不需要先获得某个对象的锁，也不会抛出InterruptedExcept ion 异常
 
 - #### synchronized与Lock的区别
 
@@ -46,11 +146,35 @@
 - #### synchronized原理
 
   - 代码块同步是使用monitorenter和monitorexit指令实现
+
   - 锁的分类
+
     - 无锁
     - 偏向锁（只有一个线程进入临界区）
     - 轻量级锁（多个线程交替进入临界区）
     - 重量级锁（多个线程同时进入临界区）
+
+  - **理解**
+
+    1. 作用对象
+
+       - **方法**:可以将一个方法声明为 synchronized，此时整个方法体都是同步的，只有持有该对象锁的线程可以执行该方法，其他线程会被阻塞，直到锁被释放.
+
+       - **代码块**：也可以将代码块声明为 synchronized，只同步代码块内部的部分逻辑，而不是整个方法。这样可以提高程序的效率，避免不必要的阻塞。
+
+    2. **对象锁**：
+
+       - 当使用 synchronized 修饰实例方法或同步代码块时，线程需要获取当前对象实例的锁。
+
+       - 对于静态方法，线程需要获取类对象的锁，因为静态方法属于类，而非类的实例。
+
+    3. **重入锁**：synchronized 是一种重入锁，意味着如果一个线程已经获取了对象的锁，它可以继续执行该对象的其他 synchronized 方法或代码块，而不会被阻塞.（important）
+
+    4. 性能问题：由于 synchronized 会阻塞其他线程的访问，使用过多的同步可能会降低系统性能，**导致线程竞争和上下文切换频繁**。因此，在使用 synchronized 时，**应尽量减少锁的持有时间，避免不必要的同步**。(Important)
+
+       与其他锁的比较：在高并发环境下，synchronized 的性能较为有限。为此，Java 提供了其他更灵活的锁机制，如 ReentrantLock，它支持更加细粒度的锁控制和中断响应机制。
+
+    5. 总结来说，synchronized 是 Java 提供的基础线程同步工具，用于确保共享资源在并发情况下的安全访问，但也要注意合理使用，避免影响程序的性能。
 
 - #### 原子操作原理
 
@@ -182,6 +306,10 @@
     - 3）强行关闭是停止所有（空闲+工作）线程，关闭当前正在执行的任务，然后返回所有尚未执行的任务。
 
   - #### ScheduledThreadPoolExecutor
+
+    <img src="https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250910-160917-image-20250910160914273.png" alt="image-20250910160914273" style="zoom:50%;float:left" />
+
+    execute()：线程池的核心方法。任务提交后，如果线程数少于核心线程数，直接创建新线程；否则，将任务加入阻塞队列。如果队列满了并且线程数量小于最大线程数，则继续创建新线程处理任务。
 
   - #### Executors
 
