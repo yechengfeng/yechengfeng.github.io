@@ -62,7 +62,9 @@ function buildTree(files){
   files.forEach(f=>{
     let parts = f.name.split('--');
     if(parts.length === 1){
-      root._files.push({name: parts[0], url:f.url});
+      // 不包含 -- 的文件归类到 “其他”
+      if(!root['其他']) root['其他'] = {children:{}, _files:[]};
+      root['其他']._files.push({name:parts[0], url:f.url});
     } else {
       let current = root;
       for(let i=0;i<parts.length-1;i++){
