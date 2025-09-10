@@ -1,4 +1,4 @@
-- https://xiaolincoding.com/mysql/transaction/mvcc.html#
+- [https://xiaolincoding.com/mysql/transaction/mvcc.html#](https://xiaolincoding.com/mysql/transaction/mvcc.html#)
 
 - 事务有哪些特性？
 
@@ -52,4 +52,4 @@
 
 - MySQL 可重复读隔离级别，完全解决幻读了吗？
 
-  - https://www.xiaolincoding.com/mysql/transaction/phantom.html
+  - [https://www.xiaolincoding.com/mysql/transaction/phantom.html](https://www.xiaolincoding.com/mysql/transaction/phantom.html)

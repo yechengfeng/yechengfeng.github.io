@@ -1,7 +1,7 @@
 1. ### redis相关资料
 
-   1. https://open8gu.com/redis/persistent/fznigr883bhhbp0m/	
-   2. https://www.xiaolincoding.com/redis/
+   1. [https://open8gu.com/redis/persistent/fznigr883bhhbp0m/](https://open8gu.com/redis/persistent/fznigr883bhhbp0m/)
+   2. https://www.xiaolincoding.com/redis/[](https://zhuanlan.zhihu.com/p/451007506)
 
 2. #### redis简介
 
@@ -19,38 +19,37 @@
 
       1. 常用命令 ：get/set/del/incr/decr/incrby/decrby
 
-   2. **List 类型的应用场景：消息队列 （但是有两个问题：1.生产者需要自行实现全局唯一ID；2.不能以消费组形式消费数据）等。参考 https://www.51cto.com/article/640335.html**
-
+   2. **List 类型的应用场景：消息队列 （但是有两个问题：1.生产者需要自行实现全局唯一ID；2.不能以消费组形式消费数据）等。参考 [https://www.51cto.com/article/640335.html](https://www.51cto.com/article/640335.html)**
       1. 定时排行榜
          - **list类型的lrange命令可以分页查看队列中的数据。可将每隔一段时间计算一次的排行榜存储在list类型中，如QQ音乐内地排行榜，每周计算一次存储再list类型中，访问接口时通过page和size分页转化成lrange命令获取排行榜数据。但是，并不是所有的排行榜都能用list类型实现，只有定时计算的排行榜才适合使用list类型存储，与定时计算的排行榜相对应的是实时计算的排行榜，list类型不能支持实时计算的排行榜，下面介绍有序集合sorted set的应用场景时会详细介绍实时计算的排行榜的实现。**
-
+      
    3. **Hash 类型：缓存对象、购物车等。**
-
+   
    4. **set 类型：聚合计算（并集、交集、差集）场景，比如点赞、共同关注、抽奖活动等。**
-
+   
       1. 实战场景：收藏夹
-
+   
          - 例如QQ音乐中如果你喜欢一首歌，点个『喜欢』就会将歌曲放到个人收藏夹中，每一个用户做一个收藏的集合，每个收藏的集合存放用户收藏过的歌曲id。
-
+   
          - key为用户id，value为歌曲id的集合
-
+   
    5. **zset 类型：排序场景，比如排行榜、电话和姓名排序等。**
-
+   
       - 有序集合的特点是有序，无重复值。与set不同的是sorted set每个元素都会关联一个score属性，redis正是通过score来为集合中的成员进行从小到大的排序。
       - 实战场景：实时排行榜
         - QQ音乐中有多种实时榜单，比如飙升榜、热歌榜、新歌榜，可以用redis key存储榜单类型，score为点击量，value为歌曲id，用户每点击一首歌曲会更新redis数据，sorted set会依据score即点击量将歌曲id排序。
-
+   
    6. **BitMap （2.2 版新增)：二值状态统计的场景，比如签到、判断用户登陆状态、连续签到用户总数等 •**
-
-   7. **HyperLogLog （2.8 版新增)：海量数据基数统计的场景，比如百万级网页 UV计数等；https://www.cnblogs.com/54chensongxia/p/13803465.html**
-
+   
+   7. **HyperLogLog （2.8 版新增)：海量数据基数统计的场景，比如百万级网页 UV计数等；[https://www.cnblogs.com/54chensongxia/p/13803465.html](https://www.cnblogs.com/54chensongxia/p/13803465.html)**
+   
    8. **GEO （3.2版新增）：存储地理位置信息的场景，比如滴滴叫车；**
-
+   
    9. **Stream（5.0版新增)：消息队列，相比于基于 List 类型实现的消息队列，有这两个特有的特性：自动生成全局唯一消息ID，支持以消费组形式消费数据。**
-
+   
 4. ### redis数据结构如何实现的
 
-   1. https://www.cnblogs.com/ysocean/p/9102811.html
+   1. [https://www.cnblogs.com/ysocean/p/9102811.html](https://www.cnblogs.com/ysocean/p/9102811.html)
 
 5. ### redis的线程模型
 
@@ -87,17 +86,17 @@
 
    2. AOF 日志是如何实现的？
 
-      - https://open8gu.com/redis/persistent/by6eqgg5fv4roz1r/
+      - [https://open8gu.com/redis/persistent/by6eqgg5fv4roz1r/](https://open8gu.com/redis/persistent/by6eqgg5fv4roz1r/)
 
    3. RDB是如何实现的
 
-      - https://open8gu.com/redis/persistent/fznigr883bhhbp0m/
+      - [https://open8gu.com/redis/persistent/fznigr883bhhbp0m/](https://open8gu.com/redis/persistent/fznigr883bhhbp0m/)
 
    4. 为什么会有混合持久化？
 
 8. ### [redis集群](https://www.xiaolincoding.com/redis/base/redis_interview.html#redis-如何实现服务高可用)  
 
-   - https://zhuanlan.zhihu.com/p/387630094
+   - [https://zhuanlan.zhihu.com/p/387630094](https://zhuanlan.zhihu.com/p/387630094)
 
    - 要想设计一个高可用的 Redis 服务，一定要从 Redis 的多服务节点来考虑，比如Redis 的主从复制、哨兵模式、切片集群
 
@@ -123,9 +122,9 @@
 
 9. ### redis数据结构之跳表
 
-   - https://redisbook.readthedocs.io/en/latest/internal-datastruct/skiplist.html 
+   - [https://redisbook.readthedocs.io/en/latest/internal-datastruct/skiplist.html](https://redisbook.readthedocs.io/en/latest/internal-datastruct/skiplist.html) 
 
-   - https://www.bilibili.com/video/BV1LiTczAELp/?spm_id_from=333.337.search-card.all.click&vd_source=8db2bf2ffb3ab22965fccab48d4389ba
+   - [https://www.bilibili.com/video/BV1LiTczAELp/?spm_id_from=333.337.search-card.all.click&vd_source=8db2bf2ffb3ab22965fccab48d4389ba](https://www.bilibili.com/video/BV1LiTczAELp/?spm_id_from=333.337.search-card.all.click&vd_source=8db2bf2ffb3ab22965fccab48d4389ba)
 
    - 跳表就是在链表的基础上增加了多级索引，Zset的数据结构
 
@@ -133,11 +132,11 @@
 
 10. ### redis-消息队列
 
-    1. https://segmentfault.com/a/1190000012244418
+    1. [https://segmentfault.com/a/1190000012244418](https://segmentfault.com/a/1190000012244418)
 
 11. ### redis的内存淘汰策略
 
-    1. https://zhuanlan.zhihu.com/p/105587132
+    1. [https://zhuanlan.zhihu.com/p/105587132](https://zhuanlan.zhihu.com/p/105587132)
 
 12. ### 常用命令和数据结构
 
@@ -183,7 +182,7 @@
          - zset的成员是唯一的,但分数(score)却可以重复。
 
     6. Redis常用命令参考
-       - https://www.redis.net.cn/order/
+       - [https://www.redis.net.cn/order/](https://www.redis.net.cn/order/)
 
 13. ### Redis事务机制
 
@@ -362,11 +361,11 @@
 
 10. 参考资料
 
-    - https://www.xiaolincoding.com/redis/data_struct/data_struct.html 
+    - [https://www.xiaolincoding.com/redis/data_struct/data_struct.html](https://www.xiaolincoding.com/redis/data_struct/data_struct.html) 
 
-    - https://javaguide.cn/database/redis/redis-data-structures-01.html
+    - [https://javaguide.cn/database/redis/redis-data-structures-01.html](https://javaguide.cn/database/redis/redis-data-structures-01.html)
 
-    - http://www.itsoku.com/course/1/201
+    - [http://www.itsoku.com/course/1/201](http://www.itsoku.com/course/1/201)
 
 
 

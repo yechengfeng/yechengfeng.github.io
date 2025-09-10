@@ -51,7 +51,7 @@
 
 - 最佳左前缀法则
 
-- #### 索引失效https://blog.csdn.net/qq_32331073/article/details/79041232
+- #### 索引失效[https://blog.csdn.net/qq_32331073/article/details/79041232](https://blog.csdn.net/qq_32331073/article/details/79041232)
 
   - 在索引上使用表达式
 
@@ -160,11 +160,11 @@
 
 - innoDB和MyISAM的区别? (*)
 
-  - https://www.jianshu.com/p/a957b18ba40d
+  - [https://www.jianshu.com/p/a957b18ba40d](https://www.jianshu.com/p/a957b18ba40d)
 
 - count(1)、count(*)与count(列名)的执行区别
 
-  - https://blog.csdn.net/iFuMI/article/details/77920767
+  - [https://blog.csdn.net/iFuMI/article/details/77920767](https://blog.csdn.net/iFuMI/article/details/77920767)
 
 - 主键，唯一索引区别
 

@@ -1,6 +1,6 @@
 1. #### spring-adminer
 
-   - https://www.51cto.com/article/699076.html
+   - [https://www.51cto.com/article/699076.html](https://www.51cto.com/article/699076.html)
 
 2. #### SpringBoot实现定时任务的4中方式
 
@@ -16,7 +16,7 @@
    1. SpringBoot默认扫描启动类所在的包下的主类和子类的所有组件，但并没有包括依赖包中的类。那么starter中的bean是如何被发现和加载的呢？
    2. @SpringBootApplication这个复合组件中有个@EnableAutoConfiguration的注解，借助@Import的支持，能够收集和注册依赖包中相关bean的定义。通过一层一层翻源码发现，可以发现SpringFactoriesLoader.loadFactoryNames方法调用了loadSpringFactories，从所有jar包中读取META-INF/spring.factories文件信息。spring.factories中配置的是被@Configuration注解修饰的配置类。（SPI技术）这样启动之后starter中的bean也被注入到了容器中
 
-5. #### 如何自定义springboot starter https://www.cnblogs.com/hello-shf/p/10864977.html
+5. #### 如何自定义springboot starter [https://www.cnblogs.com/hello-shf/p/10864977.html](https://www.cnblogs.com/hello-shf/p/10864977.html)
 
    1. 新建一个项目，命名格式采用xxx-spring-boot-starter。spring规定非官方的starter以xxx-spring-boot-starter，官方的以spring-boot-starter-xxx命名。
    2. 添加starter中需要的依赖
@@ -25,7 +25,7 @@
 
 6. #### springboot 是如何启动的 
 
-    https://juejin.cn/post/6844903652201594887#heading-0
+    [https://juejin.cn/post/6844903652201594887#heading-0](https://juejin.cn/post/6844903652201594887#heading-0)
 
    - springbootApplication 包含了SpringBootConfiguration , EnableAutoConfiguration ,ComponentScan
 
@@ -57,7 +57,7 @@
 
    1. Spring Cloud 是一系列框架的有序集合。它利用 Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用 Spring Boot 的开发风格做到一键启动和部署。
 
-10. #### 说说Spring中的@Component和@Bean有什么区别？（参考 https://www.bilibili.com/video/BV1P44y1N7QG?p=10&vd_source=8db2bf2ffb3ab22965fccab48d4389ba）
+10. #### 说说Spring中的@Component和@Bean有什么区别？（参考 [https://www.bilibili.com/video/BV1P44y1N7QG?p=10&vd_source=8db2bf2ffb3ab22965fccab48d4389ba](https://www.bilibili.com/video/BV1P44y1N7QG?p=10&vd_source=8db2bf2ffb3ab22965fccab48d4389ba)）
 
     1. **作用对象不同**
 
@@ -95,8 +95,8 @@
 
     >  参考 
     >
-    > 1. https://my.oschina.net/yao00jun/blog/215642
-    > 2. https://blog.csdn.net/qq_36748278/article/details/78264764
+    > 1. [https://my.oschina.net/yao00jun/blog/215642](https://my.oschina.net/yao00jun/blog/215642)
+    > 2. [https://blog.csdn.net/qq_36748278/article/details/78264764](https://blog.csdn.net/qq_36748278/article/details/78264764)
 
     1. 与Application Context关系
 
@@ -132,7 +132,7 @@
     3. **ConfigurationPropertiesBindingPostProcessor**（解析ConfigurationProperties注解）
     4. **ContextAnnotationAutowireCandidateResolver**（解析注解字符串的?）
 
-15. spring bean的生命周期https://www.cnblogs.com/vipstone/p/16659553.html
+15. spring bean的生命周期[https://www.cnblogs.com/vipstone/p/16659553.html](https://www.cnblogs.com/vipstone/p/16659553.html)
 
     1.实例化：为 Bean 分配内存空间；
     2.设置属性：将当前类依赖的 Bean 属性，进行注入和装配；
@@ -171,7 +171,7 @@
 
     4. DBCP ( Apache Commons DBCP)
 
-17. ##### springcloud 面试题 https://www.cnblogs.com/wgjava/p/18699827
+17. ##### springcloud 面试题 [https://www.cnblogs.com/wgjava/p/18699827](https://www.cnblogs.com/wgjava/p/18699827)
 
 18. #### spring 事务
 

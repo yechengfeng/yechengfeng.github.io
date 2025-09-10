@@ -1,4 +1,4 @@
-- 【尚硅谷Spring注解驱动教程(源码级讲解)-哔哩哔哩】 https://b23.tv/bEvV8Kf
+- 【尚硅谷Spring注解驱动教程(源码级讲解)-哔哩哔哩】 [https://b23.tv/bEvV8Kf](https://b23.tv/bEvV8Kf)
 
 1. **Configuration给bean容器中注册组件**
 
@@ -31,9 +31,9 @@
         - import可以导入一个ImportBeanDefinitionRegistrar的接口实现类，接口实现类提供bean的注册信息。
 
        		4. 使用Spring提供的FactoryBean（工厂bean） (整合其他框架用的比较多) 
-          - spring定义的一个工厂bean , 如果getBean("factoryBean")拿到的是工厂创建的对象的实例
-          - 如果想要拿到工厂可以加上&   getBean("&factoryBean") 或者用 getBeanFactoryBean.class); 
-            - 为啥是加&呢，借用C语言，&取的是地址值，
+       	- spring定义的一个工厂bean , 如果getBean("factoryBean")拿到的是工厂创建的对象的实例
+       	- 如果想要拿到工厂可以加上&   getBean("&factoryBean") 或者用 getBeanFactoryBean.class); 
+       	  - 为啥是加&呢，借用C语言，&取的是地址值，
 
 7. **bean的生命周期**
 

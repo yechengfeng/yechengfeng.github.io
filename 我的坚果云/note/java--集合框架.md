@@ -130,17 +130,17 @@
 
   - HashMap（底层是数组+链表/红黑树，无序键值对集合，非线程安全)
 
-    - https://blog.csdn.net/jiary5201314/article/details/51439982
+    - [https://blog.csdn.net/jiary5201314/article/details/51439982](https://blog.csdn.net/jiary5201314/article/details/51439982)
 
     - HashCode 计算
 
-      - https://www.zhihu.com/question/20733617/answer/111577937  
+      - [https://www.zhihu.com/question/20733617/answer/111577937](https://www.zhihu.com/question/20733617/answer/111577937)  
 
-      - https://blog.csdn.net/justloveyou_/article/details/62893086
+      - [https://blog.csdn.net/justloveyou_/article/details/62893086](https://blog.csdn.net/justloveyou_/article/details/62893086)
 
   - Hashtable
 
-    - https://blog.csdn.net/ns_code/article/details/36191279
+    - [https://blog.csdn.net/ns_code/article/details/36191279](https://blog.csdn.net/ns_code/article/details/36191279)
 
     - Hashtable同样是基于哈希表实现的，同样每个元素是一个key-value对，其内部也是通过单链表解决冲突问题，容量不足（超过了阈值)时，同样会自动增长。
 
@@ -156,13 +156,13 @@
 
   - ConcurrentHashMap（底层是数组+链表/红黑树，基于CAS+synchronized)
 
-    - http://www.importnew.com/21781.html
+    - [http://www.importnew.com/21781.html](http://www.importnew.com/21781.html)
 
-    - https://blog.csdn.net/dingji_ping/article/details/51005799
+    - [https://blog.csdn.net/dingji_ping/article/details/51005799](https://blog.csdn.net/dingji_ping/article/details/51005799)
 
-    - https://www.cnblogs.com/chengxiao/p/6842045.html
+    - [https://www.cnblogs.com/chengxiao/p/6842045.html](https://www.cnblogs.com/chengxiao/p/6842045.html)
 
-    - [http://ifeve.com/hashmap-concurrenthashmap-%E7%9B%B8%E4%BF%A1%E7%9C%8B%E5%AE%8C%E8%BF%99%E7%AF%87%E6%B2%A1%E4%BA%BA%E8%83%BD%E9%9A%BE%E4%BD%8F%E4%BD%A0%EF%BC%81/](http://ifeve.com/hashmap-concurrenthashmap-相信看完这篇没人能难住你！/)
+    - [http://ifeve.com/hashmap-concurrenthashmap-%E7%9B%B8%E4%BF%A1%E7%9C%8B%E5%AE%8C%E8%BF%99%E7%AF%87%E6%B2%A1%E4%BA%BA%E8%83%BD%E9%9A%BE%E4%BD%8F%E4%BD%A0%EF%BC%81/](http://ifeve.com/hashmap-concurrenthashmap-%E7%9B%B8%E4%BF%A1%E7%9C%8B%E5%AE%8C%E8%BF%99%E7%AF%87%E6%B2%A1%E4%BA%BA%E8%83%BD%E9%9A%BE%E4%BD%8F%E4%BD%A0%EF%BC%81/)
 
 - 分段锁实现
 

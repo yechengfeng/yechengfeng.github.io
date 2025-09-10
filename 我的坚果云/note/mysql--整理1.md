@@ -1,4 +1,4 @@
-参考 https://www.xiaolincoding.com/mysql/base/how_select.html#mysql-%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84
+参考 [https://www.xiaolincoding.com/mysql/base/how_select.html#mysql-%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84](https://www.xiaolincoding.com/mysql/base/how_select.html#mysql-%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84)
 
 1. ##### mysql执行流程是什么样的
 
@@ -52,4 +52,4 @@
 
 varchar(n) 中 n 最大取值为多少？ 65535，具体还要减去所有字段的长度 + 变长字段字节数列表所占用的字节数 + NULL值列表所占用的字节数 <= 65535。
 
-mysql 行溢出后 ，如何处理的 https://www.cnblogs.com/ZhuChangwu/p/14035330.html
+mysql 行溢出后 ，如何处理的 [https://www.cnblogs.com/ZhuChangwu/p/14035330.html](https://www.cnblogs.com/ZhuChangwu/p/14035330.html)

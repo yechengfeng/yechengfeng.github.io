@@ -42,7 +42,7 @@
 >
 > - java guade  
 >
->   - https://javaguide.cn/database/mysql/mysql-questions-01.html
+>   - [https://javaguide.cn/database/mysql/mysql-questions-01.html](https://javaguide.cn/database/mysql/mysql-questions-01.html)
 >
 >     - [CHAR 和 VARCHAR 的区别是什么？](https://javaguide.cn/database/mysql/mysql-questions-01.html#char-和-varchar-的区别是什么) 一个可变长，一个不可变，一个存储需要多俩个字节存储长度信息，一般用来存储不可变长的字段
 >
@@ -62,7 +62,7 @@
 >
 >       - 可能导致表上的 DML 操作变慢。
 >
->       - 著作权归JavaGuide(javaguide.cn)所有基于MIT协议原文链接：https://javaguide.cn/database/mysql/mysql-questions-01.html
+>       - 著作权归JavaGuide(javaguide.cn)所有基于MIT协议原文链接：[https://javaguide.cn/database/mysql/mysql-questions-01.html](https://javaguide.cn/database/mysql/mysql-questions-01.html)
 >
 >     - [DATETIME 和 TIMESTAMP 的区别是什么？](https://javaguide.cn/database/mysql/mysql-questions-01.html#datetime-和-timestamp-的区别是什么)
 >       - DATETIME 类型没有时区信息，TIMESTAMP 和时区有关。
@@ -81,11 +81,11 @@
 >
 >       - 存储引擎层
 >
->   - https://segmentfault.com/a/1190000040129107
+>   - [https://segmentfault.com/a/1190000040129107](https://segmentfault.com/a/1190000040129107)
 >
 >   - [MySQL next-key lock 加锁范围是什么？](https://segmentfault.com/a/1190000040129107)
 >
->   - https://zhuanlan.zhihu.com/p/286830069
+>   - [https://zhuanlan.zhihu.com/p/286830069](https://zhuanlan.zhihu.com/p/286830069)
 >
 >     - 索引不适合哪些场景
 >
@@ -109,12 +109,12 @@
 >
 >     - \2. MySQL 遇到过死锁问题吗，你是如何解决的？
 >
->       - https://juejin.cn/post/6844904121758138382
+>       - [https://juejin.cn/post/6844904121758138382](https://juejin.cn/post/6844904121758138382)
 >         - 这时候可以用select * from information_schema.innodb_locks;查看锁情况：
 >
->       - https://mp.weixin.qq.com/s?__biz=MzkyMzU5Mzk1NQ==&mid=2247505902&idx=1&sn=beac1995d53b16a241cc3fc5bd3d04d6&source=41&poc_token=HE-6lWij67PiBVZ1zmCAagCq9gPIB9oM-mzijpA_
+>       - [https://mp.weixin.qq.com/s?__biz=MzkyMzU5Mzk1NQ==&mid=2247505902&idx=1&sn=beac1995d53b16a241cc3fc5bd3d04d6&source=41&poc_token=HE-6lWij67PiBVZ1zmCAagCq9gPIB9oM-mzijpA](https://mp.weixin.qq.com/s?__biz=MzkyMzU5Mzk1NQ==&mid=2247505902&idx=1&sn=beac1995d53b16a241cc3fc5bd3d04d6&source=41&poc_token=HE-6lWij67PiBVZ1zmCAagCq9gPIB9oM-mzijpA)_
 >
->     - 索引优化20条 https://juejin.cn/post/6844904098999828488
+>     - 索引优化20条 [https://juejin.cn/post/6844904098999828488](https://juejin.cn/post/6844904098999828488)
 >
 >       - 1、查询SQL尽量不要使用select *，而是select具体字段。
 >
@@ -144,7 +144,7 @@
 >
 >       - 22、索引不宜太多，一般5个以内。
 >
->     - https://juejin.cn/post/6844904115353436174#heading-8
+>     - [https://juejin.cn/post/6844904115353436174#heading-8](https://juejin.cn/post/6844904115353436174#heading-8)
 >
 >   - sql为什么慢
 >
@@ -153,3 +153,4 @@
 >     - 回表次数过多
 >
 >     - IO次数过多
+

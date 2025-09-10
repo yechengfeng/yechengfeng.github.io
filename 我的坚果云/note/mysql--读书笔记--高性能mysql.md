@@ -113,7 +113,7 @@
 >
 >     - MVCC仅适用于重复读，和读未提交隔离界别
 >
->     - https://zhuanlan.zhihu.com/p/451007506
+>     - [https://zhuanlan.zhihu.com/p/451007506](https://zhuanlan.zhihu.com/p/451007506)
 >
 >   - 复制
 >     - 对于生产环境中运行的数据，都应该使用复制并且至少有三个以上的副本，理想情况下应该分布在不同的地区用于灾难恢复计划

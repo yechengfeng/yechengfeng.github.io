@@ -110,7 +110,7 @@
 >
 > ​		[https://javaguide.cn/system-design/framework/mybatis/mybatis-interview.html#%E5%92%8C-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88](https://javaguide.cn/system-design/framework/mybatis/mybatis-interview.html#和-的区别是什么)
 >
-> - https://javabetter.cn/sidebar/sanfene/mybatis.html
+> - [https://javabetter.cn/sidebar/sanfene/mybatis.html](https://javabetter.cn/sidebar/sanfene/mybatis.html)
 >
 > - MyBatis中#{}和${}区别(*)
 >
