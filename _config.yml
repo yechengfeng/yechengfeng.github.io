@@ -1,0 +1,21 @@
+# ------------------------------
+# 基本站点信息
+# ------------------------------
+title: "just note"           # 网站标题
+description: "note for Leslie"  # 描述，会用于 RSS
+url: "https://yechengfeng.github.io"  # 你的网站 URL
+baseurl: ""                # 如果是根域名就留空，否则写仓库名，例如 /my-blog
+
+# ------------------------------
+# 插件配置
+# ------------------------------
+plugins:
+  - jekyll-feed          # 启用 RSS Feed 插件
+
+# ------------------------------
+# 可选 Feed 配置
+# ------------------------------
+feed:
+  path: feed.xml          # RSS 输出路径
+  title: "Leslie note RSS"    # RSS 标题
+
