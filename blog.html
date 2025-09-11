@@ -1,0 +1,74 @@
+---
+layout: default
+title: 我的收藏博客
+---
+
+<h1>我的收藏博客</h1>
+<div id="rss-container" class="masonry-grid"></div>
+
+<style>
+.masonry-grid {
+  column-count: 3; /* 瀑布流列数 */
+  column-gap: 1em;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1em;
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.masonry-item a {
+  text-decoration: none;
+  color: #0366d6;
+  font-weight: bold;
+}
+@media (max-width: 900px) { .masonry-grid { column-count: 2; } }
+@media (max-width: 600px) { .masonry-grid { column-count: 1; } }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rss-parser/3.12.0/rss-parser.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const parser = new RSSParser();
+  
+  // 你的 RSS 列表
+  const feeds = [
+    "https://blog.heysh.xyz/feed.xml",
+    "https://www.52xml.cn/atom.xml",
+    "https://blog3.com/rss"
+  ];
+
+  let allItems = [];
+
+  for (let feedUrl of feeds) {
+    try {
+      const feed = await parser.parseURL(`https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`);
+      const data = JSON.parse(feed.contents);
+      allItems.push(...data.items);
+    } catch(e) {
+      console.error("抓取 RSS 失败:", feedUrl, e);
+    }
+  }
+
+  // 按发布时间降序
+  allItems.sort((a,b) => new Date(b.pubDate) - new Date(a.pubDate));
+
+  const container = document.getElementById("rss-container");
+
+  allItems.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "masonry-item";
+    div.innerHTML = `
+      <a href="${item.link}" target="_blank">${item.title}</a>
+      <div style="font-size:0.85em;color:#666;">${new Date(item.pubDate).toLocaleDateString()}</div>
+      <div>${item.contentSnippet || ''}</div>
+    `;
+    container.appendChild(div);
+  });
+});
+</script>
+
