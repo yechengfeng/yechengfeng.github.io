@@ -506,3 +506,110 @@ learn from bilibili
 
 ------
 
+# 词根词汇背单词整理 https://www.bilibili.com/video/BV1sA411Y7UJ/?p=3&vd_source=8db2bf2ffb3ab22965fccab48d4389ba)
+
+---
+
+### code
+- **解释**：密码；法典  
+- **短语**：dress code 着装规范  
+- **词根/衍生**：来自拉丁语 *codex*，意为“书本、法典”  
+- **例句**：  
+  1. The company has a strict dress code. 公司有严格的着装规范。  
+  2. He broke the secret code. 他破译了秘密密码。  
+  3. Learning the building code is essential for architects. 学习建筑法规对建筑师很重要。  
+  4. The criminal ignored the moral code. 罪犯无视道德规范。  
+
+---
+
+### seek
+- **解释**：寻求；寻找；试图  
+- **词根**：来自古英语 *sēcan*，意为“去寻找”  
+- **例句**：  
+  1. I seek for advice before making a decision. 我在做决定前寻求建议。  
+  2. They seek to improve their skills through practice. 他们努力通过练习提升技能。  
+  3. She is seeking a new job in the city. 她正在寻找城市里的新工作。  
+  4. The researchers seek to find a solution to the problem. 研究人员试图找到问题的解决方案。  
+
+---
+
+### item
+- **解释**：条目；项目；物品  
+- **短语**：category item 分类项目  
+- **例句**：  
+  1. Each item in the list must be checked. 列表中的每一项都必须检查。  
+  2. This store sells a variety of items. 这家商店出售各种物品。  
+  3. I forgot to pack one item from my suitcase. 我忘记收拾行李中的一件物品。  
+  4. The news report covered several items today. 今日的新闻报道包含了几个条目。  
+
+---
+
+### crown
+- **解释**：王冠；皇冠  
+- **例句**：  
+  1. The crown was set with precious jewels ─ diamonds, rubies and emeralds. 王冠上镶嵌着稀世珍宝——有钻石、红宝石、绿宝石。  
+  2. He was crowned king at the age of 18. 他在18岁时加冕为国王。  
+  3. The crown symbolizes authority and power. 皇冠象征权威和力量。  
+  4. She wore a golden crown on her head. 她头戴金色王冠。  
+
+---
+
+### effort
+- **解释**：努力；尝试  
+- **短语**：make an effort 努力  
+- **例句**：  
+  1. We need to make an effort to reduce waste. 我们需要努力减少浪费。  
+  2. She put a lot of effort into her presentation. 她在演讲上付出了很多努力。  
+  3. The project succeeded thanks to everyone's effort. 项目成功得益于每个人的努力。  
+  4. Learning a new language requires constant effort. 学习一门新语言需要持续努力。  
+
+---
+
+### point
+- **解释**：要点；指向；分数  
+- **例句**：  
+  1. He made an important point during the meeting. 他在会议中提出了一个重要观点。  
+  2. Can you point to the right direction? 你能指出正确的方向吗？  
+  3. The student scored full points on the test. 学生在考试中得了满分。  
+  4. The main point is that we must act now. 关键点是我们必须立即行动。  
+
+---
+
+### review
+- **解释**：复习；回顾；评论  
+- **例句**：  
+  1. I need to review my notes before the exam. 我需要在考试前复习笔记。  
+  2. The manager reviewed the team's performance. 经理回顾了团队的表现。  
+  3. She wrote a positive review of the book. 她写了该书的好评。  
+  4. Let's review the plan before finalizing it. 在最终确定前，让我们回顾一下计划。  
+
+---
+
+### fabrication
+- **解释**：制造；建造；虚构的谎言  
+- **词根**：来自拉丁语 *fabricare*，意为“制造，建造”  
+- **例句**：  
+  1. The factory specializes in metal fabrication. 这家工厂专门从事金属制造。  
+  2. The story was a complete fabrication. 这个故事完全是虚构的。  
+  3. Fabrication of evidence is illegal. 伪造证据是违法的。  
+  4. He excelled in the fabrication of complex machines. 他在复杂机械制造方面很出色。  
+
+---
+
+### series
+- **解释**：系列；连续；一连串  
+- **例句**：  
+  1. This TV series has five seasons. 这部电视剧有五季。  
+  2. A series of meetings will be held next week. 下周将举行一系列会议。  
+  3. The company released a series of new products. 公司推出了一系列新产品。  
+  4. The athlete won a series of competitions. 这名运动员赢得了一连串比赛。  
+
+---
+
+### variation
+- **解释**：变化；变动；变体  
+- **例句**：  
+  1. There is a wide variation in temperature across the country. 全国各地温度差异很大。  
+  2. Genetic variation is important for evolution. 遗传变异对进化很重要。  
+  3. The menu includes several variations of the same dish. 菜单中有同一道菜的几种变体。  
+  4. She noticed slight variations in the pattern. 她注意到图案中有细微的变化。  

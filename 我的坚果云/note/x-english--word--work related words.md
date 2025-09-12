@@ -79,3 +79,54 @@
 
 ------
 
+# 词汇整理
+
+---
+
+### aggregation
+- **解释**：聚集；集合  
+- **例句**：  
+  1. The aggregation of data is necessary for analysis. 数据聚集对于分析是必要的。  
+  2. The aggregation of small companies led to a larger corporation. 小公司的合并形成了一个大公司。  
+  3. Aggregation of information helps in decision-making. 信息的汇总有助于决策。  
+  4. Social media allows for the aggregation of user opinions. 社交媒体让用户意见得以汇集。  
+
+---
+
+### dimensions
+- **解释**：尺寸；规模；方面  
+- **例句**：  
+  1. What are the dimensions of this room? 这间房间的尺寸是多少？  
+  2. The problem has many dimensions that we need to consider. 这个问题有许多方面需要考虑。  
+  3. His research explores the social dimensions of education. 他的研究探讨教育的社会层面。  
+  4. The new project adds a financial dimension to our strategy. 这个新项目为我们的战略增加了财务维度。  
+
+---
+
+### via
+- **解释**：通过；经由  
+- **例句**：  
+  1. You can send the document via email. 你可以通过电子邮件发送文件。  
+  2. We traveled to Paris via London. 我们经过伦敦前往巴黎。  
+  3. He achieved success via hard work. 他通过努力工作取得了成功。  
+  4. You can access the system via a secure login. 你可以通过安全登录访问该系统。  
+
+---
+
+### incorporate
+- **解释**：包含；合并  
+- **例句**：  
+  1. The new plan incorporates all our suggestions. 新计划包含了我们所有的建议。  
+  2. The company was incorporated in 1993. 这家公司于1993年成立。  
+  3. We should incorporate feedback from users into the design. 我们应该将用户反馈纳入设计中。  
+  4. The design incorporates modern technology and aesthetics. 设计融合了现代技术和美学。  
+
+---
+
+### embed
+- **解释**：嵌入；插入  
+- **例句**：  
+  1. The bullet was embedded in the wall. 子弹嵌在墙里。  
+  2. The video was embedded in the webpage. 视频被嵌入网页中。  
+  3. The journalist was embedded with the military unit. 记者随军报道。  
+  4. Important values should be embedded in the company culture. 重要的价值观应融入企业文化中。  
