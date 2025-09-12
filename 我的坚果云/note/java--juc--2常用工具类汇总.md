@@ -226,9 +226,11 @@
 
 #### 4.Semaphore
 
-> Semaphore 是一种基于计数的信号量，用于控制同时访问某一资源的线程数量。
+> 1. <img src="https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250910-161123-8209378_33486757-89d7-4d6e-be8c-ad4ea722e594.png" alt="img" style="zoom:40%; float:left" />
 >
-> <img src="https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250910-161123-8209378_33486757-89d7-4d6e-be8c-ad4ea722e594.png" alt="img" style="zoom:50%; float:left" />
+> 
+>
+> Semaphore 是一种基于计数的信号量，用于控制同时访问某一资源的线程数量。
 >
 > acquire()：线程会尝试获取信号量，如果可用的许可（permits）为 0，则线程会阻塞直到有可用的许可。
 >

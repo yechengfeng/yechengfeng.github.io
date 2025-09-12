@@ -1,82 +1,88 @@
 1. ### redis相关资料
 
-   1. [https://open8gu.com/redis/persistent/fznigr883bhhbp0m/](https://open8gu.com/redis/persistent/fznigr883bhhbp0m/)
-   2. https://www.xiaolincoding.com/redis/[](https://zhuanlan.zhihu.com/p/451007506)
+   - [https://open8gu.com/redis/persistent/fznigr883bhhbp0m/](https://open8gu.com/redis/persistent/fznigr883bhhbp0m/)
+
+   - https://www.xiaolincoding.com/redis/[](https://zhuanlan.zhihu.com/p/451007506)
 
 2. #### redis简介
 
-   > 1. Redis 是一种基于内存的数据库，对数据的读写操作都是在内存中完成，因此读写速度非常快，常用于缓存，消息队列、分布式锁等场景。
-   > 2. 并且对数据类型的操作都是原子性的，因为执行命令由单线程负责的，不存在并发竞争的问题。除此之外，Redis 还支持事务、持久化、Lua 脚本、多种集群方案（主从复制模式、哨兵模式、切片机群模式）、发布/订阅模式，内存淘汰机制、过期删除机制等等。
-   > 3. Redis 和 Memcached 有什么区别？
-   >    1. Redis 支持的**数据类型**更丰富 (String、Hash、List、Set、ZSet)，而 Memcached 只支持最简单的 key-value 数据类型；
-   >    2. Redis 支持**数据的持久化**，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用，而 Merncached 没有持久化功能，数据全部存在内存之中，Memcached 重启或者挂掉后，数据就没了；
-   >    3. Redis 原生支持集群模式，Memcached 没有原生的集群模式，需要依靠客户端来实现往集群中分片写入数据；
-   >    4. Redis 支持发布订阅模型、Lu日脚本、事务等功能，而Memcached 不支持；
+   > - Redis 是一种基于内存的数据库，对数据的读写操作都是在内存中完成，因此读写速度非常快，常用于缓存，消息队列、分布式锁等场景。
+   >
+   > - 并且对数据类型的操作都是原子性的，因为执行命令由单线程负责的，不存在并发竞争的问题。除此之外，Redis 还支持事务、持久化、Lua 脚本、多种集群方案（主从复制模式、哨兵模式、切片机群模式）、发布/订阅模式，内存淘汰机制、过期删除机制等等。
+   >
+   > - Redis 和 Memcached 有什么区别？
+   >
+   > - Redis 支持的**数据类型**更丰富 (String、Hash、List、Set、ZSet)，而 Memcached 只支持最简单的 key-value 数据类型；
+   >
+   > - Redis 支持**数据的持久化**，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用，而 Merncached 没有持久化功能，数据全部存在内存之中，Memcached 重启或者挂掉后，数据就没了；
+   >
+   > - Redis 原生支持集群模式，Memcached 没有原生的集群模式，需要依靠客户端来实现往集群中分片写入数据；
+   >
+   > - Redis 支持发布订阅模型、Lu日脚本、事务等功能，而Memcached 不支持；
 
 3. ### redis数据类型应用场景
 
-   1. **String 类型的应用场景：缓存对象、常规计数、分布式锁、共享 session 信息等。**
-
-      1. 常用命令 ：get/set/del/incr/decr/incrby/decrby
-
-   2. **List 类型的应用场景：消息队列 （但是有两个问题：1.生产者需要自行实现全局唯一ID；2.不能以消费组形式消费数据）等。参考 [https://www.51cto.com/article/640335.html](https://www.51cto.com/article/640335.html)**
-      1. 定时排行榜
+   - **String 类型的应用场景：缓存对象、常规计数、分布式锁、共享 session 信息等。**
+     - 常用命令 ：get/set/del/incr/decr/incrby/decrby
+   
+   - **List 类型的应用场景：消息队列 （但是有两个问题：1.生产者需要自行实现全局唯一ID；2.不能以消费组形式消费数据）等。参考 [https://www.51cto.com/article/640335.html](https://www.51cto.com/article/640335.html)**
+      - 定时排行榜
          - **list类型的lrange命令可以分页查看队列中的数据。可将每隔一段时间计算一次的排行榜存储在list类型中，如QQ音乐内地排行榜，每周计算一次存储再list类型中，访问接口时通过page和size分页转化成lrange命令获取排行榜数据。但是，并不是所有的排行榜都能用list类型实现，只有定时计算的排行榜才适合使用list类型存储，与定时计算的排行榜相对应的是实时计算的排行榜，list类型不能支持实时计算的排行榜，下面介绍有序集合sorted set的应用场景时会详细介绍实时计算的排行榜的实现。**
-      
-   3. **Hash 类型：缓存对象、购物车等。**
    
-   4. **set 类型：聚合计算（并集、交集、差集）场景，比如点赞、共同关注、抽奖活动等。**
+   - **Hash 类型：缓存对象、购物车等。**
    
-      1. 实战场景：收藏夹
+   - **set 类型：聚合计算（并集、交集、差集）场景，比如点赞、共同关注、抽奖活动等。**
+   
+      - 实战场景：收藏夹
    
          - 例如QQ音乐中如果你喜欢一首歌，点个『喜欢』就会将歌曲放到个人收藏夹中，每一个用户做一个收藏的集合，每个收藏的集合存放用户收藏过的歌曲id。
    
          - key为用户id，value为歌曲id的集合
    
-   5. **zset 类型：排序场景，比如排行榜、电话和姓名排序等。**
+   - **zset 类型：排序场景，比如排行榜、电话和姓名排序等。**
    
       - 有序集合的特点是有序，无重复值。与set不同的是sorted set每个元素都会关联一个score属性，redis正是通过score来为集合中的成员进行从小到大的排序。
       - 实战场景：实时排行榜
         - QQ音乐中有多种实时榜单，比如飙升榜、热歌榜、新歌榜，可以用redis key存储榜单类型，score为点击量，value为歌曲id，用户每点击一首歌曲会更新redis数据，sorted set会依据score即点击量将歌曲id排序。
    
-   6. **BitMap （2.2 版新增)：二值状态统计的场景，比如签到、判断用户登陆状态、连续签到用户总数等 •**
+   - **BitMap （2.2 版新增)：二值状态统计的场景，比如签到、判断用户登陆状态、连续签到用户总数等 •**
    
-   7. **HyperLogLog （2.8 版新增)：海量数据基数统计的场景，比如百万级网页 UV计数等；[https://www.cnblogs.com/54chensongxia/p/13803465.html](https://www.cnblogs.com/54chensongxia/p/13803465.html)**
+   - **HyperLogLog （2.8 版新增)：海量数据基数统计的场景，比如百万级网页 UV计数等；[https://www.cnblogs.com/54chensongxia/p/13803465.html](https://www.cnblogs.com/54chensongxia/p/13803465.html)**
    
-   8. **GEO （3.2版新增）：存储地理位置信息的场景，比如滴滴叫车；**
+   - **GEO （3.2版新增）：存储地理位置信息的场景，比如滴滴叫车；**
    
-   9. **Stream（5.0版新增)：消息队列，相比于基于 List 类型实现的消息队列，有这两个特有的特性：自动生成全局唯一消息ID，支持以消费组形式消费数据。**
+   - **Stream（5.0版新增)：消息队列，相比于基于 List 类型实现的消息队列，有这两个特有的特性：自动生成全局唯一消息ID，支持以消费组形式消费数据。**
    
 4. ### redis数据结构如何实现的
 
-   1. [https://www.cnblogs.com/ysocean/p/9102811.html](https://www.cnblogs.com/ysocean/p/9102811.html)
+   - [https://www.cnblogs.com/ysocean/p/9102811.html](https://www.cnblogs.com/ysocean/p/9102811.html)
 
 5. ### redis的线程模型
 
-   1. 可以谈谈单线程，IO多路复用
+   - 可以谈谈单线程，IO多路复用
       1. Redis 采用了 10 多路复用机制处理大量的客户端 Socket 请求，10 多路复用机制是指一个线程处理多个10流，就是我们经常听到的select/epoll 机制。简单来说，在Redis 只运行单线程的情况下，该机制允许内核中，同时存在多个监听 Socket 和已连接 Socket。内核会一直监听这些 Socket 上的连接请求或数据请求。一旦有请求到达，就会交给 Redis 线程处理，这就实现了一个 Redis 线程处理多个10 流的效果。
 
 6. ### Redis 6.0 之后为什么引入了多线程？
 
-   1. 多线程主要引用在了IO处理上面， 如果需要配置 多线程 则  配置文件中
+   - 多线程主要引用在了IO处理上面， 如果需要配置 多线程 则  配置文件中
 
       - io-threads-do-reads yes
 
       - io-threads 4
 
-   2. 关于线程数的设置，官方的建议是如果为 4核的CPU，建议线程数设置为 2 或了，如果为8核CPU建议线程数设置为 6，线程数一定要小于机器核数，线程数并不是越大越好。
+   - 关于线程数的设置，官方的建议是如果为 4核的CPU，建议线程数设置为 2 或了，如果为8核CPU建议线程数设置为 6，线程数一定要小于机器核数，线程数并不是越大越好。
 
-   3. 因此，Redis 6.0 版本之后，Redis 在启动的时候，默认情况下会额外创建 6 个线程（这里的线程数不包括主线程）：
+   - 因此，Redis 6.0 版本之后，Redis 在启动的时候，默认情况下会额外创建 6 个线程（这里的线程数不包括主线程）：
 
-   4. Redis-server ： Redis的主线程，主要负责执行命令；
+   - Redis-server ： Redis的主线程，主要负责执行命令；
 
-   5. bio_close_file bio_aof_fsync、bio_ lazy_free：三个后台线程，分别异步处理关闭文件任务、AOF刷盘任务、释放内存任务；
+   - bio_close_file bio_aof_fsync、bio_ lazy_free：三个后台线程，分别异步处理关闭文件任务、AOF刷盘任务、释放内存任务；
 
-   6. • io_thd 1、 io thd_ 2、io_thd_3：三个io线程，io-threads 默认是 4，所以会启动3 （4-1）个10多线程，用来分担 Redis 网络io的压力。
+   - • io_thd 1、 io thd_ 2、io_thd_3：三个io线程，io-threads 默认是 4，所以会启动3 （4-1）个10多线程，用来分担 Redis 网络io的压力。
 
 7. ### redis的持久化
 
-   1. Redis 共有三种数据持久化的方式：
+   - Redis 共有三种数据持久化的方式：
 
       - AOF 日志：每执行一条写操作命令，就把该命令以追加的方式写入到一个文件里；
 
@@ -84,15 +90,15 @@
 
       - 混合持久化方式：Redis 4.0 新增的方式，集成了 AOF 和 RDB 的优点；
 
-   2. AOF 日志是如何实现的？
+   - AOF 日志是如何实现的？
 
       - [https://open8gu.com/redis/persistent/by6eqgg5fv4roz1r/](https://open8gu.com/redis/persistent/by6eqgg5fv4roz1r/)
 
-   3. RDB是如何实现的
+   - RDB是如何实现的
 
       - [https://open8gu.com/redis/persistent/fznigr883bhhbp0m/](https://open8gu.com/redis/persistent/fznigr883bhhbp0m/)
 
-   4. 为什么会有混合持久化？
+   - 为什么会有混合持久化？
 
 8. ### [redis集群](https://www.xiaolincoding.com/redis/base/redis_interview.html#redis-如何实现服务高可用)  
 
@@ -320,7 +326,7 @@
 
 5. ##### 数据分片
 
-   - \1) Hash映射（并非一致性哈希，而是哈希槽)
+   - Hash映射（并非一致性哈希，而是哈希槽)
 
      - Redis采用哈希槽（hash slot)的方式在服务器端进行分片。
        - HASH_SLOT = CRC16(key) mod 16384（2^14=16384)
@@ -343,13 +349,13 @@
 
      - Master节点维护着一个16384/8字节的位序列，Master节点用bit来标识对于某个槽自己是否拥有。比如对于编号为1的槽，Master只要判断序列的第二位（索引从0开始)是不是为1即可。
 
-   - \2) 范围映射
+   - 范围映射
 
      - 范围映射通常选择key本身而非key的函数计算值来作为数据分布的条件，且每个数据节点存放的key的值域是连续的一段范围。
 
      - key的值域是业务层决定的，业务层需要清楚每个区间的范围和Redis实例数量，才能完整地描述数据分布。这使业务层的key值域与系统层的实例数量耦合，数据分片无法在纯系统层实现。
 
-   - \3) Hash和范围结合
+   - Hash和范围结合
 
 6. 节点间通信协议——Gossip
 
@@ -451,9 +457,9 @@
 
 - ##### redis 和mysql如何保证数据一致
 
-  - \1. 先更新 mysql ，再更新redis。如果更新redis失败，还是可能不一致
+  - 先更新 mysql ，再更新redis。如果更新redis失败，还是可能不一致
 
-  - \2. 先删除redis缓存数据，再更新mysql，再次查询的时候将数据添加到缓存中，可能导致数据不一致
+  - 先删除redis缓存数据，再更新mysql，再次查询的时候将数据添加到缓存中，可能导致数据不一致
 
   - 延迟双删:先删除redis数据 再更新mysql，延迟几百秒再删一次redis.
 

@@ -1,6 +1,8 @@
 - ### 运行时数据区域
 
-  - <img src="https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250909-130148-8209378_c81f2c56-6e7c-4b8a-dabd-f0342c6b1787-20250909130148383.png " style="zoom:25%;  float:left"/>
+  - <img src="https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250909-130148-8209378_c81f2c56-6e7c-4b8a-dabd-f0342c6b1787-20250909130148383.png " style="zoom:25%;"/>
+
+  
 
 - ### 程序计数器 （线程私有）
 

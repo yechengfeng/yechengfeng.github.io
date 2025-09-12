@@ -2,24 +2,20 @@
 >
 > 1. ### 内存碎片率监控
 >
->    - Redis 通过 info memory 命令可以查看内存碎片情况： redis-cli info memory | grep ratio 返回结果中的 memfragmentationratio 表示内存碎片率： 1.0 左右表示几乎没有碎片 1.0-1.5 之间是合理范围 1.5 表示碎片较多 <1.0 表示Redis使用了交换空间(swap)
+>    > Redis 通过 info memory 命令可以查看内存碎片情况： redis-cli info memory | grep ratio 返回结果中的 memfragmentationratio 表示内存碎片率： 1.0 左右表示几乎没有碎片 1.0-1.5 之间是合理范围 1.5 表示碎片较多 <1.0 表示Redis使用了交换空间(swap)
 >
 > 2. ###  动态内存回收机制
 >
->    - 2.1 自动内存回收 Redis 4.0 及以上版本引入了自动内存碎片整理功能，通过以下配置控制：
+>    - 自动内存回收 Redis 4.0 及以上版本引入了自动内存碎片整理功能，通过以下配置控制：
 >
 >    - 启用自动内存碎片整理
 >
->      -  activedefrag yes # 内存碎片率超过此阈值时开始整理 
+>      > -  activedefrag yes 
+>      > -  active-defrag-ignore-bytes 100mb  # 内存碎片率超过此阈值时开始整理 
+>      > -   active-defrag-threshold-lower 10  active-defrag-threshold-upper 100  意味着当内存碎片率达到 **100%** 时，Redis 的自动碎片整理机制会开始**尽最大努力**去减少内存碎片
+>      > -  active-defrag-cycle-min 5 active-defrag-cycle-max 75 # 整理过程占用CPU的最小和最大比例 
 >
->      - active-defrag-ignore-bytes 100mb active-defrag-threshold-lower 10 
->
->      - active-defrag-threshold-upper 100 # 整理过程占用CPU的最小和最大比例 
->
->      - active-defrag-cycle-min 5 active-defrag-cycle-max 75
->        - 2.2 手动触发内存回收 可以通过命令手动触发内存回收：
->
->    - 执行内存碎片整理 redis-cli memory purge
+>    - 手动执行内存碎片整理 redis-cli memory purge
 >
 > 3. ### 关键配置参数
 >
