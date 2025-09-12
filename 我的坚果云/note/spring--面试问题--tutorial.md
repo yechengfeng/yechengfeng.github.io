@@ -4,24 +4,24 @@
 
 2. #### SpringBoot实现定时任务的4中方式
 
-   1. 使用Timer
-   2. 使用ScheduledExecutorService
-   3. 使用Spring Task
-   4. 整合Quartz
+   - 使用Timer
+   - 使用ScheduledExecutorService
+   - 使用Spring Task
+   - 整合Quartz
 
 3. #### SpringBoot中如何集成SSL
 
 4. #### springboot starter启动原理
 
-   1. SpringBoot默认扫描启动类所在的包下的主类和子类的所有组件，但并没有包括依赖包中的类。那么starter中的bean是如何被发现和加载的呢？
-   2. @SpringBootApplication这个复合组件中有个@EnableAutoConfiguration的注解，借助@Import的支持，能够收集和注册依赖包中相关bean的定义。通过一层一层翻源码发现，可以发现SpringFactoriesLoader.loadFactoryNames方法调用了loadSpringFactories，从所有jar包中读取META-INF/spring.factories文件信息。spring.factories中配置的是被@Configuration注解修饰的配置类。（SPI技术）这样启动之后starter中的bean也被注入到了容器中
+   - SpringBoot默认扫描启动类所在的包下的主类和子类的所有组件，但并没有包括依赖包中的类。那么starter中的bean是如何被发现和加载的呢？
+   - @SpringBootApplication这个复合组件中有个@EnableAutoConfiguration的注解，借助@Import的支持，能够收集和注册依赖包中相关bean的定义。通过一层一层翻源码发现，可以发现SpringFactoriesLoader.loadFactoryNames方法调用了loadSpringFactories，从所有jar包中读取META-INF/spring.factories文件信息。spring.factories中配置的是被@Configuration注解修饰的配置类。（SPI技术）这样启动之后starter中的bean也被注入到了容器中
 
 5. #### 如何自定义springboot starter [https://www.cnblogs.com/hello-shf/p/10864977.html](https://www.cnblogs.com/hello-shf/p/10864977.html)
 
-   1. 新建一个项目，命名格式采用xxx-spring-boot-starter。spring规定非官方的starter以xxx-spring-boot-starter，官方的以spring-boot-starter-xxx命名。
-   2. 添加starter中需要的依赖
-   3. 添加必要的配置类，可以写一些通用的模板类，然后在resource/下建META-INF/spring.factories文件，把配置类配到里面
-   4. 执行mvn clean install把jar包打到本地maven仓库，然后就可以使用了
+   - 新建一个项目，命名格式采用xxx-spring-boot-starter。spring规定非官方的starter以xxx-spring-boot-starter，官方的以spring-boot-starter-xxx命名。
+   - 添加starter中需要的依赖
+   - 添加必要的配置类，可以写一些通用的模板类，然后在resource/下建META-INF/spring.factories文件，把配置类配到里面
+   - 执行mvn clean install把jar包打到本地maven仓库，然后就可以使用了
 
 6. #### springboot 是如何启动的 
 
@@ -38,59 +38,58 @@
 
 7. #### ApplicationContext的子类
 
-   1. ClassPathXmlApplicationContext(相对路径加载bean)
-   2. FileSystemXmlApplicationContext(项目的绝对路径加载bean)
-   3. AnnotationConfigApplicationContext(基于注解的方式加载bean)
-   4. AnnotationConfigServletWebServerApplicationContext(需要一个servlet容器)
+   - ClassPathXmlApplicationContext(相对路径加载bean)
+   - FileSystemXmlApplicationContext(项目的绝对路径加载bean)
+   - AnnotationConfigApplicationContext(基于注解的方式加载bean)
+   - AnnotationConfigServletWebServerApplicationContext(需要一个servlet容器)
 
 8. #### Spring容器中Bean的作用域
 
-   1. **singleton**：单例模式，在整个Spring IoC容器中，使用singleton定义的Bean将只有一个实例
-   2. **prototype**：原型模式，每次通过容器的getBean方法获取prototype定义的Bean时，都将产生一个新的Bean实例
-   3. **request**：对于每次HTTP请求，使用request定义的Bean都将产生一个新实例，即每次HTTP请求将会产生不同的Bean实例。只有在Web应用中使用Spring时，该作用域才有效
-   4. **session**：对于每次HTTPSession，使用session定义的Bean产生一个新实例。同样只有在Web应用中使用Spring时，该作用域才有效
-   5. **globalsession**：每个全局的HTTPSession，使用session定义的Bean都将产生一个新实例。典型情况下，仅在使用portletcontext的时候有效。同样只有在Web应用中使用Spring时，该作用域才有效
-   6. 其中比较常用的是singleton和prototype两种作用域。对于singleton作用域的Bean，每次请求该Bean都将获得相同的实例。容器负责跟踪Bean实例的状态，负责维护Bean实例的生命周期行为；如果一个Bean被设置成prototype作用域，程序每次请求该id的Bean，Spring都会新建一个Bean实例，然后返回给程序。**在这种情况下，Spring容器仅仅使用new 关键字创建Bean实例，一旦创建成功，容器不在跟踪实例，也不会维护Bean实例的状态**。
-   7. 如果不指定Bean的作用域，Spring默认使用singleton作用域。Java在创建Java实例时，需要进行内存申请；销毁实例时，需要完成垃圾回收，这些工作都会导致系统开销的增加。因此，prototype作用域Bean的创建、销毁代价比较大。而singleton作用域的Bean实例一旦创建成功，可以重复使用。因此，除非必要，否则尽量避免将Bean被设置成prototype作用域。
+   - **singleton**：单例模式，在整个Spring IoC容器中，使用singleton定义的Bean将只有一个实例
+   - **prototype**：原型模式，每次通过容器的getBean方法获取prototype定义的Bean时，都将产生一个新的Bean实例
+   - **request**：对于每次HTTP请求，使用request定义的Bean都将产生一个新实例，即每次HTTP请求将会产生不同的Bean实例。只有在Web应用中使用Spring时，该作用域才有效
+   - **session**：对于每次HTTPSession，使用session定义的Bean产生一个新实例。同样只有在Web应用中使用Spring时，该作用域才有效
+   - **globalsession**：每个全局的HTTPSession，使用session定义的Bean都将产生一个新实例。典型情况下，仅在使用portletcontext的时候有效。同样只有在Web应用中使用Spring时，该作用域才有效
+   - 其中比较常用的是singleton和prototype两种作用域。对于singleton作用域的Bean，每次请求该Bean都将获得相同的实例。容器负责跟踪Bean实例的状态，负责维护Bean实例的生命周期行为；如果一个Bean被设置成prototype作用域，程序每次请求该id的Bean，Spring都会新建一个Bean实例，然后返回给程序。**在这种情况下，Spring容器仅仅使用new 关键字创建Bean实例，一旦创建成功，容器不在跟踪实例，也不会维护Bean实例的状态**。
+   - 如果不指定Bean的作用域，Spring默认使用singleton作用域。Java在创建Java实例时，需要进行内存申请；销毁实例时，需要完成垃圾回收，这些工作都会导致系统开销的增加。因此，prototype作用域Bean的创建、销毁代价比较大。而singleton作用域的Bean实例一旦创建成功，可以重复使用。因此，除非必要，否则尽量避免将Bean被设置成prototype作用域。
 
 9. #### spring，springboot,springcloud区别
 
-   1. Spring Cloud 是一系列框架的有序集合。它利用 Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用 Spring Boot 的开发风格做到一键启动和部署。
+   - Spring Cloud 是一系列框架的有序集合。它利用 Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用 Spring Boot 的开发风格做到一键启动和部署。
 
 10. #### 说说Spring中的@Component和@Bean有什么区别？（参考 [https://www.bilibili.com/video/BV1P44y1N7QG?p=10&vd_source=8db2bf2ffb3ab22965fccab48d4389ba](https://www.bilibili.com/video/BV1P44y1N7QG?p=10&vd_source=8db2bf2ffb3ab22965fccab48d4389ba)）
 
-    1. **作用对象不同**
-
+    - **作用对象不同**
        - @Component： 类级别注解。标记在类定义上。
-
+    
        - @Bean： 方法级别注解。标记在配置类 (@Configuration) 中的方法上
-
-    2. **控制权与创建方式不同：**
-
+    
+    - **控制权与创建方式不同：**
+    
        - @Component： 声明式/自动。Spring 通过类路径扫描 (@ComponentScan) 自动发现并实例化该类（通常用无参构造器），注册为 Bean。开发者不控制实例化过程。
-
+    
        - @Bean： 编程式/显式。开发者在方法体内编写代码 (new, 工厂方法, 复杂逻辑) 来创建、配置并返回对象实例。Spring 调用该方法并将返回对象注册为 Bean。开发者完全控制实例化过程和初始配置。
-
-    3. **主要用途不同：**
-
+    
+    - **主要用途不同：**
+    
        - @Component： 主要用于注册你自己编写的、属于应用程序业务逻辑的类 (如 Service, Repository, Controller, Util 等)。通常结合 @ComponentScan 使用。
-
+    
        - @Bean： 主要用于：
-
+    
          - 注册第三方库的类（你无法修改其源码添加 @Component）为 Bean (如 DataSource, RestTemplate)。
-
+    
          - 注册需要复杂初始化逻辑或特殊配置的 Bean。
-
+    
          - 注册多个同类型但配置不同的 Bean (通过不同方法名区分)。
-
+    
          - 当你需要完全掌控 Bean 的创建过程时。
-
-    4. **配置方式不同：**
-
+    
+    - **配置方式不同：**
+    
        - @Component： 依赖于类路径扫描 (@ComponentScan) 来发现和注册 Bean。
-
+    
        - @Bean： 定义在 @Configuration 类中，是显式配置的一部分。
-
+    
 11. ##### beanFactory和applicationContext区别
 
     >  参考 
@@ -98,39 +97,39 @@
     > 1. [https://my.oschina.net/yao00jun/blog/215642](https://my.oschina.net/yao00jun/blog/215642)
     > 2. [https://blog.csdn.net/qq_36748278/article/details/78264764](https://blog.csdn.net/qq_36748278/article/details/78264764)
 
-    1. 与Application Context关系
+    - 与Application Context关系
 
        - Application context 的父接口
 
        -  spring的核心容器，主要的ApplicationContext实现都组合了BeanFactory的功能
 
-    2. beanFactory功能
+    - beanFactory功能
 
        - 主要是getBean
          - defaultListableBeanFactory是其默认的实现
 
-    3. applicationContext不同之处，Application提供了更多的能力
+    - applicationContext不同之处，Application提供了更多的能力
 
-       1. MessageSource 国际化的能力
-       2. ResourcePatternResolver 获取资源的能力
-       3. ApplicationEventPublisher 事件发布
-       4. EnvironmentCapable  获取环境信息的能力
+       - MessageSource 国际化的能力
+       - ResourcePatternResolver 获取资源的能力
+       - ApplicationEventPublisher 事件发布
+       - EnvironmentCapable  获取环境信息的能力
 
 12. ##### spring中的AOP	
 
-    1. JDK动态代理，接口，用Proxy.newProxyInstance生成代理对象，InvocationHandler
-    2. CGLIB，类，用enhancer生成代理对象，MethodInteceptor
-    3. 如果目标对象实现了接口，默认情况下会采用JDK的动态代理实现AOP ;
-    4. 如果目标对象实现了接口，可以强制使用CGLIB实现AOP ;如果目标对象没有实现了接口，必须采用CGLIB库，spring会自动在JDK动态代理和CGLIB之间转换;
+    - JDK动态代理，接口，用Proxy.newProxyInstance生成代理对象，InvocationHandler
+    - CGLIB，类，用enhancer生成代理对象，MethodInteceptor
+    - 如果目标对象实现了接口，默认情况下会采用JDK的动态代理实现AOP ;
+    - 如果目标对象实现了接口，可以强制使用CGLIB实现AOP ;如果目标对象没有实现了接口，必须采用CGLIB库，spring会自动在JDK动态代理和CGLIB之间转换;
 
 13. **spring 如何解决循环依赖的 https://blog.csdn.net/a745233700/article/details/110914620**
 
 14. Spring 中常见的后置处理器
 
-    1. **AutowiredAnnotationBeanPostProcessor** （Autowired ，value注解）
-    2. **CommonAnnotationBeanPostProcessor**（处理Resource,@PostConstruct @PreDestroy）
-    3. **ConfigurationPropertiesBindingPostProcessor**（解析ConfigurationProperties注解）
-    4. **ContextAnnotationAutowireCandidateResolver**（解析注解字符串的?）
+    - **AutowiredAnnotationBeanPostProcessor** （Autowired ，value注解）
+    - **CommonAnnotationBeanPostProcessor**（处理Resource,@PostConstruct @PreDestroy）
+    - **ConfigurationPropertiesBindingPostProcessor**（解析ConfigurationProperties注解）
+    - **ContextAnnotationAutowireCandidateResolver**（解析注解字符串的?）
 
 15. spring bean的生命周期[https://www.cnblogs.com/vipstone/p/16659553.html](https://www.cnblogs.com/vipstone/p/16659553.html)
 
