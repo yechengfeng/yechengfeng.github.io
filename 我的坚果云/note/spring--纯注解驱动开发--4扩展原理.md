@@ -54,6 +54,14 @@
   > 	  		- initApplicationEventMulticaster //初始化
   > 	  		
   > 	  		
+  > 	 SmartInitializingSingleton原理
+  > 	 	- ioc容器创建对象并refresh的时候
+  > 	 	- finishBeanFactoryInitialization(beanfactory);初始化剩下的单实例bean；
+  > 	 		- 先创建所有的单实例bean;
+  > 	 		- 获取所有创建好的单实例bean, 判断是否是smartInitializingSinton类型的
+  > 	 		- 如果是就调用aftersingletonsInstantiated
+  > 	  		
+  > 	  		
 
 ### 解析原理
 
