@@ -60,6 +60,7 @@ var files = [
 function buildTree(files){
   let root = {_files:[]};
   files.forEach(f=>{
+    if (f.name.startsWith('--')) return;
     let parts = f.name.split('--');
     if(parts.length === 1){
       // 不包含 -- 的文件归类到 “其他”

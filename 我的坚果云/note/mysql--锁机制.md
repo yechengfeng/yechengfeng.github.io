@@ -1,4 +1,6 @@
-> - [https://mp.weixin.qq.com/s/MhzRamB1nzJe9xA7HO-Wfg](https://mp.weixin.qq.com/s/MhzRamB1nzJe9xA7HO-Wfg)
+> - [https://mp.weixin.qq.com/s/MhzRamB1nzJe9xA7HO-Wfg](https://mp.weixin.qq.com/s/MhzRamB1nzJe9xA7HO-Wfg)】
+>
+> - [https://www.stutuer.tech/posts/mysql-transaction-isolation](https://www.stutuer.tech/posts/mysql-transaction-isolation)
 >
 > - #### **全局锁**
 >
@@ -59,9 +61,9 @@
 >           - 所以为了能安全的对表结构进行变更，在对表结构变更前，先要看看数据库中的长事务，是否有事务已经对表加上了 MDL 读锁，如果可以考虑 kill 掉这个长事务，然后再做表结构的变更。
 >
 >   - #### **意向锁**；
->     
+>
 >     - 意向锁的目的是为了快速判断表里是否有记录被加锁。
->     
+>
 >   -  #### **AUTO-INCE锁；**
 >
 >     - 表里的主键通常都会设置成自增的，这是通过对主键字段声明 AUTO_INCREMENT 属性实现的。之后可以在插入数据时，可以不指定主键的值，数据库会自动给主键赋值递增的值，这主要是通过 AUTO-INC 锁实现的。
@@ -71,3 +73,4 @@
 > - #### **行级锁**
 >
 >   - InnoDB 引擎是支持行级锁的，而 MyISAM 引擎并不支持行级锁。
+
