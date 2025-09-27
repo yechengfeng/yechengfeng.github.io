@@ -24,7 +24,7 @@
 
     ![img](https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250927-132421-8209378_9378d560-1f3d-410f-ee63-83a6cb795a35.png)
 
-    ![img](https://api2.mubu.com/v3/document_image/8209378_5d58e244-ac0c-4579-f789-f7d1512d94c5.png)
+    ![img](https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250927-204153-8209378_5d58e244-ac0c-4579-f789-f7d1512d94c5.png)
 
   - zookeeper 的三个端口作用
 
@@ -88,4 +88,4 @@
 - 参考
 
   - zookeeper
-    - https://www.cnblogs.com/blackbinbin/p/17067519.html
+    - [https://www.cnblogs.com/blackbinbin/p/17067519.html](https://www.cnblogs.com/blackbinbin/p/17067519.html)

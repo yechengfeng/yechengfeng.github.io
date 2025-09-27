@@ -1,3 +1,5 @@
+- https://cn.dubbo.apache.org/zh-cn/overview/mannual/java-sdk/advanced-features-and-usage/performance/threading-model/provider/[](https://cn.dubbo.apache.org/zh-cn/overview/mannual/java-sdk/advanced-features-and-usage/performance/threading-model/provider/)
+
 - 节点角色说明
 
   - Provider	暴露服务的服务提供方
@@ -70,9 +72,14 @@
 
   - ConsistentHash LoadBalance 一致性 Hash，相同参数的请求总是发到同一提供者。
 
-  - 线程模型
-    - <dubbo:protocol name="dubbo" dispatcher="all"  threadpool="fixed" threads="100" />
-      - Dispatcher
+- 线程模型
+  ```xml
+  <dubbo:protocol name="dubbo" dispatcher="all"  threadpool="fixed" threads="100" />
+  
+  - Dispatcher
+  ```
+
+  
 
 - 协议
 
@@ -80,7 +87,7 @@
 
   - 为什么要消费者比提供者个数多?
 
-    - https://blog.csdn.net/luzhensmart/article/details/113063845
+    - [https://blog.csdn.net/luzhensmart/article/details/113063845](https://blog.csdn.net/luzhensmart/article/details/113063845)
 
     - 为什么要消费者比提供者个数多? 因dubbo 协议采用单一长连接，假设网络为千兆网卡 3，根据测试经验数据每条连接最多只能压满7MByte(不同的环境可能不一样，供参考)，理论上1 个服务提供者需要20 个服务消费者才能压满网卡
 
@@ -89,7 +96,7 @@
 
   - 为什么采用异步单一长连接?
 
-    - https://www.iamshuaidi.com/39928.html
+    - [https://www.iamshuaidi.com/39928.html](https://www.iamshuaidi.com/39928.html)
 
     - Dubbo 协议采用异步单一长连接的方式，主要是为了提高系统的性能、降低连接数、减少网络开销以及提升请求响应的效率。在这种模式下，客户端与服务端之间使用一个持久的连接，通过异步机制处理请求和响应，这种方式相比传统的同步阻塞模式具有更好的吞吐量和并发处理能力。fen
 
@@ -99,21 +106,33 @@
 
   - 可以全局设置开启令牌验证：
 
-    - <dubbo:provider interface="com.foo.BarService" token="true" />随机token令牌，使用UUID生成
+    - ```xml
+      <dubbo:provider interface="com.foo.BarService" token="true" /> #随机token令牌，使用UUID生成
+      <dubbo:provider interface="com.foo.BarService" token="123456" /> #固定token
+      ```
 
-    - <dubbo:provider interface="com.foo.BarService" token="123456" />固定token
+      
 
   - 也可在服务级别设置：
 
-    - <dubbo:service interface="com.foo.BarService" token="true" />
+    - ```xml
+       <dubbo:service interface="com.foo.BarService" token="true" />
+      
+      <dubbo:service interface="com.foo.BarService" token="123456" />
+      ```
 
-    - <dubbo:service interface="com.foo.BarService" token="123456" />
+      
 
   - 还可在协议级别设置：
 
-    - <dubbo:protocol name="dubbo" token="true" />
-
-    - <dubbo:protocol name="dubbo" token="123456" />
+    - ```xml
+      <dubbo:protocol name="dubbo" token="true" />
+      
+      <dubbo:protocol name="dubbo" token="123456" />
+      ```
+    
+      
+    
 
 - 优雅停机
 
