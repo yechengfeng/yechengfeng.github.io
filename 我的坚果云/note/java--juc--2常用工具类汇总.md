@@ -104,7 +104,7 @@
 >   public void countDown() {
 >       sync.releaseShared(1);
 >   }
->   
+>     
 >   public final boolean releaseShared(int arg) {
 >       // 尝试释放共享锁
 >       if (tryReleaseShared(arg)) {
@@ -241,3 +241,135 @@
 > ​	Semaphore 内部通过 AbstractQueuedSynchronizer 来管理信号量。
 >
 > ​	信号量通过一个计数器（permits）来限制同时进入临界区的线程数，每当线程进入临界区时，计数器减少，线程离开时，计数器增加。
+
+**CompletableFuture**
+
+> - Future 定义了一些规范.
+>
+>   - 接口规范
+>
+>     - cancel
+>
+>     - get()
+>
+>     - get(long)
+>
+>     - isCanceled
+>
+>     - isDone
+>
+>   - 实现类-FutureTask
+>
+>     - 源码分析
+>
+>       - FutureTask 实现了RunnableFuture
+>
+>       - RunnableFuture 继承了Runnable和Future
+>
+>       - FutureTask 可以通过构造的方式注入Callable和Runnable
+>
+>     - Callable 和Runnable 区别
+>
+>       - \1. 一个有返回值一个没有
+>
+>       - \2. 一个支持异常抛出，一个不支持。所以对于异常的处理 runnable只能在子线程里面处理异常
+>
+>     - Future的优点和缺点
+>       - 缺点
+>         - FutureTask get() 容易产生阻塞,有一个get(TimeUnit )方法，可以做到过时不候的效果，一定程度可以避免阻塞。但是实际一般不直接get，一般配合isDone轮询方法使用，但是轮询的方法会耗费资源，造成无畏的CPU空转
+>
+> - 基于Future的一些缺点，所以引出了CompletableFuture。(阻塞的方式和异步编程思想，违背轮询的方式又会消耗CPU资源)，JDK8使用了CompletableFuture，主要用了观察者模式  作者是 (Doug Lea.)
+>
+>   - CompletableFuture实现了Future，和CompletionStage(异步计算的阶段，有点linux管道的味道)
+>
+>   - (个人理解:有点EventBus，事件总线的感觉)
+>
+>   - 四个静态方法创建一个异步任务
+>
+>     - RunAsync无返回值
+>
+>       - runAsync(Runnable runnable)
+>
+>       - runAsync(Runnable runnable,    Executor executor) 
+>
+>     - SupplyAsync有返回值
+>
+>       - CompletableFuture.supplyAsync(Supplier<U> supplier) 
+>
+>       - CompletableFuture.supplyAsync(Supplier<U> supplier,  Executor executor)
+>
+>     - Executor 参数说明:没有指定，默认使用ForkJoinPool.commonPool(),如果指定了，会用我们指定的。
+>
+>     - code 
+>
+>       - 正常的类似FutureTask的功能，阻塞
+>
+>         ![img](https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250927-141558-8209378_de74323f-aa9b-4d30-a217-a8458f680fb4.png)
+>
+>       - 可以实现非阻塞。
+>
+>         <img src="https://api2.mubu.com/v3/document_image/8209378_c8f0e1eb-b4d3-4eee-fa9d-7fa66657e90d.png" alt="img" style="zoom:150%;" />
+>
+>   - java函数式编程
+>
+>     - runnable 无参数 无返回值，
+>
+>     - function 有参数 有返回值，
+>
+>     - Consumer 有参数 无返回值，
+>
+>     - Supplier 没有参数 有返回值
+>
+>   - CompletableFuture 的get 和join 区别
+>     - get 会抛出异常，join不会
+>
+>   - CompletionStage
+>
+>     - getNow 
+>       - 如果异步还没有完成，那么返回getNow提供的默认的值
+>
+>     - complete 方法
+>       - 返回一个布尔值，是否任务已经完成，如果fasle返回提供的值，否则，返回计算的值
+>
+>     - thenApply方法
+>       - 上一步的返回值可以传递给下一步，如果有异常，那么不继续走下一步
+>
+>     - handle
+>       - 上一步的返回值可以传递给下一步 ，但是可以处理异常，如果上一步异常，下一步可以继续走。
+>         - 值得注意的是，
+>
+>     - thenAccept 方法
+>       - 消费型接口，没有返回值
+>
+>     - thenRun方法
+>       - A任务执行完了执行B，并且B不需要A的执行结果
+>
+>     - ApplyToEither
+>       - 对计算速度进行选用，多个任务，谁快用谁的结果
+>
+>     - thenCombine
+>       - 对结果进行合并 q
+>
+>     - 几种方法使用区别
+>
+>       - thenRun A任务执行完了执行B，并且B不需要A的执行结果
+>
+>       - thenApply A任务执行完执行B，B有返回结果
+>
+>     - 关于CompletableFuture线程池选择问题
+>
+>       - 1.没有传入自定义线程池，都用默认ForkJoinPool线程池
+>
+>       - 2.传入了一个自定义线程池
+>
+>         - 1.如果执行第一个任务的时候传入线程池
+>
+>           - 调用thenRun方法执行第二个任务的时候，第二个任务和第一个任务同用一个线程池
+>
+>           - 调用thenRunAsync执行第二个任务的时候，第一任务使用自定义线程池，第二个任务使用ForkJoinPool
+>
+>       - 有可能即使你传入了线程池，但是系统优化切换原则，也可能直接用main线程
+>
+>       - ThenApply thenAccept等也是同理。阅读源码可知，Async方法都默认使用ForkJoinPool
+>
+> - thenAccept 方法是一个消费型，需要使用到A的返回结果
