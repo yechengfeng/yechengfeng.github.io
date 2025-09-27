@@ -19,3 +19,5 @@
 rabbitMQ架构
 
 ![image-20250924133535544](https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250924-133539-image-20250924133535544.png)
+
+[https://www.cnblogs.com/ZhuChangwu/p/14093107.html](https://www.cnblogs.com/ZhuChangwu/p/14093107.html)
