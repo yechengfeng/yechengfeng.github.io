@@ -1,6 +1,6 @@
-- https://www.jianshu.com/p/0c07597d8311
+- [https://www.jianshu.com/p/0c07597d8311](https://www.jianshu.com/p/0c07597d8311)
 
-- https://www.jianshu.com/p/9bd647bcf1e3
+- [https://www.jianshu.com/p/9bd647bcf1e3](https://www.jianshu.com/p/9bd647bcf1e3)
 
 - 函数式接口
 
@@ -8,7 +8,7 @@
 
 - 常用函数式接口
 
-  ![img](https://api2.mubu.com/v3/document_image/8209378_a37bc197-e9a9-465c-c3b1-3e99bd0880bb.png)
+  ![img](https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250927-153007-8209378_a37bc197-e9a9-465c-c3b1-3e99bd0880bb.png)
 
 - 从Java8开始引入了一个新类 java.util.Optional解决空指针
 
@@ -64,7 +64,7 @@
 
 - Stream常用操作
 
-  ![img](https://api2.mubu.com/v3/document_image/8209378_1517c3e9-d7c5-4357-81ab-6c162430061e.png)
+  ![img](https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250927-153019-8209378_1517c3e9-d7c5-4357-81ab-6c162430061e.png)
 
 - （1）中间操作
 

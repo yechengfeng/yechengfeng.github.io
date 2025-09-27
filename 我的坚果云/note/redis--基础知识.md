@@ -2,7 +2,7 @@
 
    - [https://open8gu.com/redis/persistent/fznigr883bhhbp0m/](https://open8gu.com/redis/persistent/fznigr883bhhbp0m/)
 
-   - https://www.xiaolincoding.com/redis/[](https://zhuanlan.zhihu.com/p/451007506)
+   - [https://www.xiaolincoding.com/redis/](https://www.xiaolincoding.com/redis/)
 
 2. #### redis简介
 

@@ -157,11 +157,11 @@
 
 - JDK&JRE&JVM区别
 
-  - https://cloud.tencent.com/developer/article/1892442
+  - [https://cloud.tencent.com/developer/article/1892442](https://cloud.tencent.com/developer/article/1892442)
 
 - 基础数据类型包装类
 
-  - https://cloud.tencent.com/developer/article/1579086
+  - [https://cloud.tencent.com/developer/article/1579086](https://cloud.tencent.com/developer/article/1579086)
     - 为什么需要
 
 - ThreadLocal（线程局部变量)
@@ -233,7 +233,7 @@
       - 3)前者不能脱离外部类而存在；后者可以
 
   - 5)修饰import：静态导包
-    - https://juejin.cn/post/6955114797994082318
+    - [https://juejin.cn/post/6955114797994082318](https://juejin.cn/post/6955114797994082318)
 
 - 异常
 
@@ -295,11 +295,11 @@
 
       - 异步io：用户进程不阻塞，发起io请求（读写）后就可以做自己的事了，io就绪等待和io操作交给操作系统去完成，完成后调用用户进程处理函数，所以整个过程都是异步的。
 
-    - https://segmentfault.com/a/1190000006824196
+    - [https://segmentfault.com/a/1190000006824196](https://segmentfault.com/a/1190000006824196)
 
-    - https://blog.csdn.net/u013063153/article/details/76473578
+    - [https://blog.csdn.net/u013063153/article/details/76473578](https://blog.csdn.net/u013063153/article/details/76473578)
 
-    - https://www.jianshu.com/p/052035037297
+    - [https://www.jianshu.com/p/052035037297](https://www.jianshu.com/p/052035037297)
 
     - Unix IO模型
 
@@ -334,7 +334,7 @@
 
 - java 泛型和泛型擦除 
 
-  - https://blog.csdn.net/briblue/article/details/76736356
+  - [https://blog.csdn.net/briblue/article/details/76736356](https://blog.csdn.net/briblue/article/details/76736356)
 
   - 目的：增强类型安全性，减少运行时错误，避免强制类型转换，提高代码复用性。
 
@@ -351,7 +351,7 @@
 
 - synchronized可以锁字符串吗
 
-  - https://www.cnblogs.com/xrq730/p/6662232.html 锁字符串的生产事故（一定要注意是否是同一对象，而且最好全局唯一）
+  - [https://www.cnblogs.com/xrq730/p/6662232.html](https://www.cnblogs.com/xrq730/p/6662232.html) 锁字符串的生产事故（一定要注意是否是同一对象，而且最好全局唯一）
 
   - 通常是可以锁字符串的，但是锁字符串会遇到问题，比如如果是以http接口的形式传递string，那么传递的是一个对象，不是同一个string对象，那么达不到加锁的目的，解决方法可以用 String的intern()方法，但是还有一个问题，这样的话，如果不是全局唯一 ，职责单一的 String,可能导致同一个接口使用同一个锁，导致接口互斥。影响性能
 
@@ -363,11 +363,11 @@
 
 - HttpSession
 
-  - https://blog.csdn.net/zy2317878/article/details/80275463
+  - [https://blog.csdn.net/zy2317878/article/details/80275463](https://blog.csdn.net/zy2317878/article/details/80275463)
 
 - 常见连接池
 
-  -  https://blog.csdn.net/qq_34359363/article/details/72763491
+  -  [https://blog.csdn.net/qq_34359363/article/details/72763491](https://blog.csdn.net/qq_34359363/article/details/72763491)
 
 - 类加载器 (*)重要
 
@@ -385,11 +385,11 @@
 
 - String底层(*)
 
-  - https://blog.csdn.net/yadicoco49/article/details/77627302
+  - [https://blog.csdn.net/yadicoco49/article/details/77627302](https://blog.csdn.net/yadicoco49/article/details/77627302)
 
 - 拦截器和过滤器区别
 
-  - https://www.cnblogs.com/vipstone/p/16796867.html
+  - [https://www.cnblogs.com/vipstone/p/16796867.html](https://www.cnblogs.com/vipstone/p/16796867.html)
 
 - OOM, Out of Memory 错误
 
@@ -403,7 +403,7 @@
 
     - 静态集合类
 
-- 双亲委派 https://zhuanlan.zhihu.com/p/705120533
+- 双亲委派 [https://zhuanlan.zhihu.com/p/705120533](https://zhuanlan.zhihu.com/p/705120533)
 
 死锁OOM,CPU高并发之类的问题
 

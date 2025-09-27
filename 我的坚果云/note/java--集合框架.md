@@ -124,14 +124,13 @@
   - **ConcurrentHashMap**
     - 底层数组+链表/红黑树，基于 CAS+synchronized
     - 参考：
-      - [https://blog.csdn.net/dingji_ping/article/details/51005799](https://blog.csdn.net/dingji_ping/article/details/51005799)
       - [https://www.cnblogs.com/chengxiao/p/6842045.html](https://www.cnblogs.com/chengxiao/p/6842045.html)
       - [http://ifeve.com/hashmap-concurrenthashmap-%E7%9B%B8%E4%BF%A1%E7%9C%8B%E5%AE%8C%E8%BF%99%E7%AF%87%E6%B2%A1%E4%BA%BA%E8%83%BD%E9%9A%BE%E4%BD%8F%E4%BD%A0%EF%BC%81/](http://ifeve.com/hashmap-concurrenthashmap-%E7%9B%B8%E4%BF%A1%E7%9C%8B%E5%AE%8C%E8%BF%99%E7%AF%87%E6%B2%A1%E4%BA%BA%E8%83%BD%E9%9A%BE%E4%BD%8F%E4%BD%A0%EF%BC%81/)
     
   - **ConcurrentSkipListMap**
     - key 有序，支持高并发，存取时间 log(N)
     - 底层跳表结构
-
+  
   ### Map实现类之间的区别
   - HashMap 与 ConcurrentHashMap
     - 前者允许 key 或 value 为 null，后者不允许
@@ -145,11 +144,11 @@
     - ConcurrentHashMap 分段 + CAS，无锁优化
     - Hashtable & synchronizedMap 方法加锁实现，锁粒度大
     - ConcurrentHashMap 提供 putIfAbsent 等方法
-
+  
   ---
-
+  
   ## Fail-Fast
-
+  
   - 集合中 modCount 记录修改次数
   - 迭代器遍历时赋予 expectedModCount，如果遍历过程中 modCount != expectedModCount，抛出 ConcurrentModificationException
   - 原因：迭代器在遍历时直接访问集合内容，集合在遍历期间结构变化会改变 modCount

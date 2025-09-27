@@ -1,7 +1,7 @@
 > - ### 缓存一致性问题
 >
 >   - 三种缓存策略：**Cache Aside 策略**、**Read/Write Through 策略**、**Write Back 策略**
->     - https://bbs.huaweicloud.com/blogs/365239（推荐）
+>     - [https://bbs.huaweicloud.com/blogs/365239](https://bbs.huaweicloud.com/blogs/365239)（推荐）
 >
 >   - 主要用到的还是Cache Aside策略
 >

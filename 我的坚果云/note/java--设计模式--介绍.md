@@ -1,6 +1,6 @@
-- https://www.w3cschool.cn/uml_tutorial/ 
+- https://www.w3cschool.cn/uml_tutorial/ [](https://www.w3cschool.cn/uml_tutorial/)
 
-  ![img](https://api2.mubu.com/v3/document_image/8209378_f9dc6339-9028-44c3-e2aa-2f10ad8606da.png)
+  ![img](https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250927-200657-8209378_f9dc6339-9028-44c3-e2aa-2f10ad8606da.png)
 
   
 
@@ -174,7 +174,7 @@
 
       - RunnableAdapter
 
-    - 装饰器模式https://segmentfault.com/a/1190000004255439
+    - 装饰器模式[https://segmentfault.com/a/1190000004255439](https://segmentfault.com/a/1190000004255439)
 
       - FileInputStream 
 

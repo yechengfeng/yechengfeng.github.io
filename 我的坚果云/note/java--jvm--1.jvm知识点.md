@@ -2,8 +2,8 @@
 
 - [https://zhuanlan.zhihu.com/p/487453938](https://zhuanlan.zhihu.com/p/487453938)
 - [https://juejin.cn/post/6844904079978659848](https://juejin.cn/post/6844904079978659848)
-- https://monkeysayhi.github.io/2017/12/28/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/
-- https://www.jianshu.com/p/2ab5e3d7e510
+- [https://monkeysayhi.github.io/2017/12/28/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/](https://monkeysayhi.github.io/2017/12/28/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/)
+- [https://www.jianshu.com/p/2ab5e3d7e510](https://www.jianshu.com/p/2ab5e3d7e510)
 
 ##### minor gc full gc 区别(*)
 
@@ -155,7 +155,7 @@ JVM会根据初始堆和最大堆设置默认值，一般默认最大堆为物�
 
 - Minor Full GC
 
-  > https://blog.csdn.net/u010796790/article/details/52213708
+  > [https://blog.csdn.net/u010796790/article/details/52213708](https://blog.csdn.net/u010796790/article/details/52213708)
   >
   > 
 
@@ -173,11 +173,11 @@ JVM会根据初始堆和最大堆设置默认值，一般默认最大堆为物�
 
   #### 垃圾回收
 
-  > - https://www.cnblogs.com/qian-fen/p/17341238.html
-  > - https://javaguide.cn/java/jvm/jvm-garbage-collection.html
-  > - https://www.cnblogs.com/booksea/p/17665193.html
-  > - https://cloud.tencent.com/developer/article/1474779 线上full gc解决
-  > - https://cloud.tencent.com/developer/article/2153851
+  > - [https://www.cnblogs.com/qian-fen/p/17341238.html](https://www.cnblogs.com/qian-fen/p/17341238.html)
+  > - [https://javaguide.cn/java/jvm/jvm-garbage-collection.html](https://javaguide.cn/java/jvm/jvm-garbage-collection.html)
+  > - [https://www.cnblogs.com/booksea/p/17665193.html](https://www.cnblogs.com/booksea/p/17665193.html)
+  > - [https://cloud.tencent.com/developer/article/1474779](https://cloud.tencent.com/developer/article/1474779) 线上full gc解决
+  > - [https://cloud.tencent.com/developer/article/2153851](https://cloud.tencent.com/developer/article/2153851)
   > - G1收集器（重点)
 
 - 内存分配原则
@@ -247,9 +247,9 @@ JVM会根据初始堆和最大堆设置默认值，一般默认最大堆为物�
 
   - 十年磨一剑 ，从论文出来到2012年才正式发布
 
-- https://pdai.tech/md/java/jvm/java-jvm-gc-zgc.html
+- [https://pdai.tech/md/java/jvm/java-jvm-gc-zgc.html](https://pdai.tech/md/java/jvm/java-jvm-gc-zgc.html)
 
-- https://tech.meituan.com/2020/08/06/new-zgc-practice-in-meituan.html
+- [https://tech.meituan.com/2020/08/06/new-zgc-practice-in-meituan.html](https://tech.meituan.com/2020/08/06/new-zgc-practice-in-meituan.html)
 
 java虚拟机工具
 

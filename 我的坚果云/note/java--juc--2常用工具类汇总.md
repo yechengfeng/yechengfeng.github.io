@@ -308,7 +308,7 @@
 >
 >       - 可以实现非阻塞。
 >
->         <img src="https://api2.mubu.com/v3/document_image/8209378_c8f0e1eb-b4d3-4eee-fa9d-7fa66657e90d.png" alt="img" style="zoom:150%;" />
+>         <img src="https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250927-200445-8209378_c8f0e1eb-b4d3-4eee-fa9d-7fa66657e90d.png" alt="img" style="zoom:150%;" />
 >
 >   - java函数式编程
 >

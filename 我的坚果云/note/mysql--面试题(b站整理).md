@@ -108,9 +108,9 @@
 >       - [https://juejin.cn/post/6844904121758138382](https://juejin.cn/post/6844904121758138382)
 >        - 这时候可以用select * from information_schema.innodb_locks;查看锁情况：
 >
->      - [https://mp.weixin.qq.com/s?__biz=MzkyMzU5Mzk1NQ==&mid=2247505902&idx=1&sn=beac1995d53b16a241cc3fc5bd3d04d6&source=41&poc_token=HE-6lWij67PiBVZ1zmCAagCq9gPIB9oM-mzijpA](https://mp.weixin.qq.com/s?__biz=MzkyMzU5Mzk1NQ==&mid=2247505902&idx=1&sn=beac1995d53b16a241cc3fc5bd3d04d6&source=41&poc_token=HE-6lWij67PiBVZ1zmCAagCq9gPIB9oM-mzijpA)_
+>      - [https://mp.weixin.qq.com/s__biz=MzkyMzU5Mzk1NQ==&mid=2247505902&idx=1&sn=beac1995d53b16a241cc3fc5bd3d04d6&source=41&poc_token=HE-6lWij67PiBVZ1zmCAagCq9gPIB9oM-mzijpA](https://mp.weixin.qq.com/s?__biz=MzkyMzU5Mzk1NQ==&mid=2247505902&idx=1&sn=beac1995d53b16a241cc3fc5bd3d04d6&source=41&poc_token=HE-6lWij67PiBVZ1zmCAagCq9gPIB9oM-mzijpA)_
 >
->    - 索引优化20条 [https://juejin.cn/post/6844904098999828488](https://juejin.cn/post/6844904098999828488)
+>    - [索引优化20条](https://www.w3cschool.cn/uml_tutorial/) 
 >
 >      - 1、查询SQL尽量不要使用select *，而是select具体字段。
 >
