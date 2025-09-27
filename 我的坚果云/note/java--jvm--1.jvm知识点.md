@@ -156,8 +156,6 @@ JVM会根据初始堆和最大堆设置默认值，一般默认最大堆为物�
 - Minor Full GC
 
   > [https://blog.csdn.net/u010796790/article/details/52213708](https://blog.csdn.net/u010796790/article/details/52213708)
-  >
-  > 
 
 - HotSpot的垃圾收集器
 
@@ -169,16 +167,14 @@ JVM会根据初始堆和最大堆设置默认值，一般默认最大堆为物�
 
   - Serial Old收集器
 
-- 
-
   #### 垃圾回收
 
-  > - [https://www.cnblogs.com/qian-fen/p/17341238.html](https://www.cnblogs.com/qian-fen/p/17341238.html)
-  > - [https://javaguide.cn/java/jvm/jvm-garbage-collection.html](https://javaguide.cn/java/jvm/jvm-garbage-collection.html)
-  > - [https://www.cnblogs.com/booksea/p/17665193.html](https://www.cnblogs.com/booksea/p/17665193.html)
-  > - [https://cloud.tencent.com/developer/article/1474779](https://cloud.tencent.com/developer/article/1474779) 线上full gc解决
-  > - [https://cloud.tencent.com/developer/article/2153851](https://cloud.tencent.com/developer/article/2153851)
-  > - G1收集器（重点)
+  - [https://www.cnblogs.com/qian-fen/p/17341238.html](https://www.cnblogs.com/qian-fen/p/17341238.html)
+  - [https://javaguide.cn/java/jvm/jvm-garbage-collection.html](https://javaguide.cn/java/jvm/jvm-garbage-collection.html)
+  - [https://www.cnblogs.com/booksea/p/17665193.html](https://www.cnblogs.com/booksea/p/17665193.html)
+  - [https://cloud.tencent.com/developer/article/1474779](https://cloud.tencent.com/developer/article/1474779) 线上full gc解决
+  - [https://cloud.tencent.com/developer/article/2153851](https://cloud.tencent.com/developer/article/2153851)
+  - G1收集器（重点)
 
 - 内存分配原则
 
@@ -265,7 +261,7 @@ java虚拟机工具
 >
 > - jstat -gc id 1000 20 （每隔一秒查询一次gc，然后输出20次）
 >
->   ![img](https://api2.mubu.com/v3/document_image/8209378_cbd1c69b-5ca4-411d-d85b-840ab8eae112.png)
+>   ![img](https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250927-203940-8209378_cbd1c69b-5ca4-411d-d85b-840ab8eae112-20250927203940793.png)
 >
 >   - jinfo 查询配置信息
 >
@@ -319,7 +315,7 @@ java虚拟机工具
 
     - 了解过 JVM 的同学都知道，JVM 运行时内存区域是分片的，分为栈、堆等，其实这些都是 JVM 定义的逻辑概念。在传统的硬件内存架构中是没有栈和堆这种概念。
 
-      ![img](https://api2.mubu.com/v3/document_image/8209378_57dcef8c-3a90-4ce4-f237-aa401eda1d2f.png)
+      ![img](https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250927-203946-8209378_57dcef8c-3a90-4ce4-f237-aa401eda1d2f.png)
 
   - Java 线程与主内存的关系
 
@@ -333,7 +329,7 @@ java虚拟机工具
 
       - 不同的线程之间无法直接访问对方本地内存中的变量。
 
-        ![img](https://api2.mubu.com/v3/document_image/8209378_cdd6b62e-b91f-4eda-cb69-ff613fed2405.png)
+        ![img](https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20250927-203956-8209378_cdd6b62e-b91f-4eda-cb69-ff613fed2405.png)
 
     - 线程间通信
 
