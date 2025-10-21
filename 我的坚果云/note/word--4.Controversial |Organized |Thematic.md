@@ -6,8 +6,9 @@
 
 <img src="https://leslieyedoc.oss-cn-shanghai.aliyuncs.com/img/20251021-232533-male-woman-furious-arguing-on-600nw-2171077301.jpg" alt="3+ Thousand Controversial Issue Royalty-Free Images, Stock Photos &  Pictures | Shutterstock" style="zoom:50%; float:left" />
 
-https://www.thespruce.com/be-more-organized-on-daily-basis-2648474
+[https://www.thespruce.com/be-more-organized-on-daily-basis-2648474](https://www.thespruce.com/be-more-organized-on-daily-basis-2648474)
 
-https://www.thedecorfix.com/9-steps-organized-office/
+[https://www.thedecorfix.com/9-steps-organized-office/](https://www.thedecorfix.com/9-steps-organized-office/)
 
-https://delvetool.com/blog/thematicanalysis
+[https://delvetool.com/blog/thematicanalysis](https://delvetool.com/blog/thematicanalysis)
+

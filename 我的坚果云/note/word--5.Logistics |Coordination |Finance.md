@@ -4,4 +4,5 @@
 | 2    | coordination | the act of making parts of sth, groups of people, etc. work together in an efficient and organized way 协作；协调；配合 |           |       |        |
 | 3    | finance      | money used to run a business, an activity or a project 资金  |           |       |        |
 
-https://www.dhl.com/discover/en-global/logistics-advice/import-export-advice/what-is-logistics
+[https://www.dhl.com/discover/en-global/logistics-advice/import-export-advice/what-is-logistics](https://www.dhl.com/discover/en-global/logistics-advice/import-export-advice/what-is-logistics)
+
