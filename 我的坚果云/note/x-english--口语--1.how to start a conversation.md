@@ -26,7 +26,7 @@
    - Fancy running into you here.  
    - Fancy meeting you at this event.  
 
-## 2️⃣ 闲聊 / 开启对话
+## 2️⃣ 闲聊 / 开启对话 
 6. **What have you been up to?** - 最近在忙什么？  
    - What have you been up to these days?  
    - Anything exciting lately?  
