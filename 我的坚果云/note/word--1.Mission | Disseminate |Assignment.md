@@ -10,6 +10,10 @@ Mission
 
 <img src="word--review&use_1.assets/908e2b61-20251021224308307.jpg" alt="&quot;mission&quot; picture" style="zoom:50%;float:left" />
 
+
+
+
+
 - [https://www.strategy-business.com/blog/A-goal-isnt-a-mission](https://www.strategy-business.com/blog/A-goal-isnt-a-mission)
 
 disseminate
