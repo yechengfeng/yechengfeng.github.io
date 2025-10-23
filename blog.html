@@ -1,74 +1,199 @@
 ---
 layout: default
-title: 我的收藏博客
+title: 文档中心
 ---
 
-<h1>我的收藏博客</h1>
-<div id="rss-container" class="masonry-grid"></div>
-
 <style>
-.masonry-grid {
-  column-count: 3; /* 瀑布流列数 */
-  column-gap: 1em;
+body {margin:0;font-family:Arial,Helvetica,sans-serif;display:flex;height:100vh;}
+nav {width:260px;background:#1f2937;color:#fff;position:fixed;top:0;left:0;height:100%;overflow:auto;}
+nav .nav-header {padding:1em;text-align:center;font-weight:bold;font-size:1.2em;background:#111827;}
+nav ul {list-style:none;padding-left:0;margin:0;}
+nav li a {display:block;color:#e5e7eb;text-decoration:none;padding:0.4em 1em;}
+nav li a:hover, nav li a.active {background:#3b82f6;color:#fff;border-radius:4px;}
+main {margin-left:260px;padding:1em;flex:1;overflow:auto;}
+.article-card {display:none;}
+.article-card.active {display:block;}
+#navToggle {display:none;}
+#searchBox {width:calc(100% - 2em);margin:0.5em 1em;padding:0.4em;border-radius:4px;border:none;}
+@media(max-width:768px){
+  #navToggle {display:block;position:fixed;top:10px;left:10px;z-index:1000;}
+  nav {left:-260px;transition:left 0.3s;}
+  nav.open {left:0;}
+  main {margin-left:0;}
 }
-
-.masonry-item {
-  break-inside: avoid;
-  margin-bottom: 1em;
-  background: #f8f9fa;
-  padding: 10px;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.masonry-item a {
-  text-decoration: none;
-  color: #0366d6;
-  font-weight: bold;
-}
-@media (max-width: 900px) { .masonry-grid { column-count: 2; } }
-@media (max-width: 600px) { .masonry-grid { column-count: 1; } }
+.folder-link {color:#1d4ed8;text-decoration:none;display:block;padding:0.5em 0;}
+.folder-link:hover {text-decoration:underline;}
 </style>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/rss-parser/3.12.0/rss-parser.min.js"></script>
+<button id="navToggle">☰</button>
+
+<nav>
+  <div class="nav-header">Yechengfeng</div>
+  <input type="text" id="searchBox" placeholder="搜索文件..." onkeyup="filterNav()">
+  <div id="navListContainer">
+    <ul id="navList"></ul>
+  </div>
+</nav>
+
+<main id="mainContent">
+  <!-- 默认文件夹视图 -->
+  <div id="folderView">
+    <h2>我的坚果云</h2>
+    <ul id="folderList"></ul>
+  </div>
+
+  <!-- 点击文件夹后展示文件内容 -->
+  <div id="fileView" style="display:none;">
+    {% assign files = site.pages | where_exp:"p","p.path contains '我的坚果云/'" | sort:"path" %}
+    {% for file in files %}
+      <div class="article-card" id="{{ file.url | replace:'/','_' | replace:'.md','' }}">
+        {{ file.content | markdownify }}
+      </div>
+    {% endfor %}
+  </div>
+</main>
+
 <script>
-document.addEventListener("DOMContentLoaded", async () => {
-  const parser = new RSSParser();
-  
-  // 你的 RSS 列表
-  const feeds = [
-    "https://blog.heysh.xyz/feed.xml",
-    "https://www.52xml.cn/atom.xml",
-    "https://blog3.com/rss"
-  ];
+// --- 获取所有“我的坚果云”下的文件 ---
+var allFiles = [
+  {% for file in site.pages %}
+    {% if file.path contains '我的坚果云/' %}
+      {
+        path: "{{ file.path }}",
+        name: "{{ file.path | split:'/' | last | replace:'.md','' }}",
+        url: "{{ file.url | replace:'/','_' | replace:'.md','' }}"
+      },
+    {% endif %}
+  {% endfor %}
+];
 
-  let allItems = [];
-
-  for (let feedUrl of feeds) {
-    try {
-      const feed = await parser.parseURL(`https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`);
-      const data = JSON.parse(feed.contents);
-      allItems.push(...data.items);
-    } catch(e) {
-      console.error("抓取 RSS 失败:", feedUrl, e);
+// --- 获取“我的坚果云”下的一级文件夹 ---
+function getFolders(){
+  let set = new Set();
+  allFiles.forEach(f=>{
+    let rel = f.path.split('我的坚果云/')[1];
+    if(rel && rel.includes('/')){
+      set.add(rel.split('/')[0]);
     }
-  }
-
-  // 按发布时间降序
-  allItems.sort((a,b) => new Date(b.pubDate) - new Date(a.pubDate));
-
-  const container = document.getElementById("rss-container");
-
-  allItems.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "masonry-item";
-    div.innerHTML = `
-      <a href="${item.link}" target="_blank">${item.title}</a>
-      <div style="font-size:0.85em;color:#666;">${new Date(item.pubDate).toLocaleDateString()}</div>
-      <div>${item.contentSnippet || ''}</div>
-    `;
-    container.appendChild(div);
   });
+  return Array.from(set);
+}
+
+// --- 渲染文件夹列表 ---
+function renderFolders(){
+  let folders = getFolders();
+  let list = document.getElementById('folderList');
+  list.innerHTML = '';
+  if(folders.length === 0){
+    list.innerHTML = '<li>未找到任何文件夹</li>';
+    return;
+  }
+  folders.forEach(folder=>{
+    let li = document.createElement('li');
+    let a = document.createElement('a');
+    a.href="#"; a.textContent=folder;
+    a.className="folder-link";
+    a.onclick=()=>openFolder(folder);
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+}
+
+// --- 打开某个文件夹，显示该文件夹下的内容 ---
+function openFolder(folder){
+  document.getElementById('folderView').style.display='none';
+  document.getElementById('fileView').style.display='block';
+  document.getElementById('navList').innerHTML='';
+
+  let subFiles = allFiles.filter(f=>f.path.includes("我的坚果云/"+folder+"/"));
+  let tree = buildTree(subFiles);
+  renderTree(tree, document.getElementById('navList'));
+
+  let firstLink = document.querySelector("#navListContainer a");
+  if(firstLink) firstLink.click();
+}
+
+// --- 构建多层目录树 ---
+function buildTree(files){
+  let root = {_files:[]};
+  files.forEach(f=>{
+    let rel = f.path.split('我的坚果云/')[1];
+    if(!rel) return;
+    let parts = rel.replace('.md','').split('/');
+    let current = root;
+    for(let i=0;i<parts.length-1;i++){
+      let part = parts[i];
+      if(!current[part]) current[part] = {children:{}, _files:[]};
+      current = current[part].children;
+    }
+    if(!current._files) current._files=[];
+    current._files.push({name:parts[parts.length-1], url:f.url});
+  });
+  return root;
+}
+
+// --- 渲染目录树 ---
+function renderTree(node, container){
+  if(node._files){
+    node._files.forEach(f=>{
+      let li=document.createElement('li');
+      let a=document.createElement('a');
+      a.href="#"; a.textContent=f.name;
+      a.onclick=()=>{showArticle(f.url,a);return false;};
+      li.appendChild(a);
+      container.appendChild(li);
+    });
+  }
+  Object.keys(node).forEach(key=>{
+    if(key === "_files" || key === "children") return;
+    let li=document.createElement('li');
+    let details=document.createElement('details');
+    let summary=document.createElement('summary');
+    summary.textContent=key;
+    details.appendChild(summary);
+    let ul=document.createElement('ul');
+    renderTree(node[key].children, ul);
+    if(node[key]._files){
+      node[key]._files.forEach(f=>{
+        let fileLi=document.createElement('li');
+        let a=document.createElement('a');
+        a.href="#"; a.textContent=f.name;
+        a.onclick=()=>{showArticle(f.url,a);return false;};
+        fileLi.appendChild(a);
+        ul.appendChild(fileLi);
+      });
+    }
+    details.appendChild(ul);
+    li.appendChild(details);
+    container.appendChild(li);
+  });
+}
+
+// --- 显示文章内容 ---
+function showArticle(id, linkElem){
+  document.querySelectorAll('.article-card').forEach(c=>c.classList.remove('active'));
+  let article=document.getElementById(id);
+  if(article) article.classList.add('active');
+  document.querySelectorAll("#navListContainer a").forEach(a=>a.classList.remove("active"));
+  if(linkElem) linkElem.classList.add("active");
+  if(window.innerWidth<=768) document.querySelector('nav').classList.remove('open');
+}
+
+// --- 搜索功能 ---
+function filterNav(){
+  let input=document.getElementById('searchBox').value.toLowerCase();
+  document.querySelectorAll("#navListContainer li").forEach(item=>{
+    item.style.display=item.textContent.toLowerCase().includes(input)?"":"none";
+  });
+}
+
+document.getElementById('navToggle').addEventListener('click', ()=>{
+  document.querySelector('nav').classList.toggle('open');
 });
+
+// --- 初始化 ---
+window.onload=function(){
+  renderFolders();
+};
 </script>
 
