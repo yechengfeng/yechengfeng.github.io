@@ -45,7 +45,7 @@ a:hover {text-decoration:underline;}
 </div>
 
 <script>
-// 获取所有文件
+// 所有文件
 const files = [
   {% for file in files %}
     {
@@ -56,18 +56,17 @@ const files = [
   {% endfor %}
 ];
 
-// 提取首页显示的一级文件夹（只取 “我的坚果云” 下一级目录）
+// 首页显示一级文件夹
 const topFolders = {};
 files.forEach(f => {
   const parts = f.path.split('/');
-  // parts = ["", "我的坚果云", "folder1", "文件.md"]
   const folder = parts[2]; // 一级文件夹
-  if (!folder) return;
-  if (!topFolders[folder]) topFolders[folder] = [];
+  if(!folder) return;
+  if(!topFolders[folder]) topFolders[folder] = [];
   topFolders[folder].push(f);
 });
 
-// 首页渲染一级文件夹
+// 渲染首页文件夹列表
 function showFolders() {
   document.getElementById('folderView').style.display = 'block';
   document.getElementById('fileView').style.display = 'none';
@@ -91,7 +90,7 @@ function showFiles(folder) {
   document.getElementById('currentFolderName').textContent = folder;
 
   const list = document.getElementById('fileList');
-  list.innerHTML='';
+  list.innerHTML = '';
 
   const folderFiles = topFolders[folder];
   if(!folderFiles || folderFiles.length===0) return;
