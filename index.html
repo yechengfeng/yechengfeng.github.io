@@ -56,16 +56,17 @@ const files = [
   {% endfor %}
 ];
 
-// 提取一级文件夹及数量
+// 提取首页文件夹
 const folderMap = {};
 files.forEach(f => {
   const parts = f.path.split('/');
-  const folder = parts[2] || parts[1]; // 我的坚果云/xxx/...
-  if (!folderMap[folder]) folderMap[folder] = [];
-  folderMap[folder].push(f);
+  const topFolder = parts[2] || parts[1]; // 一级文件夹
+  if (!topFolder) return;
+  if (!folderMap[topFolder]) folderMap[topFolder] = [];
+  folderMap[topFolder].push(f);
 });
 
-// 渲染首页文件夹列表
+// 首页渲染一级文件夹
 function showFolders() {
   document.getElementById('folderView').style.display = 'block';
   document.getElementById('fileView').style.display = 'none';
@@ -80,7 +81,7 @@ function showFolders() {
   });
 }
 
-// 点击文件夹，显示文件树
+// 点击文件夹显示文件树
 function showFiles(folder) {
   document.getElementById('folderView').style.display = 'none';
   document.getElementById('fileView').style.display = 'flex';
@@ -92,6 +93,9 @@ function showFiles(folder) {
   list.innerHTML='';
 
   const folderFiles = folderMap[folder];
+  if(!folderFiles || folderFiles.length===0) return;
+
+  // 构建树形结构（按 -- 分割）
   const tree = buildTree(folderFiles);
   renderTree(tree, list);
 }
@@ -112,7 +116,7 @@ function buildTree(files) {
   return root;
 }
 
-// 渲染树
+// 渲染文件树
 function renderTree(node, container) {
   Object.keys(node.children).forEach(key => {
     const li = document.createElement('li');
