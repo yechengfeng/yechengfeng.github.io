@@ -4,26 +4,31 @@ title: 文档中心
 ---
 
 <style>
-body {margin:0;font-family:Arial,Helvetica,sans-serif;display:flex;height:100vh;}
-#main {flex:1;display:flex;flex-direction:column;padding:20px;}
-.folder-list, .file-list {list-style:none;padding:0;margin:0;}
-.folder-item, .file-item {padding:8px 12px;cursor:pointer;border-radius:6px;margin:4px 0;}
+body {margin:0;font-family:Arial,Helvetica,sans-serif;}
+#main {display:flex;height:100vh;flex-direction:column;}
+#folderView, #fileView {padding:20px;flex:1;overflow:auto;}
+.folder-list, .file-list {list-style:none;padding-left:0;}
+.folder-item, .file-item {padding:6px 12px;cursor:pointer;border-radius:6px;margin:4px 0;}
 .folder-item:hover, .file-item:hover {background:#f3f4f6;}
-.left-nav {width:260px;background:#f9fafb;padding:10px;display:none;overflow:auto;border-right:1px solid #ddd;}
+.left-nav {width:260px;background:#f9fafb;padding:10px;overflow:auto;border-right:1px solid #ddd;display:none;}
 .content-area {flex:1;padding:10px;overflow:auto;}
 .back-btn {margin-bottom:10px;padding:6px 12px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;display:none;}
 ul ul {padding-left:20px;}
 a {color:#111827;text-decoration:none;}
 a:hover {text-decoration:underline;}
+.article-card {display:none;}
+.article-card.active {display:block;}
 </style>
 
 <div id="main">
+  <!-- 首页文件夹列表 -->
   <div id="folderView">
-    <h2>我的坚果云文件夹</h2>
+    <h2>我的坚果云</h2>
     <ul id="folderList" class="folder-list"></ul>
   </div>
 
-  <div style="display:flex;" id="fileView">
+  <!-- 文件树 + 内容展示 -->
+  <div id="fileView" style="display:flex;">
     <div class="left-nav" id="fileListContainer">
       <button class="back-btn" id="backBtn" onclick="showFolders()">← 返回</button>
       <h3 id="currentFolderName"></h3>
@@ -41,6 +46,7 @@ a:hover {text-decoration:underline;}
 </div>
 
 <script>
+// 所有文件信息
 const files = [
   {% for file in files %}
     {
@@ -55,43 +61,43 @@ const files = [
 const folderMap = {};
 files.forEach(f => {
   const parts = f.path.split('/');
-  const folder = parts[2] || parts[1]; // 我的坚果云/note/子文件夹/...
+  const folder = parts[2] || parts[1];
   if (!folderMap[folder]) folderMap[folder] = [];
   folderMap[folder].push(f);
 });
 
-// 渲染文件夹列表
+// 渲染首页文件夹列表
 function showFolders() {
-  document.getElementById('folderView').style.display='block';
-  document.getElementById('fileView').style.display='none';
+  document.getElementById('folderView').style.display = 'block';
+  document.getElementById('fileView').style.display = 'none';
   const list = document.getElementById('folderList');
   list.innerHTML = '';
   Object.keys(folderMap).forEach(folder => {
     const li = document.createElement('li');
-    li.className='folder-item';
+    li.className = 'folder-item';
     li.textContent = `${folder} (${folderMap[folder].length})`;
-    li.onclick = ()=>showFiles(folder);
+    li.onclick = () => showFiles(folder);
     list.appendChild(li);
   });
 }
 
-// 点击文件夹，显示文件列表
+// 显示文件夹下文件树
 function showFiles(folder) {
-  document.getElementById('folderView').style.display='none';
-  document.getElementById('fileView').style.display='flex';
-  document.getElementById('fileListContainer').style.display='block';
-  document.getElementById('backBtn').style.display='inline-block';
+  document.getElementById('folderView').style.display = 'none';
+  document.getElementById('fileView').style.display = 'flex';
+  document.getElementById('fileListContainer').style.display = 'block';
+  document.getElementById('backBtn').style.display = 'inline-block';
   document.getElementById('currentFolderName').textContent = folder;
 
   const list = document.getElementById('fileList');
-  list.innerHTML='';
+  list.innerHTML = '';
 
   const folderFiles = folderMap[folder];
   const tree = buildTree(folderFiles);
   renderTree(tree, list);
 }
 
-// 按 -- 构建树
+// 按 -- 构建文件树
 function buildTree(files) {
   const root = { _files: [], children: {} };
   files.forEach(f => {
@@ -99,30 +105,30 @@ function buildTree(files) {
     let current = root;
     for(let i=0;i<parts.length-1;i++){
       const part = parts[i];
-      if(!current.children[part]) current.children[part]={_files:[],children:{}};
+      if(!current.children[part]) current.children[part] = { _files: [], children: {} };
       current = current.children[part];
     }
-    current._files.push({name:parts[parts.length-1],url:f.url});
+    current._files.push({ name: parts[parts.length-1], url: f.url });
   });
   return root;
 }
 
 // 渲染树
 function renderTree(node, container) {
-  Object.keys(node.children).forEach(key=>{
-    const li=document.createElement('li');
+  Object.keys(node.children).forEach(key => {
+    const li = document.createElement('li');
     li.textContent = key;
-    const ul=document.createElement('ul');
+    const ul = document.createElement('ul');
     renderTree(node.children[key], ul);
     li.appendChild(ul);
     container.appendChild(li);
   });
-  node._files.forEach(f=>{
-    const li=document.createElement('li');
-    const a=document.createElement('a');
-    a.href='#';
-    a.textContent=f.name;
-    a.onclick=()=>showArticle(f.url);
+  node._files.forEach(f => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '#';
+    a.textContent = f.name;
+    a.onclick = () => showArticle(f.url);
     li.appendChild(a);
     container.appendChild(li);
   });
@@ -130,8 +136,8 @@ function renderTree(node, container) {
 
 // 显示文章内容
 function showArticle(id) {
-  document.querySelectorAll('.article-card').forEach(c=>c.classList.remove('active'));
-  const article=document.getElementById(id);
+  document.querySelectorAll('.article-card').forEach(c => c.classList.remove('active'));
+  const article = document.getElementById(id);
   if(article) article.classList.add('active');
   window.scrollTo(0,0);
 }
