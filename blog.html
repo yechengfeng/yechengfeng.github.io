@@ -4,48 +4,36 @@ title: 文档中心
 ---
 
 <style>
-body {margin:0;font-family:Arial,Helvetica,sans-serif;}
-#main {display:flex;height:100vh;flex-direction:column;padding:20px;}
-.folder-list, .file-list {list-style:none;padding-left:0;}
-.folder-item, .file-item {padding:6px 12px;cursor:pointer;border-radius:6px;margin:4px 0;}
-.folder-item:hover, .file-item:hover {background:#f3f4f6;}
-.left-nav {width:260px;background:#f9fafb;padding:10px;overflow:auto;border-right:1px solid #ddd;display:none;}
-.content-area {flex:1;padding:10px;overflow:auto;}
-.back-btn {margin-bottom:10px;padding:6px 12px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;display:none;}
-ul ul {padding-left:20px;}
-a {color:#111827;text-decoration:none;}
+body {margin:0;font-family:Arial,Helvetica,sans-serif;display:flex;height:100vh;}
+main {flex:1;display:flex;overflow:hidden;}
+.left-panel {width:260px;background:#f3f4f6;overflow:auto;padding:10px;border-right:1px solid #ddd;}
+.right-panel {flex:1;padding:10px;overflow:auto;}
+ul {list-style:none;padding-left:0;margin:0;}
+li {margin:4px 0;}
+a {cursor:pointer;text-decoration:none;color:#111;}
 a:hover {text-decoration:underline;}
 .article-card {display:none;}
 .article-card.active {display:block;}
+.back-btn {margin-bottom:10px;padding:4px 8px;background:#3b82f6;color:#fff;border:none;border-radius:4px;cursor:pointer;display:none;}
 </style>
 
-<div id="main">
-  <!-- 首页显示一级文件夹 -->
-  <div id="folderView">
-    <h2>我的坚果云</h2>
-    <ul id="folderList" class="folder-list"></ul>
+<main>
+  <div class="left-panel">
+    <button class="back-btn" id="backBtn" onclick="goBack()">← 返回</button>
+    <h3 id="currentFolderName"></h3>
+    <ul id="listContainer"></ul>
   </div>
-
-  <!-- 文件夹下文件树 + 内容 -->
-  <div id="fileView" style="display:flex;">
-    <div class="left-nav" id="fileListContainer">
-      <button class="back-btn" id="backBtn" onclick="goBack()">← 返回</button>
-      <h3 id="currentFolderName"></h3>
-      <ul id="fileList" class="file-list"></ul>
-    </div>
-    <div class="content-area">
-      {% assign files = site.pages | where_exp:"p","p.path contains '我的坚果云/'" | sort:"path" %}
-      {% for file in files %}
-        <div class="article-card" id="{{ file.url | replace:'/','_' | replace:'.md','' }}">
-          {{ file.content | markdownify }}
-        </div>
-      {% endfor %}
-    </div>
+  <div class="right-panel" id="contentPanel">
+    {% assign files = site.pages | where_exp:"p","p.path contains '我的坚果云/'" | sort:"path" %}
+    {% for file in files %}
+      <div class="article-card" id="{{ file.url | replace:'/','_' | replace:'.md','' }}">
+        {{ file.content | markdownify }}
+      </div>
+    {% endfor %}
   </div>
-</div>
+</main>
 
 <script>
-// 所有文件
 const files = [
   {% for file in files %}
     {
@@ -56,106 +44,70 @@ const files = [
   {% endfor %}
 ];
 
-// 构建文件夹结构
-const folderTree = {};
-files.forEach(f=>{
+const folderTree = {}; // 保存所有文件夹和文件
+files.forEach(f => {
   const parts = f.path.split('/');
-  let current = folderTree;
-  // 从第2层开始是“我的坚果云”下的结构
-  for(let i=2;i<parts.length-1;i++){
-    const part = parts[i];
-    if(!current[part]) current[part] = { _files: [], _folders: {} };
-    current = current[part]._folders;
+  const topFolder = parts[2]; // 我的坚果云下的一级文件夹
+  if (!folderTree[topFolder]) folderTree[topFolder] = { _folders: {}, _files: [] };
+  const subPath = parts.slice(3).join('/');
+  if(subPath) {
+    folderTree[topFolder]._files.push({ name: f.name, url: f.url });
   }
-  // 当前文件夹加入文件
-  const folderName = parts[parts.length-2] || '_root';
-  const fileObj = { name: f.name, url: f.url };
-  if(!current[folderName]) current[folderName] = { _files: [], _folders: {} };
-  current[folderName]._files.push(fileObj);
 });
 
-// 记录当前路径栈
+// 栈记录当前路径，用于返回
 let pathStack = [];
 
-// 显示指定文件夹
-function showFolder(node, name){
+// 首页显示一级文件夹
+function showFolders() {
+  pathStack = [];
+  document.getElementById('backBtn').style.display = 'none';
+  document.getElementById('currentFolderName').textContent = '我的坚果云';
+  const container = document.getElementById('listContainer');
+  container.innerHTML = '';
+  Object.keys(folderTree).forEach(f => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    const count = folderTree[f]._files.length;
+    a.textContent = `${f} (${count})`;
+    a.onclick = () => showFiles(folderTree[f], f);
+    li.appendChild(a);
+    container.appendChild(li);
+  });
+}
+
+// 显示文件夹下文件（按 -- 分割）
+function showFiles(node, name) {
   pathStack.push({node, name});
-  document.getElementById('folderView').style.display = 'none';
-  document.getElementById('fileView').style.display = 'flex';
-  document.getElementById('fileListContainer').style.display = 'block';
   document.getElementById('backBtn').style.display = 'inline-block';
   document.getElementById('currentFolderName').textContent = name;
+  const container = document.getElementById('listContainer');
+  container.innerHTML = '';
 
-  const list = document.getElementById('fileList');
-  list.innerHTML = '';
-
-  // 显示子文件夹
-  for(const f in node){
-    const folderLi = document.createElement('li');
-    folderLi.className = 'folder-item';
-    folderLi.textContent = `${f} (${node[f]._files.length})`;
-    folderLi.onclick = ()=>showFolder(node[f]._folders, f);
-    list.appendChild(folderLi);
-  }
-
-  // 如果有文件，按 -- 构建树
-  let allFiles = [];
-  for(const f in node){
-    allFiles = allFiles.concat(node[f]._files);
-  }
-  if(allFiles.length>0){
-    const tree = buildTree(allFiles);
-    renderTree(tree, list);
-  }
+  // 按 -- 构建树
+  const tree = buildTree(node._files);
+  renderTree(tree, container);
 }
 
-// 首页显示一级文件夹
-function showRootFolders(){
-  document.getElementById('folderView').style.display = 'block';
-  document.getElementById('fileView').style.display = 'none';
-  pathStack = [];
-  const list = document.getElementById('folderList');
-  list.innerHTML = '';
-  for(const f in folderTree){
-    const li = document.createElement('li');
-    li.className = 'folder-item';
-    const count = Object.values(folderTree[f]).reduce((acc,v)=>acc+v._files.length,0);
-    li.textContent = `${f} (${count})`;
-    li.onclick = ()=>showFolder(folderTree[f]._folders || {}, f);
-    list.appendChild(li);
-  }
-}
-
-// 返回上一层
-function goBack(){
-  pathStack.pop(); // 当前层
-  if(pathStack.length===0){
-    showRootFolders();
-    return;
-  }
-  const prev = pathStack[pathStack.length-1];
-  showFolder(prev.node, prev.name);
-}
-
-// 按 -- 构建树
-function buildTree(files){
+// 按 -- 构建文件树
+function buildTree(files) {
   const root = { _files: [], children: {} };
   files.forEach(f => {
     const parts = f.name.split('--');
     let current = root;
-    for(let i=0;i<parts.length-1;i++){
+    for (let i = 0; i < parts.length - 1; i++) {
       const part = parts[i];
-      if(!current.children[part]) current.children[part] = { _files: [], children: {} };
+      if (!current.children[part]) current.children[part] = { _files: [], children: {} };
       current = current.children[part];
     }
-    current._files.push({ name: parts[parts.length-1], url: f.url });
+    current._files.push({ name: parts[parts.length - 1], url: f.url });
   });
   return root;
 }
 
-// 渲染树
-function renderTree(node, container){
-  Object.keys(node.children).forEach(key=>{
+// 渲染树结构
+function renderTree(node, container) {
+  Object.keys(node.children).forEach(key => {
     const li = document.createElement('li');
     li.textContent = key;
     const ul = document.createElement('ul');
@@ -163,25 +115,35 @@ function renderTree(node, container){
     li.appendChild(ul);
     container.appendChild(li);
   });
-  node._files.forEach(f=>{
+  node._files.forEach(f => {
     const li = document.createElement('li');
     const a = document.createElement('a');
-    a.href = '#';
     a.textContent = f.name;
-    a.onclick = ()=>showArticle(f.url);
+    a.onclick = () => showArticle(f.url);
     li.appendChild(a);
     container.appendChild(li);
   });
 }
 
-// 显示文件内容
-function showArticle(id){
-  document.querySelectorAll('.article-card').forEach(c=>c.classList.remove('active'));
+// 显示文章内容
+function showArticle(id) {
+  document.querySelectorAll('.article-card').forEach(c => c.classList.remove('active'));
   const article = document.getElementById(id);
   if(article) article.classList.add('active');
   window.scrollTo(0,0);
 }
 
-window.onload = showRootFolders;
+// 返回上一层或首页
+function goBack() {
+  pathStack.pop();
+  if(pathStack.length === 0) {
+    showFolders();
+  } else {
+    const last = pathStack[pathStack.length-1];
+    showFiles(last.node, last.name);
+  }
+}
+
+window.onload = showFolders;
 </script>
 
