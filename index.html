@@ -5,8 +5,7 @@ title: 文档中心
 
 <style>
 body {margin:0;font-family:Arial,Helvetica,sans-serif;}
-#main {display:flex;height:100vh;flex-direction:column;}
-#folderView, #fileView {padding:20px;flex:1;overflow:auto;}
+#main {display:flex;height:100vh;flex-direction:column;padding:20px;}
 .folder-list, .file-list {list-style:none;padding-left:0;}
 .folder-item, .file-item {padding:6px 12px;cursor:pointer;border-radius:6px;margin:4px 0;}
 .folder-item:hover, .file-item:hover {background:#f3f4f6;}
@@ -27,7 +26,7 @@ a:hover {text-decoration:underline;}
     <ul id="folderList" class="folder-list"></ul>
   </div>
 
-  <!-- 文件树 + 内容展示 -->
+  <!-- 文件夹下文件树 + 内容展示 -->
   <div id="fileView" style="display:flex;">
     <div class="left-nav" id="fileListContainer">
       <button class="back-btn" id="backBtn" onclick="showFolders()">← 返回</button>
@@ -61,7 +60,7 @@ const files = [
 const folderMap = {};
 files.forEach(f => {
   const parts = f.path.split('/');
-  const folder = parts[2] || parts[1];
+  const folder = parts[2] || parts[1]; // 我的坚果云/xxx/...
   if (!folderMap[folder]) folderMap[folder] = [];
   folderMap[folder].push(f);
 });
@@ -81,7 +80,7 @@ function showFolders() {
   });
 }
 
-// 显示文件夹下文件树
+// 点击文件夹，显示文件树
 function showFiles(folder) {
   document.getElementById('folderView').style.display = 'none';
   document.getElementById('fileView').style.display = 'flex';
@@ -90,7 +89,7 @@ function showFiles(folder) {
   document.getElementById('currentFolderName').textContent = folder;
 
   const list = document.getElementById('fileList');
-  list.innerHTML = '';
+  list.innerHTML='';
 
   const folderFiles = folderMap[folder];
   const tree = buildTree(folderFiles);
