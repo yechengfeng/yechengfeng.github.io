@@ -1,0 +1,149 @@
+---
+layout: default
+title: 文档中心
+---
+
+<style>
+body {margin:0;font-family:Arial,Helvetica,sans-serif;}
+#main {display:flex;height:100vh;flex-direction:column;padding:20px;}
+.folder-list, .file-list {list-style:none;padding-left:0;}
+.folder-item, .file-item {padding:6px 12px;cursor:pointer;border-radius:6px;margin:4px 0;}
+.folder-item:hover, .file-item:hover {background:#f3f4f6;}
+.left-nav {width:260px;background:#f9fafb;padding:10px;overflow:auto;border-right:1px solid #ddd;display:none;}
+.content-area {flex:1;padding:10px;overflow:auto;}
+.back-btn {margin-bottom:10px;padding:6px 12px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;display:none;}
+ul ul {padding-left:20px;}
+a {color:#111827;text-decoration:none;}
+a:hover {text-decoration:underline;}
+.article-card {display:none;}
+.article-card.active {display:block;}
+</style>
+
+<div id="main">
+  <!-- 首页显示一级文件夹 -->
+  <div id="folderView">
+    <h2>我的坚果云</h2>
+    <ul id="folderList" class="folder-list"></ul>
+  </div>
+
+  <!-- 文件夹下文件树 + 内容 -->
+  <div id="fileView" style="display:flex;">
+    <div class="left-nav" id="fileListContainer">
+      <button class="back-btn" id="backBtn" onclick="showFolders()">← 返回</button>
+      <h3 id="currentFolderName"></h3>
+      <ul id="fileList" class="file-list"></ul>
+    </div>
+    <div class="content-area">
+      {% assign files = site.pages | where_exp:"p","p.path contains '我的坚果云/'" | sort:"path" %}
+      {% for file in files %}
+        <div class="article-card" id="{{ file.url | replace:'/','_' | replace:'.md','' }}">
+          {{ file.content | markdownify }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+// 所有文件
+const files = [
+  {% for file in files %}
+    {
+      path: "{{ file.path }}",
+      name: "{{ file.path | split:'/' | last | replace:'.md','' }}",
+      url: "{{ file.url | replace:'/','_' | replace:'.md','' }}"
+    },
+  {% endfor %}
+];
+
+// 计算一级文件夹
+const topFolders = {};
+files.forEach(f => {
+  const parts = f.path.split('/');
+  const folder = parts[2]; // 一级文件夹
+  if(!folder) return;
+  if(!topFolders[folder]) topFolders[folder] = topFolders[folder] || { files: [] };
+  topFolders[folder].files.push(f); // 存文件用于点击文件夹后生成树
+});
+
+// 首页只显示文件夹
+function showFolders() {
+  document.getElementById('folderView').style.display = 'block';
+  document.getElementById('fileView').style.display = 'none';
+  const list = document.getElementById('folderList');
+  list.innerHTML = '';
+  Object.keys(topFolders).forEach(folder => {
+    const li = document.createElement('li');
+    li.className = 'folder-item';
+    li.textContent = `${folder} (${topFolders[folder].files.length})`;
+    li.onclick = () => showFiles(folder);
+    list.appendChild(li);
+  });
+}
+
+// 点击文件夹显示文件树
+function showFiles(folder) {
+  document.getElementById('folderView').style.display = 'none';
+  document.getElementById('fileView').style.display = 'flex';
+  document.getElementById('fileListContainer').style.display = 'block';
+  document.getElementById('backBtn').style.display = 'inline-block';
+  document.getElementById('currentFolderName').textContent = folder;
+
+  const list = document.getElementById('fileList');
+  list.innerHTML = '';
+
+  const folderFiles = topFolders[folder].files;
+  if(!folderFiles || folderFiles.length===0) return;
+
+  const tree = buildTree(folderFiles);
+  renderTree(tree, list);
+}
+
+// 按 -- 构建树
+function buildTree(files) {
+  const root = { _files: [], children: {} };
+  files.forEach(f => {
+    const parts = f.name.split('--');
+    let current = root;
+    for(let i=0;i<parts.length-1;i++){
+      const part = parts[i];
+      if(!current.children[part]) current.children[part] = { _files: [], children: {} };
+      current = current.children[part];
+    }
+    current._files.push({ name: parts[parts.length-1], url: f.url });
+  });
+  return root;
+}
+
+// 渲染树
+function renderTree(node, container) {
+  Object.keys(node.children).forEach(key => {
+    const li = document.createElement('li');
+    li.textContent = key;
+    const ul = document.createElement('ul');
+    renderTree(node.children[key], ul);
+    li.appendChild(ul);
+    container.appendChild(li);
+  });
+  node._files.forEach(f => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '#';
+    a.textContent = f.name;
+    a.onclick = () => showArticle(f.url);
+    li.appendChild(a);
+    container.appendChild(li);
+  });
+}
+
+// 显示文章内容
+function showArticle(id) {
+  document.querySelectorAll('.article-card').forEach(c => c.classList.remove('active'));
+  const article = document.getElementById(id);
+  if(article) article.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+window.onload = showFolders;
+</script>
+
