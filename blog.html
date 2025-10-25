@@ -34,6 +34,7 @@ a:hover {text-decoration:underline;}
 </main>
 
 <script>
+// 所有文件
 const files = [
   {% for file in files %}
     {
@@ -44,39 +45,40 @@ const files = [
   {% endfor %}
 ];
 
-const folderTree = {}; // 保存所有文件夹和文件
+// 构建我的坚果云一级文件夹
+const folderMap = {}; // 一级文件夹 -> { _files: [], _subfolders: {} }
 files.forEach(f => {
   const parts = f.path.split('/');
   const topFolder = parts[2]; // 我的坚果云下的一级文件夹
-  if (!folderTree[topFolder]) folderTree[topFolder] = { _folders: {}, _files: [] };
+  if (!folderMap[topFolder]) folderMap[topFolder] = { _files: [], _subfolders: {} };
   const subPath = parts.slice(3).join('/');
   if(subPath) {
-    folderTree[topFolder]._files.push({ name: f.name, url: f.url });
+    folderMap[topFolder]._files.push({ name: f.name, url: f.url });
   }
 });
 
-// 栈记录当前路径，用于返回
+// 栈记录当前浏览路径
 let pathStack = [];
 
-// 首页显示一级文件夹
+// 显示首页一级文件夹
 function showFolders() {
   pathStack = [];
   document.getElementById('backBtn').style.display = 'none';
   document.getElementById('currentFolderName').textContent = '我的坚果云';
   const container = document.getElementById('listContainer');
   container.innerHTML = '';
-  Object.keys(folderTree).forEach(f => {
+  Object.keys(folderMap).forEach(f => {
     const li = document.createElement('li');
     const a = document.createElement('a');
-    const count = folderTree[f]._files.length;
+    const count = folderMap[f]._files.length;
     a.textContent = `${f} (${count})`;
-    a.onclick = () => showFiles(folderTree[f], f);
+    a.onclick = () => showFiles(folderMap[f], f);
     li.appendChild(a);
     container.appendChild(li);
   });
 }
 
-// 显示文件夹下文件（按 -- 分割）
+// 显示文件夹内容（文件/子文件夹）
 function showFiles(node, name) {
   pathStack.push({node, name});
   document.getElementById('backBtn').style.display = 'inline-block';
@@ -84,7 +86,7 @@ function showFiles(node, name) {
   const container = document.getElementById('listContainer');
   container.innerHTML = '';
 
-  // 按 -- 构建树
+  // 按 -- 构建文件树
   const tree = buildTree(node._files);
   renderTree(tree, container);
 }
@@ -105,7 +107,7 @@ function buildTree(files) {
   return root;
 }
 
-// 渲染树结构
+// 渲染文件树
 function renderTree(node, container) {
   Object.keys(node.children).forEach(key => {
     const li = document.createElement('li');
@@ -125,7 +127,7 @@ function renderTree(node, container) {
   });
 }
 
-// 显示文章内容
+// 显示文章
 function showArticle(id) {
   document.querySelectorAll('.article-card').forEach(c => c.classList.remove('active'));
   const article = document.getElementById(id);
