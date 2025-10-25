@@ -20,13 +20,13 @@ a:hover {text-decoration:underline;}
 </style>
 
 <div id="main">
-  <!-- 首页文件夹列表 -->
+  <!-- 首页显示一级文件夹 -->
   <div id="folderView">
     <h2>我的坚果云</h2>
     <ul id="folderList" class="folder-list"></ul>
   </div>
 
-  <!-- 文件夹下文件树 + 内容展示 -->
+  <!-- 文件夹下文件树 + 内容 -->
   <div id="fileView" style="display:flex;">
     <div class="left-nav" id="fileListContainer">
       <button class="back-btn" id="backBtn" onclick="showFolders()">← 返回</button>
@@ -45,7 +45,7 @@ a:hover {text-decoration:underline;}
 </div>
 
 <script>
-// 所有文件信息
+// 获取所有文件
 const files = [
   {% for file in files %}
     {
@@ -56,14 +56,15 @@ const files = [
   {% endfor %}
 ];
 
-// 提取首页文件夹
-const folderMap = {};
+// 提取首页显示的一级文件夹（只取 “我的坚果云” 下一级目录）
+const topFolders = {};
 files.forEach(f => {
   const parts = f.path.split('/');
-  const topFolder = parts[2] || parts[1]; // 一级文件夹
-  if (!topFolder) return;
-  if (!folderMap[topFolder]) folderMap[topFolder] = [];
-  folderMap[topFolder].push(f);
+  // parts = ["", "我的坚果云", "folder1", "文件.md"]
+  const folder = parts[2]; // 一级文件夹
+  if (!folder) return;
+  if (!topFolders[folder]) topFolders[folder] = [];
+  topFolders[folder].push(f);
 });
 
 // 首页渲染一级文件夹
@@ -72,10 +73,10 @@ function showFolders() {
   document.getElementById('fileView').style.display = 'none';
   const list = document.getElementById('folderList');
   list.innerHTML = '';
-  Object.keys(folderMap).forEach(folder => {
+  Object.keys(topFolders).forEach(folder => {
     const li = document.createElement('li');
     li.className = 'folder-item';
-    li.textContent = `${folder} (${folderMap[folder].length})`;
+    li.textContent = `${folder} (${topFolders[folder].length})`;
     li.onclick = () => showFiles(folder);
     list.appendChild(li);
   });
@@ -92,15 +93,15 @@ function showFiles(folder) {
   const list = document.getElementById('fileList');
   list.innerHTML='';
 
-  const folderFiles = folderMap[folder];
+  const folderFiles = topFolders[folder];
   if(!folderFiles || folderFiles.length===0) return;
 
-  // 构建树形结构（按 -- 分割）
+  // 构建树形结构（按 -- 分割文件名）
   const tree = buildTree(folderFiles);
   renderTree(tree, list);
 }
 
-// 按 -- 构建文件树
+// 按 -- 构建树
 function buildTree(files) {
   const root = { _files: [], children: {} };
   files.forEach(f => {
@@ -116,7 +117,7 @@ function buildTree(files) {
   return root;
 }
 
-// 渲染文件树
+// 渲染树
 function renderTree(node, container) {
   Object.keys(node.children).forEach(key => {
     const li = document.createElement('li');
