@@ -18,56 +18,60 @@
   <div id="content"></div>
 
   <script>
-    // 根目录是“我的坚果云”，与 index.html 同级
-    const ROOT_PATH = '我的坚果云';
+    let rootData = {};
+    let pathStack = ["我的坚果云"];
 
-    async function loadFolder(path) {
-      const res = await fetch(path);
-      const text = await res.text();
+    async function loadData() {
+      const res = await fetch("folders.json");
+      rootData = await res.json();
+      renderFolder(rootData["我的坚果云"]);
+    }
 
-      // 用 DOMParser 解析 HTML 内容
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(text, 'text/html');
+    function renderFolder(folder) {
+      const container = document.getElementById("content");
+      container.innerHTML = "";
 
-      // 从页面中提取所有链接（<a> 标签）
-      const links = Array.from(doc.querySelectorAll('a'))
-        .map(a => a.getAttribute('href'))
-        .filter(href => href && href !== '../'); // 去掉返回上级的链接
+      const currentPath = pathStack.join("/");
+      const title = document.createElement("h3");
+      title.textContent = currentPath;
+      container.appendChild(title);
 
-      const folderList = links.filter(h => h.endsWith('/')); // 文件夹
-      const fileList = links.filter(h => !h.endsWith('/')); // 文件
+      const backBtn = document.createElement("button");
+      backBtn.textContent = "⬅ 返回上一级";
+      backBtn.onclick = () => {
+        if (pathStack.length > 1) {
+          pathStack.pop();
+          let node = rootData;
+          for (let p of pathStack) node = node[p];
+          renderFolder(node);
+        }
+      };
+      container.appendChild(backBtn);
 
-      const container = document.getElementById('content');
-      container.innerHTML = `<h3>${path}</h3>`;
+      const ul = document.createElement("ul");
 
-      const ul = document.createElement('ul');
-
-      // 展示文件夹（可点击进入）
-      folderList.forEach(folder => {
-        const li = document.createElement('li');
-        li.className = 'folder';
-        li.textContent = folder;
-        li.onclick = () => loadFolder(`${path}/${folder}`);
-        ul.appendChild(li);
-      });
-
-      // 展示文件
-      if (fileList.length > 0) {
-        const fileUl = document.createElement('ul');
-        fileList.forEach(file => {
-          const li = document.createElement('li');
-          li.className = 'file';
-          li.textContent = '-- ' + file;
-          fileUl.appendChild(li);
-        });
-        ul.appendChild(fileUl);
+      for (const key in folder) {
+        if (typeof folder[key] === "object") {
+          const li = document.createElement("li");
+          li.className = "folder";
+          li.textContent = "📂 " + key;
+          li.onclick = () => {
+            pathStack.push(key);
+            renderFolder(folder[key]);
+          };
+          ul.appendChild(li);
+        } else {
+          const li = document.createElement("li");
+          li.className = "file";
+          li.textContent = "-- " + key;
+          ul.appendChild(li);
+        }
       }
 
       container.appendChild(ul);
     }
 
-    // 主页加载时，显示“我的坚果云”下的文件夹
-    loadFolder(ROOT_PATH);
+    loadData();
   </script>
 </body>
 </html>
