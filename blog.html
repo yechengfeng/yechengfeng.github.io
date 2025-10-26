@@ -19,57 +19,57 @@
   <ul id="fileList"></ul>
 
   <script>
-    // ✅ “我的坚果云” 与 index.html 同级
     const rootFolder = '我的坚果云/';
     const fileListEl = document.getElementById('fileList');
     const breadcrumbEl = document.getElementById('breadcrumb');
+    let allFiles = [];
 
-    async function loadFolder(path, displayName = '首页') {
-      const response = await fetch(path);
-      const html = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const links = [...doc.querySelectorAll('a')];
-      const items = links.map(a => a.getAttribute('href')).filter(h => h && h !== '../');
+    // 读取 tree.txt 文件，获取目录结构
+    async function loadTree() {
+      const res = await fetch('tree.txt');
+      const text = await res.text();
+      allFiles = text.split('\n').filter(Boolean);
+      showFolders(rootFolder);
+    }
 
-      const folders = [];
-      const files = [];
-
-      for (const item of items) {
-        if (item.endsWith('/')) folders.push(item);
-        else files.push(item);
-      }
-
-      // 面包屑导航
-      const relative = path.replace(rootFolder, '');
+    function showFolders(currentPath) {
+      const relative = currentPath.replace(rootFolder, '');
       const parts = relative.split('/').filter(Boolean);
+
       breadcrumbEl.innerHTML =
         parts.length === 0
           ? '首页'
-          : `<a href="#" onclick="loadFolder('${rootFolder}')">首页</a> / ` +
+          : `<a href="#" onclick="showFolders('${rootFolder}')">首页</a> / ` +
             parts
               .map((p, i) => {
-                const subPath = rootFolder + parts.slice(0, i + 1).join('/') + '/';
-                return `<a href="#" onclick="loadFolder('${subPath}')">${p}</a>`;
+                const sub = rootFolder + parts.slice(0, i + 1).join('/') + '/';
+                return `<a href="#" onclick="showFolders('${sub}')">${p}</a>`;
               })
               .join(' / ');
 
+      const subFolders = new Set();
+      const files = [];
+
+      allFiles.forEach(path => {
+        if (!path.startsWith(relative)) return;
+        const rest = path.slice(relative.length);
+        const parts = rest.split('/');
+        if (parts.length === 1) files.push(parts[0]);
+        else if (parts[0]) subFolders.add(parts[0]);
+      });
+
       fileListEl.innerHTML = '';
 
-      if (folders.length > 0) {
-        // ✅ 仅显示文件夹
-        folders.forEach(folder => {
+      if (subFolders.size > 0) {
+        subFolders.forEach(f => {
           const li = document.createElement('li');
-          const name = folder.replace(/\/$/, '');
-          li.innerHTML = `📂 <a href="#" onclick="loadFolder('${path + folder}', '${name}')">${name}</a>`;
+          li.innerHTML = `📂 <a href="#" onclick="showFolders('${currentPath + f + '/'}')">${f}</a>`;
           fileListEl.appendChild(li);
         });
-      } else if (files.length > 0) {
-        // ✅ 一旦检测到文件，按“--”逻辑分组显示
+      } else {
         const grouped = {};
-        files.forEach(file => {
-          const name = decodeURIComponent(file);
-          const parts = name.split('--');
+        files.forEach(f => {
+          const parts = f.split('--');
           let current = grouped;
           for (let i = 0; i < parts.length; i++) {
             const part = parts[i].replace(/\.md$/, '');
@@ -81,9 +81,8 @@
         function renderTree(node, container) {
           for (const key in node) {
             const li = document.createElement('li');
-            if (node[key] === null) {
-              li.textContent = key; // 文件
-            } else {
+            if (node[key] === null) li.textContent = key;
+            else {
               li.innerHTML = `<strong>${key}</strong>`;
               const ul = document.createElement('ul');
               renderTree(node[key], ul);
@@ -94,13 +93,10 @@
         }
 
         renderTree(grouped, fileListEl);
-      } else {
-        fileListEl.innerHTML = '<li>（空文件夹）</li>';
       }
     }
 
-    // ✅ 初始化首页：显示“我的坚果云”下的文件夹
-    loadFolder(rootFolder);
+    loadTree();
   </script>
 </body>
 </html>
