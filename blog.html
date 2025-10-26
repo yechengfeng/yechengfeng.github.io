@@ -1,102 +1,73 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <title>我的坚果云文档浏览</title>
+  <meta charset="UTF-8" />
+  <title>我的坚果云浏览</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #fafafa; padding: 20px; }
-    h2 { margin-bottom: 10px; }
-    ul { list-style: none; padding-left: 20px; }
-    li { margin: 6px 0; }
-    a { text-decoration: none; color: #007bff; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 2em; background: #f8fafc; }
+    ul { list-style: none; padding-left: 1em; }
+    li { margin: 4px 0; cursor: pointer; }
+    li.folder { font-weight: bold; color: #0366d6; }
+    li.file { color: #444; }
+    a { text-decoration: none; color: inherit; }
     a:hover { text-decoration: underline; }
-    .breadcrumb { margin-bottom: 16px; font-size: 14px; color: #555; }
   </style>
 </head>
 <body>
-  <h2>📁 我的坚果云</h2>
-  <div class="breadcrumb" id="breadcrumb">首页</div>
-  <ul id="fileList"></ul>
+  <h2>我的坚果云浏览器</h2>
+  <div id="content"></div>
 
   <script>
-    const rootFolder = '我的坚果云/';
-    const fileListEl = document.getElementById('fileList');
-    const breadcrumbEl = document.getElementById('breadcrumb');
-    let allFiles = [];
+    // 根目录是“我的坚果云”，与 index.html 同级
+    const ROOT_PATH = '我的坚果云';
 
-    // 读取 tree.txt 文件，获取目录结构
-    async function loadTree() {
-      const res = await fetch('tree.txt');
+    async function loadFolder(path) {
+      const res = await fetch(path);
       const text = await res.text();
-      allFiles = text.split('\n').filter(Boolean);
-      showFolders(rootFolder);
-    }
 
-    function showFolders(currentPath) {
-      const relative = currentPath.replace(rootFolder, '');
-      const parts = relative.split('/').filter(Boolean);
+      // 用 DOMParser 解析 HTML 内容
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
 
-      breadcrumbEl.innerHTML =
-        parts.length === 0
-          ? '首页'
-          : `<a href="#" onclick="showFolders('${rootFolder}')">首页</a> / ` +
-            parts
-              .map((p, i) => {
-                const sub = rootFolder + parts.slice(0, i + 1).join('/') + '/';
-                return `<a href="#" onclick="showFolders('${sub}')">${p}</a>`;
-              })
-              .join(' / ');
+      // 从页面中提取所有链接（<a> 标签）
+      const links = Array.from(doc.querySelectorAll('a'))
+        .map(a => a.getAttribute('href'))
+        .filter(href => href && href !== '../'); // 去掉返回上级的链接
 
-      const subFolders = new Set();
-      const files = [];
+      const folderList = links.filter(h => h.endsWith('/')); // 文件夹
+      const fileList = links.filter(h => !h.endsWith('/')); // 文件
 
-      allFiles.forEach(path => {
-        if (!path.startsWith(relative)) return;
-        const rest = path.slice(relative.length);
-        const parts = rest.split('/');
-        if (parts.length === 1) files.push(parts[0]);
-        else if (parts[0]) subFolders.add(parts[0]);
+      const container = document.getElementById('content');
+      container.innerHTML = `<h3>${path}</h3>`;
+
+      const ul = document.createElement('ul');
+
+      // 展示文件夹（可点击进入）
+      folderList.forEach(folder => {
+        const li = document.createElement('li');
+        li.className = 'folder';
+        li.textContent = folder;
+        li.onclick = () => loadFolder(`${path}/${folder}`);
+        ul.appendChild(li);
       });
 
-      fileListEl.innerHTML = '';
-
-      if (subFolders.size > 0) {
-        subFolders.forEach(f => {
+      // 展示文件
+      if (fileList.length > 0) {
+        const fileUl = document.createElement('ul');
+        fileList.forEach(file => {
           const li = document.createElement('li');
-          li.innerHTML = `📂 <a href="#" onclick="showFolders('${currentPath + f + '/'}')">${f}</a>`;
-          fileListEl.appendChild(li);
+          li.className = 'file';
+          li.textContent = '-- ' + file;
+          fileUl.appendChild(li);
         });
-      } else {
-        const grouped = {};
-        files.forEach(f => {
-          const parts = f.split('--');
-          let current = grouped;
-          for (let i = 0; i < parts.length; i++) {
-            const part = parts[i].replace(/\.md$/, '');
-            if (!current[part]) current[part] = i === parts.length - 1 ? null : {};
-            current = current[part] || {};
-          }
-        });
-
-        function renderTree(node, container) {
-          for (const key in node) {
-            const li = document.createElement('li');
-            if (node[key] === null) li.textContent = key;
-            else {
-              li.innerHTML = `<strong>${key}</strong>`;
-              const ul = document.createElement('ul');
-              renderTree(node[key], ul);
-              li.appendChild(ul);
-            }
-            container.appendChild(li);
-          }
-        }
-
-        renderTree(grouped, fileListEl);
+        ul.appendChild(fileUl);
       }
+
+      container.appendChild(ul);
     }
 
-    loadTree();
+    // 主页加载时，显示“我的坚果云”下的文件夹
+    loadFolder(ROOT_PATH);
   </script>
 </body>
 </html>
