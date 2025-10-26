@@ -1,48 +1,97 @@
----
-layout: default
-title: 文档中心
----
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>我的坚果云文档浏览</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fafafa; padding: 20px; }
+    h2 { margin-bottom: 10px; }
+    ul { list-style: none; padding-left: 20px; }
+    li { margin: 6px 0; }
+    a { text-decoration: none; color: #007bff; }
+    a:hover { text-decoration: underline; }
+    .breadcrumb { margin-bottom: 16px; font-size: 14px; color: #555; }
+  </style>
+</head>
+<body>
+  <h2>📁 我的坚果云</h2>
+  <div class="breadcrumb" id="breadcrumb">首页</div>
+  <ul id="fileList"></ul>
 
-<style>
-body {margin:0;font-family:Arial,Helvetica,sans-serif;display:flex;height:100vh;}
-main {padding:1em;flex:1;overflow:auto;}
-ul {list-style:none;padding-left:0;}
-li {margin:0.3em 0;}
-a {color:#2563eb;text-decoration:none;}
-a:hover {text-decoration:underline;}
-</style>
+  <script>
+    const basePath = '/我的坚果云/'; // ✅ 根目录是“我的坚果云”
+    const fileListEl = document.getElementById('fileList');
+    const breadcrumbEl = document.getElementById('breadcrumb');
 
-<main>
-  <h2>我的坚果云</h2>
-  <ul id="folderList"></ul>
+    // 加载指定路径的内容
+    async function loadFolder(path) {
+      const response = await fetch(path);
+      const text = await response.text();
 
-  {% assign files = site.pages | where_exp:"p","p.path contains '我的坚果云/'" | sort:"path" %}
-</main>
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      const links = [...doc.querySelectorAll('a')];
+      const items = links.map(a => a.getAttribute('href')).filter(h => h && h !== '../');
 
-<script>
-const files = [
-  {% for file in files %}
-    { path: "{{ file.path }}" },
-  {% endfor %}
-];
+      const folders = [];
+      const files = [];
 
-// 提取“我的坚果云”下的一级文件夹
-const folderSet = new Set();
-files.forEach(f => {
-  const parts = f.path.split('/');
-  const idx = parts.indexOf('我的坚果云');
-  if (idx !== -1 && parts.length > idx + 1) {
-    const folder = parts[idx + 1];
-    if (!folder.endsWith('.md')) folderSet.add(folder);
-  }
-});
+      for (const item of items) {
+        if (item.endsWith('/')) folders.push(item);
+        else files.push(item);
+      }
 
-// 渲染文件夹列表
-const list = document.getElementById('folderList');
-folderSet.forEach(folder => {
-  const li = document.createElement('li');
-  li.innerHTML = `<a href="#">${folder}</a>`;
-  list.appendChild(li);
-});
-</script>
+      // 面包屑导航
+      const relative = path.replace(basePath, '');
+      const parts = relative.split('/').filter(Boolean);
+      breadcrumbEl.innerHTML = parts.length
+        ? `<a href="#" onclick="loadFolder('${basePath}')">首页</a> / ` +
+          parts
+            .map((p, i) => {
+              const subPath = basePath + parts.slice(0, i + 1).join('/') + '/';
+              return `<a href="#" onclick="loadFolder('${subPath}')">${p}</a>`;
+            })
+            .join(' / ')
+        : '首页';
+
+      fileListEl.innerHTML = '';
+
+      if (folders.length > 0) {
+        // 显示文件夹
+        folders.forEach(folder => {
+          const li = document.createElement('li');
+          const folderName = folder.replace(/\/$/, '');
+          li.innerHTML = `📂 <a href="#" onclick="loadFolder('${path + folder}')">${folderName}</a>`;
+          fileListEl.appendChild(li);
+        });
+      } else if (files.length > 0) {
+        // 没有文件夹时，用 -- 逻辑显示文件
+        const grouped = {};
+        files.forEach(file => {
+          const name = decodeURIComponent(file);
+          const [prefix, suffix] = name.split('--');
+          if (!grouped[prefix]) grouped[prefix] = [];
+          grouped[prefix].push(suffix || '');
+        });
+
+        for (const prefix in grouped) {
+          const li = document.createElement('li');
+          li.innerHTML =
+            `<strong>${prefix}</strong><ul>` +
+            grouped[prefix]
+              .map(name => `<li>${name}</li>`)
+              .join('') +
+            '</ul>';
+          fileListEl.appendChild(li);
+        }
+      } else {
+        fileListEl.innerHTML = '<li>（空文件夹）</li>';
+      }
+    }
+
+    // 初始化
+    loadFolder(basePath);
+  </script>
+</body>
+</html>
 
