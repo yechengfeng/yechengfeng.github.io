@@ -19,17 +19,16 @@
   <ul id="fileList"></ul>
 
   <script>
-    const basePath = '/我的坚果云/'; // ✅ 根目录是“我的坚果云”
+    // ✅ “我的坚果云” 与 index.html 同级
+    const rootFolder = '我的坚果云/';
     const fileListEl = document.getElementById('fileList');
     const breadcrumbEl = document.getElementById('breadcrumb');
 
-    // 加载指定路径的内容
-    async function loadFolder(path) {
+    async function loadFolder(path, displayName = '首页') {
       const response = await fetch(path);
-      const text = await response.text();
-
+      const html = await response.text();
       const parser = new DOMParser();
-      const doc = parser.parseFromString(text, 'text/html');
+      const doc = parser.parseFromString(html, 'text/html');
       const links = [...doc.querySelectorAll('a')];
       const items = links.map(a => a.getAttribute('href')).filter(h => h && h !== '../');
 
@@ -42,55 +41,66 @@
       }
 
       // 面包屑导航
-      const relative = path.replace(basePath, '');
+      const relative = path.replace(rootFolder, '');
       const parts = relative.split('/').filter(Boolean);
-      breadcrumbEl.innerHTML = parts.length
-        ? `<a href="#" onclick="loadFolder('${basePath}')">首页</a> / ` +
-          parts
-            .map((p, i) => {
-              const subPath = basePath + parts.slice(0, i + 1).join('/') + '/';
-              return `<a href="#" onclick="loadFolder('${subPath}')">${p}</a>`;
-            })
-            .join(' / ')
-        : '首页';
+      breadcrumbEl.innerHTML =
+        parts.length === 0
+          ? '首页'
+          : `<a href="#" onclick="loadFolder('${rootFolder}')">首页</a> / ` +
+            parts
+              .map((p, i) => {
+                const subPath = rootFolder + parts.slice(0, i + 1).join('/') + '/';
+                return `<a href="#" onclick="loadFolder('${subPath}')">${p}</a>`;
+              })
+              .join(' / ');
 
       fileListEl.innerHTML = '';
 
       if (folders.length > 0) {
-        // 显示文件夹
+        // ✅ 仅显示文件夹
         folders.forEach(folder => {
           const li = document.createElement('li');
-          const folderName = folder.replace(/\/$/, '');
-          li.innerHTML = `📂 <a href="#" onclick="loadFolder('${path + folder}')">${folderName}</a>`;
+          const name = folder.replace(/\/$/, '');
+          li.innerHTML = `📂 <a href="#" onclick="loadFolder('${path + folder}', '${name}')">${name}</a>`;
           fileListEl.appendChild(li);
         });
       } else if (files.length > 0) {
-        // 没有文件夹时，用 -- 逻辑显示文件
+        // ✅ 一旦检测到文件，按“--”逻辑分组显示
         const grouped = {};
         files.forEach(file => {
           const name = decodeURIComponent(file);
-          const [prefix, suffix] = name.split('--');
-          if (!grouped[prefix]) grouped[prefix] = [];
-          grouped[prefix].push(suffix || '');
+          const parts = name.split('--');
+          let current = grouped;
+          for (let i = 0; i < parts.length; i++) {
+            const part = parts[i].replace(/\.md$/, '');
+            if (!current[part]) current[part] = i === parts.length - 1 ? null : {};
+            current = current[part] || {};
+          }
         });
 
-        for (const prefix in grouped) {
-          const li = document.createElement('li');
-          li.innerHTML =
-            `<strong>${prefix}</strong><ul>` +
-            grouped[prefix]
-              .map(name => `<li>${name}</li>`)
-              .join('') +
-            '</ul>';
-          fileListEl.appendChild(li);
+        function renderTree(node, container) {
+          for (const key in node) {
+            const li = document.createElement('li');
+            if (node[key] === null) {
+              li.textContent = key; // 文件
+            } else {
+              li.innerHTML = `<strong>${key}</strong>`;
+              const ul = document.createElement('ul');
+              renderTree(node[key], ul);
+              li.appendChild(ul);
+            }
+            container.appendChild(li);
+          }
         }
+
+        renderTree(grouped, fileListEl);
       } else {
         fileListEl.innerHTML = '<li>（空文件夹）</li>';
       }
     }
 
-    // 初始化
-    loadFolder(basePath);
+    // ✅ 初始化首页：显示“我的坚果云”下的文件夹
+    loadFolder(rootFolder);
   </script>
 </body>
 </html>
